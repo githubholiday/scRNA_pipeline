@@ -1,0 +1,30 @@
+tmpdir = $(dir  $(abspath $(firstword $(MAKEFILE_LIST))))
+BIN = $(tmpdir)/..
+include $(BIN)/../software/software.txt
+
+pathway_dir=$(outdir)/Integrating
+report_dir=$(outdir)/report
+order=3
+result_dir=$(report_dir)/upload/$(order)_Integrating_analysis
+matrix=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices_h5.h5
+barcodes=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/*/barcodes.tsv
+genes=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/*/genes.tsv
+
+re_matrix=$(cluster_dir)/info/$(sample_id).filtered_gene_bc_matrices_h5.h5
+
+.PHONY:Arrange
+Arrange:
+	echo arrange wikipathway start `date`
+	if [ `wc -l $(pathway_dir)/*/*diff_gene_condition/WikiPathway/*/*.xls|awk '{print $$1}'` -gt 0 ] ;\
+	then \
+		for compare in ` cut -f1 $(compare_list) ` ; do \
+			mkdir -p $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway ;\
+			cp -r $(tmpdir)/readme/* $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway ;\
+			ln -snf $(pathway_dir)/$$compare/*diff_gene_condition/WikiPathway/* $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway/ ;\
+			$(PYTHON3) $(tmpdir)/anno.py -i $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway/*/*enrich*.xls -o $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway/enrichPathway.example.xls ;\
+			$(PYTHON3) $(tmpdir)/anno.py -i $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway/*/*GSEA*.xls -o $(result_dir)/$$compare/6_diff_gene_condition/WikiPathway/GSEAPathway.example.xls ;\
+		done \
+	else \
+		echo "No wikipathway analysis!!!" ;\
+	fi
+	echo arrange wikipathway finish `date`

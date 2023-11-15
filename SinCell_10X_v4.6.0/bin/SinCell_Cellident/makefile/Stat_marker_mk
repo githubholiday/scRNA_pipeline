@@ -1,0 +1,39 @@
+bindir=$(dir $(firstword $(MAKEFILE_LIST)))/../
+script=$(bindir)/script
+database=$(bindir)/database
+version=1.0.0
+software=$(bindir)/software
+ifeq ($(strip $(config)),)
+Bconfig=$(bindir)/config/config.txt
+else
+Bconfig=$(config)
+endif
+include $(Bconfig)
+result_dir=$(outdir)/$(prefix)/
+HELP:
+	@echo Description:
+	@echo 判别cell_marker.txt文件中marker是否有表达；统计marker在cluster中的表达情况;统计出每个cluster可能的细胞类型。
+	@echo Usage:
+	@echo make -f Stat_marker_mk outdir= rds= marker= prefix= configini=  force= group= stat_marker
+	@echo outdir：输出目录【必须】
+	@echo rds：整合后的rds文件【必须】
+	@echo marker：cell_marker.txt【必须】
+	@echo prefix：文件前缀，建议为组合名，不允许有空格！【必须】
+	@echo configini：每个比较组的config.ini文件【必须】
+	@echo group: 组合名字，必须是：处理组/对照组 【必须】
+	@echo force: 如果部分marker基因没有表达，是否继续执行后续分析，yes:继续分析；no:不继续分析【必须】
+
+.PHONY:stat_marker
+stat_marker:
+	@echo
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-stat_marker-INFO- ####### stat_marker Start"
+	@echo
+	mkdir -p $(outdir)/$(prefix)
+	$(RSCRIPT4) $(script)/Stat_marker.r -r $(rds) -m $(marker) -o $(outdir) -p $(prefix) -c $(configini) -f $(force) -g $(group)
+	$(PYTHON3) $(script)/Stat_marker.py -c $(marker) -m $(result_dir)/cluster_marker.xls -o $(result_dir)/
+	for i in `ls $(outdir)/$(prefix)/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	cp $(script)/stat_marker_readme.doc $(outdir)/$(prefix)/readme.doc
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-stat_marker-INFO- ####### stat_marker finish"
+
+
+

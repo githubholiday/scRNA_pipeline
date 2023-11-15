@@ -1,0 +1,11 @@
+该目录下的文件为CellRanger软件分析的结果文件，可直接用于seurat分析
+1. 样品/matrix.mtx.gz
+用坐标格式存储的基因表达量结果，用三列信息来表示一个细胞中一条基因的unique UMI总数。如用来表示“AAACCTGAGGTGATAT-1”所标识的细胞中基因“ENSG00000198727”表达量为32的一行中：
+（1）第1列：“3366”代表Gene在genes.tsv中的序号，对应第3366行记录的基因“ENSG00000198727”；
+（2）第2列：“1”代表Cell在barcodes.tsv中的序号，对应第1行Cell Barcode“AAACCTGAGGTGATAT-1”标识的细胞；
+（3）第3列：“32”代表unique UMI总数，即基因表达量为32。
+由于文件较大，建议不要直接用文本编辑器打开；如需要查看感兴趣的基因及细胞，通过基因列表和barcode信息提取相应的数据。
+2. 样品/features.tsv.gz
+记录基因ID和基因名的文件,基因所在的行数就是样品.matrix.mtx中的第一列
+3. 样品/barcodes.tsv.gz
+记录cell barcode标记的文件，细胞barcode所在的行数就是样品.matrix.mtx中的第二列

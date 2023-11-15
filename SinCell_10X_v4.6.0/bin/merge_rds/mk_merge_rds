@@ -1,0 +1,50 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+#path
+
+
+#arguments
+
+
+#software
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 按比较组整合多样本rds
+	@echo USAGE:
+	@echo "Merge: 按比较组样本合并多样本rds，并整合分析成一个rds文件保存"
+	@echo -e "\t" make -f this_make rds_dir= cmp_name= integrating_dir= config_file= Merge
+	@echo -e "\t" make -f this_make outdir= cmp_name= Integrating
+	@echo -e "\t" "rds_dir: 样本过滤后rds存放目录，sample/sample_filter_cell.rds 【必选|路径】；"
+	@echo -e "\t" "combine: 比较组名称，示例A_VS_B 【必选|字符串】；"
+	@echo -e "\t" "integrating_dir：合并rds输出目录 【必选|路径】；"
+	@echo -e "\t" "config_file：比较组及相关参数配置文件 【必选|路径】。"
+
+
+rds_dir=$(outdir)/Seurat_Filter
+integrating_dir=$(outdir)/Integrating/$(combine)
+config_file=$(integrating_dir)/config.ini
+.PHONY:Merge
+Merge:
+	@echo Integrating start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	$(RSCRIPT) $(Bin)/Integration_rds.R -i $(rds_dir) -o $(integrating_dir) -c $(config_file) --prefix $(combine)
+	@echo Integrating finish at `date`
+
+
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `ls $(indir)/*.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+	fi

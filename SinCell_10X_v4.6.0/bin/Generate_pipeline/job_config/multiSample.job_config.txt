@@ -1,0 +1,196 @@
+[Job Start]
+Name	Count_Matrix
+Memory	40G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	8
+Order	1
+Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref  force_cell=Para_forcecell Count_Matrix
+[Job End]
+
+[Job Start]
+Name	Stat_Matrix
+Memory	30G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	1
+Order	1
+Depend	Count_Matrix
+Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref species=Para_ppi_species Stat
+[Job End]
+
+[Job Start]
+Name	QC_Basic
+Memory	5G
+Qsub	False
+CPU	N
+Major	F
+Thread	1
+Order	1
+Depend	Stat_Matrix
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
+[Job End]
+
+[Job Start]
+Name	FilterCell
+Memory	25G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	1
+Order	2
+Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[4] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
+[Job End]
+
+[Job Start]
+Name	MergeRDS
+Memory	30G
+Queue	sci.q
+CPU	N
+Major	T
+Thread	1
+Order	2
+Depend	FilterCell
+Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(group)[0] Merge
+[Job End]
+
+[Job Start]
+Name	Integrating
+Memory	60G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	5
+Order	3
+Depend	MergeRDS
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
+[Job End]
+
+[Job Start]
+Name	DE
+Memory	30G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	1
+Order	4
+Depend	Integrating
+Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] species=Para_species DE
+[Job End]
+
+[Job Start]
+Name	DE-anno
+Memory	5G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	1
+Order	4
+Depend	DE
+Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[3] species=Para_species Annotation_diff
+[Job End]
+
+[Job Start]
+Name	Function-GO
+Memory	5G
+Qsub	False
+CPU	N
+Major	T
+Order	4
+Depend	DE-anno
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
+[Job End]
+
+[Job Start]
+Name	Function-KEGG
+Memory	5G
+Qsub	False
+CPU	N
+Major	T
+Order	4
+Depend	DE-anno
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
+[Job End]
+
+[Job Start]
+Name	Monocle3
+Memory	100G
+Queue	"sci.q,nassci.q,super.q,mid.q"
+CPU	N
+Major	T
+Thread	8
+Order	5
+Depend	Integrating
+Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(group)[0]/Pseudotime prefix=$(group)[0] difffile=OUTDIR/Integrating/$(group)[0]/2_clusters/$(group)[0]_immune_combined.rds configini=OUTDIR/Integrating/$(group)[0]/config.ini Monocle3
+[Job End]
+
+[Job Start]
+Name	Wikipathway
+Memory	10G
+Queue	sci.q
+CPU	N
+Major	T
+Thread	1
+Order	5
+Depend	DE-anno
+Command	make -f BIN/DOSE/makefile outdir=OUTDIR header=T upcutoff=0 downcutoff=0 species_type=Para_ppi_species combine=$(group)[0] cmp_name=$(group)[3] EnrichGSE
+[Job End]
+
+[Job Start]
+Name	QC_Summary
+Memory	1G
+Queue	sci.q
+CPU	N
+Major	F
+Order	6
+Depend	Function-GO;Function-KEGG
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total QC_Check QC_path_release
+[Job End]
+
+[Job Start]
+Name	update_lims
+Memory	1G
+Qsub	False
+CPU	N
+Major	F
+Order	6
+Depend	QC_Summary
+Command	make -f BIN/updata_lims/mk_updata config_ini=OUTDIR/../config.ini sample_id=$(sample)[4] type=10X cellranger_stat=OUTDIR/QC/Basic/analysis_summary.xls filter_stat=OUTDIR/QC/filter/Cell_filter_stat.xls double_stat=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_doublet_ratio.xls Lims
+[Job End]
+
+[Job Start]
+Name	Analysis_Collect
+Memory	1G
+Queue	sci.q
+CPU	N
+Major	F
+Order	6
+Command	make -f BIN/Analysis_Project_Collection/makefile INDIR=OUTDIR Analysis_Project_Collection
+[Job End]
+
+[Job Start]
+Name	Convert
+Memory	1G
+Queue	sci.q
+CPU	N
+Major	F
+Order	6
+Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
+make -f BIN/Generate_report/report.mk indir=OUTDIR/Integrating Convert
+make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
+[Job End]
+
+[Job Start]
+Name	Report
+Memory	4G
+Qsub	False
+CPU	N
+Major	T
+Thread	1
+Order	7
+Depend	Convert
+Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
+make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_id=Para_project Report
+[Job End]

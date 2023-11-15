@@ -1,0 +1,10 @@
+[Job Start]
+Name	update_lims
+Memory	1G
+Qsub	False
+CPU	N
+Major	F
+Order	5
+Depend	QC_Summary
+Command	make -f BIN/updata_lims/mk_updata config_ini=OUTDIR/../config.ini sample_id=$(sample)[4] type=10X cellranger_stat=OUTDIR/QC/Basic/analysis_summary.xls filter_stat=OUTDIR/QC/filter/Cell_filter_stat.xls double_stat=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_doublet_ratio.xls Lims
+[Job End]

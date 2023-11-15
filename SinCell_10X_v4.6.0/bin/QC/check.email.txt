@@ -1,0 +1,12 @@
+[DEFAULT]
+Max_count = 5
+Sleep_time = 10
+
+[HEADER]
+Addressor = seqyuan@genome.cn
+Password = Sqy2019!
+Receiver = ngs_bioinfo@genome.cn
+Copy = taoliu@genome.cn;analysis_admin@genome.cn
+Server = smtp.exmail.qq.com
+Receive_server = pop.exmail.qq.com
+

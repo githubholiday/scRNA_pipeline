@@ -1,0 +1,183 @@
+1.*_比较组名目录：比较组各个cluster的差异基因统计结果。
+
+2.*de_stat.xls:比较组中不同cluster的差异基因统计表
+Cluster:聚类(cluster)编号；
+Up_gene:该cluster中的上调差异基因数；
+Down_gene:该cluster中的下调差异基因数；
+Total_gene:该cluster中的总差异基因数。
+
+3.example_diff_gene.anno.xls:差异基因功能注释示例表 & */*diff_gene_symbol.anno.xls:差异基因注释文件
+（1）Gene_ID：基因ID；
+（2）Gene_Symbol：基因名；
+（3）p_val：差异表达分析的p-value；
+（4）avg_logFC：差异表达倍数的log值；
+（5）pct.1：基因在Cluster中样本1有表达的细胞比例；
+（6）pct.2：基因在Cluster中样本2有表达的细胞比例；
+（7）p_val_adj：校正后的p-value；
+（8）Up/Down：上调还是下调表达，Up上调，Down为下调；
+（9）Significant：是否为显著性差异；
+（10）NR:Seq-id：基因同NR数据库的最优比对结果；
+（11）NR:Score：基因同NR数据库的比对得分；
+（12）NR:Evalue：基因同NR数据库的比对Evalue值；
+（13）NR:Description：NR数据库中该基因的功能描述；
+（14）NT:Seq-id：基因同NT数据库的最优比对结果；
+（15）NT:Score：基因同NT数据库的比对得分；
+（16）NT:Evalue：基因同NT数据库的比对Evalue值；
+（17）NT:Description：NT数据库中该基因的功能描述；
+（18）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；
+（19）Uniprot:Score：基因同Uniprot数据库的比对得分；
+（20）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；
+（21）Uniprot:Description：Uniprot数据库中该基因的功能描述；
+（22）COG:gene：比对上的COG数据库中的基因名；
+（23）COG:Score：与COG数据库的比对得分；
+（24）COG:Eval：与COG数据库的比对Evalue值；
+（25）COG:num：比对上的COG数据库中的基因ID；
+（26）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；
+（27）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；
+（28）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；
+（29）GO:biological_process：注释到的描述生物进程的GO Term；
+（30）GO:cellular_component：注释到的描述细胞组分的GO Term；
+（31）GO:molecular_function：注释到的描述分子功能的GO Term；
+（32）KEGG:KO：注释到的KEGG中的ID；
+（33）KEGG:Description：KEGG中的功能描述。
+
+2. */*FeaturePlot.p*：差异featureplot图
+某个差异基因在UMAP降维上表达的分布结果，一般对【亚群编号_处理_VS_对照_diff_gene.csv】文件按照avg_logFC进行排序，选择top10的基因进行展示，如果老师想要更多的基因结果，可以提供基因列表。
+
+3. */*VlnPlot.p*:差异基因小提琴图
+两组差异的top10基因在所有亚群中分布表达分布的小提琴图。不同的颜色代表不同的分组。
+
+4. */*signif_Plot.*：差异显著性箱线图
+每个图表示一个基因，横轴为不同分组，纵轴为该基因的表达值，p值为两组差异显著性评分，一般认为小于0.05为具有显著性差异。
+
+5. */GO：差异基因的富集分析结果。
+	
+	|-- prefix.go.barplot.pdf   富集分析柱状图
+	|-- prefix.go.barplot.png   富集分析柱状图
+	|-- prefix.go.dotplot.pdf   富集分析气泡图
+	|-- prefix.go.dotplot.png   富集分析气泡图
+	|-- prefix.go.enrichment.xls  显著富集条目输出文件（默认 padjust<0.05）
+	|-- prefix.go.report.xls    富集分析report文件，包括不显著的结果
+	`-- go.example.report.xls  结果示例文件
+
+	其中，*enrichment.xls各列信息如下：
+	(1) ONTOLOGY : GO Term的分类
+	(2) ID : GO Term的ID
+	(3) Description：GO Term的描述
+	(4) GeneRatio：富集到该Term的基因数目/用于富集分析的基因数目;
+	(5) BgRatio: 富集到该Term的的背景基因数目/用于富集分析时的背景基因数目;
+	(6) pvalue：检验后的p值；
+	(7) p.adjust：BH方法校正后的p值；
+	(8) qvalue：检验后的q值；
+	(9) geneID：富集到该Term的基因ID；
+	(10) Count：富集到该Term的基因个数；
+	(11) Significant：该Term是否显著富集，yes，为显著；no，为不显著。
+
+
+	*report.xls各列信息如下：
+	（1）ID：GO Term的ID；
+	（2）Ontology：该Term 所属分类；
+	（3）Description：GO Term的描述；
+	（4）Count1：富集到该Term的基因数目；
+	（5）Count2：用于富集分析的基因数目；
+	（6）Count3：富集到该Term的的背景基因数目；
+	（7）Count4：用于富集分析时的背景基因数目；
+	（8）pval：检验后的p值；
+	（9）p.adjust：BH方法校正后的p值；
+	（10）qval：检验后的q值；
+	（11）*Gene：富集到该Term上的基因；
+	（12）*Count：富集到该Term上的基因数目；
+	（13）Links：该GO Term的数据库链接；
+	（14）Result：该Term是否显著富集，yes，为显著；no，为不显著。
+
+	*barplot.p* GO富集条形图
+	纵坐标表示GO条目，横坐标表示富集到该条目的基因数量，颜色表示padjust，颜色越红表示越显著。
+
+	*dotplot.p* GO富集气泡图
+	纵坐标表示GO条目，横坐标表示富集到该条目的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该条目的基因数量，气泡越大表示基因数量越多。
+
+
+6. */KEGG：差异基因的富集分析结果。
+	
+	|-- prefix.kegg.barplot.pdf   富集分析柱状图
+	|-- prefix.kegg.barplot.png   富集分析柱状图
+	|-- prefix.kegg.dotplot.pdf   富集分析气泡图
+	|-- prefix.kegg.dotplot.png   富集分析气泡图
+	|-- prefix.kegg.enrichment.xls  显著富集条目输出文件（默认 padjust<0.05）
+	|-- prefix.kegg.report.xls    富集分析report文件，包括不显著的结果
+	`-- kegg.example.report.xls  结果示例文件
+
+	其中，*enrichment.xls各列信息如下：
+	(1) ID : 通路ID
+	(2) Description：通路名称
+	(3) GeneRatio：富集到该通路的基因数目/用于富集分析的基因数目;
+	(4) BgRatio: 富集到该通路的的背景基因数目/用于富集分析时的背景基因数目;
+	(5) pvalue：检验后的p值；
+	(6) p.adjust：BH方法校正后的p值；
+	(7) qvalue：检验后的q值；
+	(8) geneID：富集到该通过的基因ID；
+	(9) Count：富集到该通过的基因个数；
+	(10) Significant：该map是否显著富集，yes，为显著；no，为不显著。
+
+
+	*report.xls各列信息如下：
+	（1）Map：kegg通路编号；
+	（2）Name：kegg通路名称；
+	（3）Count1：富集到该通路的基因数目；
+	（4）Count2：用于富集分析的基因数目；
+	（5）Count3：富集到该通路的的背景基因数目；
+	（6）Count4：用于富集分析时的背景基因数目；
+	（7）pval：检验后的p值；
+	（8）p.adjust：BH方法校正后的p值；
+	（8）qval：检验后的q值；
+	（9）*Gene：富集到该通路上的基因；
+	（10）*Count：富集到该通路上的基因数目；
+	（11）Links：该map的数据库链接；
+	（12）Result：该map是否显著富集，yes，为显著；no，为不显著。
+
+
+	*barplot.p* KEGG富集条形图
+	纵坐标表示KEGG通路，横坐标表示富集到该通路的基因数量，颜色表示padjust，颜色越红表示越显著。
+
+	*dotplot.p* KEGG富集气泡图
+	纵坐标表示KEGG通路，横坐标表示富集到该通路的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该通路的基因数量，气泡越大表示基因数量越多。
+	
+7. */WikiPathway：差异基因的富集分析结果。
+	./wikiPathway
+	├── *enrichPathway* #wikiPathway数据库富集分析结果
+	└── *GSEAPathway* #wikipathway数据库GSEA分析结果
+
+	文件介绍：
+	结果文件包含enrich* 和GSEA*，enrich* 为富集分析结果，GSEA*为GSEA分析结果。
+	文件内容说明：
+	*enrich*.xls文件说明如下：
+	（1）ID：数据库ID
+	（2）Description：数据库term描述信息
+	（3）GeneRatio：目标基因占比
+	（4）BgRatio：背景基因占比
+	（5）pvalue：富集显著性检验p值
+	（6）p.adjust：富集显著性检验p纠正值
+	（7）qvalue：富集显著性检验q值
+	（8）geneID：富集该term上的基因，以'/'分割
+	（9）Count：富集该term上的基因个数
+	
+	*GSEA*.xls文件说明如下：
+	（1）ID：数据库ID
+	（2）Description：数据库term描述信息
+	（3）setSize：该term基因集大小
+	（4）enrichmentScore：富集得分。ES为正，表示某一功能gene集富集在排序序列前方；ES为负，表示某一功能gene集富集在排序序列后方
+	（5）NES：ES标准值。某一功能gene set的ES/数据集所有随机组合得到的ES平均值
+	（6）pvalue：富集显著性p值
+	（7）p.adjust：富集显著性检验p纠正值
+	（8）qvalues：富集显著性检验q值
+	（9）rank：该term对应的rank
+	（10）leading_edge：  leading-edge分析结果
+	（11）core_enrichment：对富集分析最的核心的基因
+
+	wikiPathway数据库分析结果图，说明如下：
+	*bar.png/pdf 富集分析柱形图展示，横轴表示富集到该term上基因个数，纵轴表示富集的term，图例为富集显著性打分值纠正的值(p.adjust)；
+	*dot.png/pdf 富集分析圈图表示，横轴表示富集到该term上的基因比例，纵轴表示富集的term，图例为基因count和p.adjust值；
+	*net.png/pdf 富集分析基因网络图，中间节点为富集的term，周围节点为基因，节点大小由相关的基因个数决定；
+	*GSEA-0-9.png/pdf GSEA分析结果图，流程展示富集分析前10个term。
+	注：term 表示各个数据库的功能描述，例如Pathway中表示的为生物学通路。
+

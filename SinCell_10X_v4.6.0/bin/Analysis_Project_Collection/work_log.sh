@@ -1,0 +1,1 @@
+make -f makefile CONFIG=/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/lihuayun/de_bug/10Xraw_data_20210115/Analysis/Analysis-test/config.bak.ini INDIR=/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/lihuayun/de_bug/10Xraw_data_20210115/Analysis/Analysis-test/Analysis Analysis_Project_Collection

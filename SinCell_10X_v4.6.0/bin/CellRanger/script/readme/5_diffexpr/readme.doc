@@ -1,0 +1,10 @@
+1. 样品.graphclust.differential_expression.csv
+graph-based 聚类结果后的差异表达分析结果
+2. 样品.kmeans_K值_clusters.differential_expression.csv
+k-means聚类结果后的差异表达分析结果
+1和2数据格式相同，各列代表的内容如下：
+（1）Gene ID: 基因ID
+（2）Gene Name：基因名
+（3）Cluster N Mean UMI Counts：cluster N中的UMI平均值
+（4）Cluster N Log2 fold change：cluster N与其他所有细胞的差异表达倍数取log2
+（5）Cluster N Adjusted p value：差异表达分析得到的校正后的p-value

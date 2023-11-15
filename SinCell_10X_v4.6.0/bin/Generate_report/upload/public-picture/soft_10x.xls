@@ -1,0 +1,7 @@
+No	software	version	function	official website
+1	cellranger	v7.1.0	读取原始下机测序数据,完成细胞的鉴定与基因的定量	https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger
+2	R Seurat	v4.3.0	细胞类型统计，marker基因可视化，差异基因分析	https://satijalab.org/seurat/
+3	R harmony	v0.1.1	多样本整合去批次效应分析	https://github.com/immunogenomics/harmony
+4	R Monocle3	v1.3.1	拟时间分析	http://cole-trapnell-lab.github.io/monocle-release/
+5	R clusterProfiler	v4.6.0	GO和KEGG富集分析	http://www.bioconductor.org/packages/release/bioc/vignettes/clusterProfiler/inst/doc/clusterProfiler.html
+6	R SciBet	v1.0	细胞亚群鉴定	http://scibet.cancer-pku.cn/

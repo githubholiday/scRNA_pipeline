@@ -1,0 +1,46 @@
+img.normal {height: auto}
+h1 {font-size:2em; text-align: center; color: darkblue; font-family: ºÚÌå}
+p{text-align: left; color: black; font-family: Î¢ÈíÑÅºÚ}
+#bot {text-align: center; color: #000; font-size:18px;font-family: Î¢ÈíÑÅºÚ;font-weight:bold;}
+
+.gy
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+  }
+
+.gy td, .gy th 
+  {
+  font-size:1em;
+  border:1px solid #fff;
+  padding:3px 7px 2px 7px;
+  text-align:center;
+  }
+
+.gy th 
+  {
+  font-size:1.1em;
+  text-align:center;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#2389CB;
+  color:#ffffff;
+  }
+
+.gy tr.alt td 
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+#shuoming{
+	font-size:14px;
+    font-family:"Î¢ÈíÑÅºÚ";
+	text-align:center;
+	}
+#code {
+	position:fixed;
+	bottom:30px;
+	right:120px;
+	height:200px;
+}

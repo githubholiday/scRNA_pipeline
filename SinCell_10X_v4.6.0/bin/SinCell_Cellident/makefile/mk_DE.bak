@@ -1,0 +1,82 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))/../
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+#path
+include $(DIR)/software/software.txt
+include $(DIR)/species/$(species).txt
+
+
+
+#arguments
+pval=0.05
+qval=0.05
+lgfc=0.25
+
+celltype=no
+ifeq ($(celltype),no)
+	para_celltype=
+else
+	para_celltype= -t $(celltype)
+endif
+
+#software
+
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 按比较组对cluster或celltype进行差异分析
+	@echo USAGE:
+	@echo "DE: 按比较组进行差异分析"
+	@echo -e "\t" make -f this_make rds= cmp_name= result_dir= config_file= label= DE
+	@echo -e "\t" make -f this_make outdir= cmp_name= label= DE
+	@echo -e "\t" "rds: 合并rds路径 【必选|路径】；"
+	@echo -e "\t" "cmp_name: 比较组名称，示例A_VS_B 【必选|字符串】；"
+	@echo -e "\t" "result_dir：差异分析输出目录，以比较组创建目录 【必选|路径】；"
+	@echo -e "\t" "config_file：比较组及相关参数配置文件 【必选|路径】；"
+	@echo -e "\t" "label: 进行差异分析的列，seurat_clusters或Cell_type,默认seurat_clusters 【选填|字符串】。"
+
+
+rds=$(outdir)/Integrating/$(combine)/2_clusters/$(combine)_immune_combined.rds
+result_dir=$(outdir)/Integrating/$(combine)/Diff_gene
+config_file=$(outdir)/Integrating/$(combine)/config.ini
+.PHONY:DE
+DE:
+	@echo DE start at `date`
+	[ -d $(result_dir) ] && echo $(result_dir) dir exist || mkdir -p $(result_dir)
+	export LD_LIBRARY_PATH=$(GLIBC):$(gcclib):$$LD_LIBRARY_PATH && $(RSCRIPT) $(Bin)/DE.R -i $(rds) -o $(result_dir) -c $(config_file) --prefix $(combine) --label $(label) $(para_celltype)
+	for i in `ls $(result_dir)/*/*/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	@echo DE finish at `date`
+
+
+#dataDir=$(outdir)/CellRanger_Count/*/outs/filtered_gene_bc_matrices*/*/features.tsv.gz
+dataDir=$(outdir)/CellRanger_Count/*/outs/filtered_gene_bc_matrices*/*/genes.tsv
+GENE=$(shell ls $(dataDir) | head -n1)
+
+
+.PHONY:Annotation_diff
+Annotation_diff:
+	@echo Annotation_diff start at `date`
+	for clst in `ls $(result_dir)/*/*/*_diff_gene.csv`;do name=` basename $$clst | sed 's/\.csv//' ` ;\
+		dir=`dirname $$clst` ;\
+		$(PERL) $(Bin)/add_sig_DE.pl -result $$clst -tsv $(GENE) -p $(pval) -q $(qval) -lgfc $(lgfc) -out $$dir/$$name\_symbol.xls; \
+		#$(PERL) $(Bin)/add_GO_KEGG.pl -in $$dir/$$name\_symbol.xls -anno $(REF_ANNOTATION) -out $$dir/$$name\_symbol.anno.xls -title GO:biological_process GO:cellular_component GO:molecular_function KEGG:KO KEGG:Description;done ;\
+		$(PERL) $(Bin)/add_GO_KEGG.pl -in $$dir/$$name\_symbol.xls -anno $(REF_ANNOTATION) -out $$dir/$$name\_symbol.anno.xls -title NR:Seq-id NR:Score NR:Evalue NR:Description NT:Seq-id NT:Score NT:Evalue NT:Description Uniprot:UniProtKB-AC Uniprot:Score Uniprot:Evalue Uniprot:Description COG:gene COG:Score COG:Eval COG:num Pfam:pfam_ID Pfam:pfam_Name Pfam:pfam_Description GO:biological_process GO:cellular_component GO:molecular_function KEGG:KO KEGG:Description ;done
+	$(PYTHON3) $(Bin)/DEnumber_stat_summary.py -d $(result_dir)/$(cmp_name)/*/*diff_gene_symbol.xls -s $(cmp_name) -o $(result_dir)/$(cmp_name)/$(cmp_name).de_stat.xls
+	@echo Annotation_diff finish at `date`
+
+
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `ls $(indir)/*.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+	fi

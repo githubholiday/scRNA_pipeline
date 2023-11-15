@@ -1,0 +1,110 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))/../
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+#path
+
+
+#arguments
+model=no
+ifeq ($(model),no)
+	para_model=
+else
+	para_model= -m $(model)
+endif
+ref_data=no
+ifeq ($(ref_data),no)
+	para_ref=
+else
+	para_ref= -e $(ref_data)
+endif
+marker=no
+ifeq ($(marker),no)
+	para_marker=
+else
+	para_marker= -m $(marker)
+endif
+celltype=no
+ifeq ($(celltype),no)
+        para_celltype=
+else
+        para_celltype= -t $(celltype)
+endif
+ifeq ($(species_tag),10090)
+	species = mouse
+else ifeq ($(species_tag),9606)
+	species = human
+else
+	species = NO
+endif
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 整合分析后，聚类，marker，注释
+	@echo USAGE:
+	@echo "Integrating: 聚类，marker"
+	@echo "celltype: 注释"
+	@echo "anno_plot: 注释后替换统计画图"
+	@echo -e "\t" make -f this_make rds_dir= combine= integrating_dir= config_file= Integrating
+	@echo -e "\t" make -f this_make outdir= combine= Integrating
+	@echo -e "\t" "rds_dir: rds路径 【必选|路径】；"
+	@echo -e "\t" "combine: 比较组名称，示例A_VS_B 【必选|字符串】；"
+	@echo -e "\t" "integrating_dir：合并rds输出目录 【必选|路径】；"
+	@echo -e "\t" "config_file：比较组及相关参数配置文件 【必选|路径】。"
+
+
+rds=$(outdir)/Integrating/$(combine)/1_QC/$(combine).rds
+integrating_dir=$(outdir)/Integrating/$(combine)
+config_file=$(integrating_dir)/config.ini
+cluster_rds=$(integrating_dir)/2_clusters/$(combine)_immune_combined.rds
+.PHONY:Integrating
+Integrating:
+	@echo Integrating start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	export LD_LIBRARY_PATH=$(GLIBC):$(gcclib):$$LD_LIBRARY_PATH && $(RSCRIPT) $(Bin)/cluster.R -i $(rds) -o $(integrating_dir) -c $(config_file) --prefix $(combine)
+	$(RSCRIPT) $(Bin)/AverageExpression.R -f $(cluster_rds) -o $(integrating_dir)/2_clusters -s yes
+	@echo Integrating finish at `date`
+
+
+CellIdent_dir=$(outdir)/Integrating/$(combine)/CellIdent
+celltypepredict=$(CellIdent_dir)/$(combine)_celltype_predict.csv
+.PHONY:celltype
+celltype:
+	echo `date "+%Y%m%d %H:%M:%S"` "- scibet - INFO - 开始"
+	if [ $(species) = NO ];then\
+		echo "No analysis for cell type !!!";\
+	else \
+		mkdir -p $(CellIdent_dir) ;\
+		$(RSCRIPT) $(Bin)/scibet.r -r $(cluster_rds) -s $(species) -o $(CellIdent_dir) --pre  $(combine) $(para_ref) $(para_model) ;\
+		$(PYTHON3) $(Bin)/cell_type_stat.py -m $(CellIdent_dir)/../3_marker/$(combine)_all.markers.csv -s $(celltypepredict) $(para_cellmarker_anno) -o $(CellIdent_dir)/$(combine)_celltype_anno_stat.xls -r $(CellIdent_dir)/$(combine)_scibet_stat.xls ;\
+		awk '{print "$(combine)""\t"$$1"\t"$$2"\t"$$7 }' $(CellIdent_dir)/$(combine)_celltype_anno_stat.xls > $(CellIdent_dir)/celltype_marker.xls ; \
+		$(RSCRIPT) $(Bin)/marker_celltype.R -i $(cluster_rds) -o $(CellIdent_dir) --pre $(combine) -c $(config_file) -m $(CellIdent_dir)/celltype_marker.xls ; \
+	fi
+	echo `date "+%Y%m%d %H:%M:%S"` "- Finished scibet - INFO - 成功"
+
+
+result_dir=$(outdir)/Integrating/$(combine)/
+.PHONY:anno_plot
+anno_plot:
+	@echo plot start at `date`
+	$(RSCRIPT) $(Bin)/marker_celltype.R -i $(rds) -o $(result_dir) --pre $(combine) -c $(config_file) $(para_celltype) $(para_marker)
+	$(RSCRIPT_sankey) $(RSCRIPT) $(Bin)/sankey.r -i $(result_dir)/CellIdent/$(combine)_immune_combined_celltype.rds -m 1 -o $(result_dir)/../ -f $(result_dir)/config.ini -l Cell_type -p $(combine) -n $(celltype)
+	for i in `ls $(result_dir)/*/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	for i in `ls $(result_dir)/*/*/*.pdf`;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	@echo plot finish at `date`
+
+
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `ls $(indir)/*.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+	fi

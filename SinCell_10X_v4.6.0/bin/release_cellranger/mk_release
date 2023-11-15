@@ -1,0 +1,41 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" "10x cellranger等分析结果快速整理释放"
+	@echo USAGE:
+	@echo -e "\t" make -f mk_release indir= release_dir= upload_conf= project_id= Release
+	@echo -e "\t" "indir: 10x分析目录Analysis【必须|路径】"
+	@echo -e "\t" "release_dir: 输出整理目录【必须|路径】"
+	@echo -e "\t" "project_id：项目号，用于整理目录和交付【必须|项目号】"
+	@echo -e "\t" "release_conf：连接配置文件，参考upload整理方法【可选|路径】"
+	@echo -e "\t" "release: 是否交付华为云，默认不交付 【可选|yes or no】"
+
+
+release_conf=$(DIR)/config/release.conf
+release=no
+.PTONY:Release
+Release:
+	@echo Release start at `date`
+	if [ -d $(release_dir) ] ; then rm -rf $(release_dir) ; fi
+	mkdir -p $(release_dir)
+	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(release_dir) -c $(release_conf) -b $(DIR)
+	mv $(release_dir)/release $(release_dir)/$(project_id)_cellranger_result
+	cd $(release_dir)/$(project_id)_cellranger_result && for i in `find . -type l`; do md5sum $${i} >>md5.txt.tmp ; done
+	cat $(release_dir)/$(project_id)_cellranger_result/md5.txt.tmp  | sort -k1,1 -V | sort -uk1,1 -V > $(release_dir)/$(project_id)_cellranger_result/md5.txt
+	if [ -s $(release_dir)/$(project_id)_cellranger_result/md5.txt.tmp ] ; then rm $(release_dir)/$(project_id)_cellranger_result/md5.txt.tmp ; fi
+	if [ "$(release)" == "yes" ] ; \
+	then \
+		$(PYTHON3) $(get_info) -p $(project_id) -t CLOUD_DELIVERY -d $(release_dir)/$(project_id)_cellranger_result -u 安诺云-华为 ; \
+	else \
+		echo "请交付 $(release_dir)/$(project_id)_cellranger_result 目录" ; \
+	fi
+	@echo Release finish at `date`

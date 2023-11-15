@@ -1,0 +1,36 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 单细胞分析结果指标按样本插入lims tb_analysis_sincell_rna
+	@echo USAGE:
+	@echo "Lims：插入lims"
+	@echo -e "\t" make -f mk_updata config_ini= sample_id= type= cellranger_stat= filter_stat= double_stat= software= Lims
+	@echo -e "\t" "config_ini：流程配置config用于识别样本信息【必选|路径】；"
+	@echo -e "\t" "sample_id: 样本名称【必选|字符串】；"
+	@echo -e "\t" "type：流程类型，10X 或 C4【必选|字符串】;"
+	@echo -e "\t" "cellranger_stat：cellranger的结果统计文件 【必选|路径】。"
+	@echo -e "\t" "filter_stat：细胞过滤的统计文件 【必选|路径】；"
+	@echo -e "\t" "double_stat：双细胞的统计文件，双细胞未加到过滤中是单独的文件 【必选|路径】；"
+	@echo -e "\t" "software：分析软件路径，用于记录软件版本信息 【必选|路径】；"
+
+
+#config_ini=$(outdir)/../config.ini
+#cellranger_stat=$(outdir)/QC/Basic/analysis_summary.xls
+#filter_stat=$(outdir)/QC/filter/Cell_filter_stat.xls
+#double_stat=$(outdir)/Seurat_Filter/$(sample_id)/$(sample_id)_doublet_ratio.xls
+software=$(Analysis_$(type)_Tools)
+.PHONY:Lims
+Lims:
+	@echo update lims start at `date`
+	$(PYTHON3) $(Bin)/updata_lims.py -c $(config_ini) -s $(sample_id) -t $(type) -a $(cellranger_stat) -f $(filter_stat) -d $(double_stat) -w $(software)
+	@echo update lims finish at `date`
+

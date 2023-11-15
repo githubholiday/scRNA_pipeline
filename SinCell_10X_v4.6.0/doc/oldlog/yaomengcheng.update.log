@@ -1,0 +1,6 @@
+20190212 姚盟成 
+第一次推送，增加新流程
+
+20190401 姚盟成
+软件升级到3.01版本[cellranger-3.0.1]，由于结果输出目录有些不一样，修改了bin/DiffExpr/makefile_seurat的数据路径:dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_gene_bc_matrices*/*/改成了dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_*_bc_matrices*/*/
+CellRanger/makefile 将所有cellranger-3.0.1软件产生的结果，都改成与之前流程匹配的文件结果。

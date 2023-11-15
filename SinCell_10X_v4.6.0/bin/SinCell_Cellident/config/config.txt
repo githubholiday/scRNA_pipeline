@@ -1,0 +1,5 @@
+#Monocle3_multi_mk
+PERL=/annoroad/data1/software/bin/miniconda/bin/perl
+PYTHON=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
+RSCRIPT_monocle3=/annoroad/data1/software/bin/miniconda/envs/Monocle/bin/Rscript
+CONVERT=/usr/local/bin/convert

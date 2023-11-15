@@ -1,0 +1,10 @@
+Type	A	B	C	D	Indir	Header
+Estimated_Number_of_Cells	(1000,10000)	(10000,12000)	(12000,100000)	(1,1000)	Indir/analysis_summary.xls	R
+Median_Genes_per_Cell	(800,100000)	(600,800)	NA	(0,600)	Indir/analysis_summary.xls	R
+Sequencing_Saturation	(70,100)	(65,70)	NA	(0,65)	Indir/analysis_summary.xls	R
+Reads_Mapped_to_Genome	(70,100)	(65,70)	NA	(0,65)	Indir/analysis_summary.xls	R
+Reads_Mapped_Confidently_to_Transcriptome	(40,100)	NA	NA	(0,40)	Indir/analysis_summary.xls	R
+Fraction_Reads_in_Cells	(70,100)	NA	NA	(0,70)	Indir/analysis_summary.xls	R
+Q30_Bases_in_Barcode	(85,100)	(80,85)	NA	(0,80)	Indir/analysis_summary.xls	R	
+Q30_Bases_in_RNA_Read	(85,100)	(80,85)	NA	(0,80)	Indir/analysis_summary.xls	R	
+Q30_Bases_in_UMI	(85,100)	(80,85)	NA	(0,80)	Indir/analysis_summary.xls	R

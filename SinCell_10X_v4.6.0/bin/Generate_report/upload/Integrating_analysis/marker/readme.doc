@@ -1,0 +1,69 @@
+marker基因结果说明：marker基因即某个亚群与除了此亚群之外所有亚群进行差异分析得到的差异基因，如果有差异，这个基因就是该亚群的marker基因，差异结果中avg_logFC有正负值，正值代表该群高表达，负值表示该群低表达。
+
+
+1. *example*：示例文件，用于结题报告中展示解读。
+
+2. *top1_marker.vlnplot.p*：top1的marker基因在不同cluster中表达量小提琴图
+选择所有聚类（cluster）中的top1的marker基因（去重后）在不同cluster中的表达量绘制的小提琴图。
+横轴为聚类（cluster），纵轴为基因表达量。
+
+3. *top1_marker.dotplot.p*：top1的marker基因在不同cluster中表达量的dotplot图
+选择所有聚类（cluster）中的top1的marker基因（去重后）在不同cluster中的表达量绘制的dotplot图。
+横轴为聚类（cluster），纵轴为不同基因。点的颜色表示表达量高低，从蓝到红表示表达量从低到高，即越红表示表达量越高。点的大小表示某cluster中有该基因表达的细胞占比，点越大，说明细胞占比越高。
+
+4. *top1_marker.FeaturePlot.p*：top1的marker基因在不同cluster中表达量的feature plot图
+按照avg_logFC排序后，每个亚群中top1基因的表达量分布图。红色代表高表达，灰色代表低表达。
+
+5. *top10_marker.heatmap.p*：top10的marker基因（去重后）表达量热图
+注：横轴为不同的细胞聚类（cluster），纵轴为每个细胞聚类的前10个marker基因。黄色表示高表达，紫色表示低表达，不同的cluster有间隙隔开。
+
+6. *all_markers.anno.xls：所有marker基因注释表
+（1）Gene_ID：基因ID；
+（2）Gene_Symbol：基因名；
+（3）p_val：差异表达分析的p-value；
+（4）avg_log2FC：差异表达倍数的log值；
+（5）pct.1：基因在Cluster中样本1有表达的细胞比例；
+（6）pct.2：基因在Cluster中样本2有表达的细胞比例；
+（7）p_val_adj：校正后的p-value；
+（8）cluster：聚类号；
+（9）Up/Down：上调还是下调表达，Up上调，Down为下调；
+（10）Significant：是否为显著性差异；
+（11）NR:Seq-id：基因同NR数据库的最优比对结果；
+（12）NR:Score：基因同NR数据库的比对得分；
+（13）NR:Evalue：基因同NR数据库的比对Evalue值；
+（14）NR:Description：NR数据库中该基因的功能描述；
+（14）NT:Seq-id：基因同NT数据库的最优比对结果；
+（16）NT:Score：基因同NT数据库的比对得分；
+（17）NT:Evalue：基因同NT数据库的比对Evalue值；
+（18）NT:Description：NT数据库中该基因的功能描述；
+（19）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；
+（20）Uniprot:Score：基因同Uniprot数据库的比对得分；
+（21）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；
+（22）Uniprot:Description：Uniprot数据库中该基因的功能描述；
+（23）COG:gene：比对上的COG数据库中的基因名；
+（24）COG:Score：与COG数据库的比对得分；
+（25）COG:Eval：与COG数据库的比对Evalue值；
+（26）COG:num：比对上的COG数据库中的基因ID；
+（27）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；
+（28）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；
+（29）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；
+（30）GO:biological_process：注释到的描述生物进程的GO Term；
+（31）GO:cellular_component：注释到的描述细胞组分的GO Term；
+（32）GO:molecular_function：注释到的描述分子功能的GO Term；
+（33）KEGG:KO：注释到的KEGG中的ID；
+（34）KEGG:Description：KEGG中的功能描述。
+
+7. *all_markers.xls：所有marker基因表（不含注释）
+（1）Gene_ID：基因ID；
+（2）Gene_Symbol：基因名；
+（3）p_val：差异表达分析的p-value；
+（4）avg_logFC：差异表达倍数的log值；
+（5）pct.1：基因在Cluster中样本1有表达的细胞比例；
+（6）pct.2：基因在Cluster中样本2有表达的细胞比例；
+（7）p_val_adj：校正后的p-value；
+（8）cluster：聚类号；
+（9）Up/Down：上调还是下调表达，Up上调，Down为下调；
+（10）Significant：是否为显著性差异。
+
+8. marker_violin：每个cluster中top1的marker基因的小提琴图
+一个基因一个图。横轴为聚类（cluster），纵轴为基因表达量。

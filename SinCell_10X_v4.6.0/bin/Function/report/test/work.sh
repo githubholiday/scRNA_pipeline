@@ -1,0 +1,1 @@
+/annoroad/share/software/install//Python-3.3.2/bin/python3 get_upload.py -i /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/tuchengfang/Work/01_10X_RNA/01_pipeline/report/test/ -o /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/tuchengfang/Work/04_Develop/10X_SCRNA/bin/Function/report/test/report -t ../function.md -c ../upload.config -n

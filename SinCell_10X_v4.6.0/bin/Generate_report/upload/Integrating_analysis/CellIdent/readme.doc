@@ -1,0 +1,48 @@
+scibet结果说明:(目前仅支持对人和小鼠进行细胞注释)
+输出结果一共有三个文件：
+*_celltype_predict.xls 
+*_marker_heatmap.pdf/png 
+*_query_model_heatmap.pdf/png
+
+文件内容说明：
+
+1. *_celltype_predict.xls，此文件为细胞类型预测结果文件（每个细胞），一共三列：
+第一列：列名为空，一般为序列号，没有什么其他意义。
+第二列：Barcode，细胞的barcode，区分细胞的。
+第三列：seurat_clusters，为seurat输出结果的亚群名称
+第四列：prd_celltype, 预测的细胞类型。
+
+2. *_marker_heatmap.p*
+挑选出前100个特征基因，用z-score气泡图来展示这些基因在所有亚群中的表达情况。
+ 
+3. *_query_model_heatmap.p*
+细胞亚群预测结果热图，每一列为seurat输出结果的亚群名称（需要鉴定的细胞类型），每一行为细胞亚群的名称，颜色接近黄色，表示属于该细胞类型的可能性越高。
+
+4. *scibet_stat.xls ,scibet亚群统计的结果
+第一列Cluster，为聚类类别。
+其余列为细胞数量最多的前三种细胞类型及对应的数量（括号中为该类细胞数占该cluster细胞数的比例）。
+若小于三种则展示所有类型。
+
+5. *celltype_anno_stat.xls 细胞亚群注释整合表
+基于seurat聚类的准确性和scibet的亚群自动鉴定，再结合积累的marker基因的信息，将seurat的聚类结果、scibet的注释结果以及给定的细胞对应marker信息整合成一个表格，整合的方法是选取scibet中每个cluster注释上细胞数最多的celltype作为该cluster的细胞类型。
+第一列Cluster:为聚类类别。
+第二列ANNO:注释后的细胞类别。
+第三列Covered_Marker:覆盖到的marker基因名。
+
+6. *_cellType.group_stats.p* 合并组中细胞占比柱形图
+横轴为不同的细胞类型，纵轴为同一细胞类型中不同分组的细胞占比。不同颜色代表不同的分组。
+
+7. *cellType.sample_stats.p* 不同样本来源的细胞在细胞类型中的百分比堆积柱形图
+横轴为不同的细胞类型，纵轴为同一细胞类型中不同样本的细胞占比。不同颜色代表不同的样本。
+
+8. *group.celltype.xls 不同合并组中的细胞占比统计表
+（1）第一列：细胞类型
+（2）第二列-：组名，数值表示属于该细胞类型的细胞数量，括号中的数值表示属于该细胞类型的细胞数量在该组中细胞的占比。
+
+9. *sample.celltype.xls  不同样本中的细胞占比统计表
+（1）第一列：细胞类型
+（2）第二列-：样本名，数值表示属于该细胞类型的细胞数量，括号中的数值表示属于该细胞类型的细胞数量在该样本中细胞的占比。
+
+10. *umap_cluster_anno.p* 注释后的细胞umap图谱
+左边为不同cluster的分布展示，右边为不同细胞类型的分布展示。
+

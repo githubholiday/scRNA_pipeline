@@ -1,0 +1,35 @@
+@@@@clusterProfiler
+## 富集分析
+@@@@GO_clusterProfiler
+### GO富集分析
+基因本体（Gene Ontology，GO）是一个在生物信息学领域中广泛使用的本体，是基因功能国际标准分类体系，提供了一套动态更新的标准词汇表来描述生物体中基因和基因产物的属性，可以挖掘出所研究的生物学问题相关的生物学过程。GO分为三个Ontology，分别是：分子功能（Molecular Function，MF）、细胞组分（Cellular Component，CC）和生物过程（Biological Process，BP）。可以通过GO富集分析， 确认候选基因中是否有显著富集到特定GO条目上的基因组合，进一步研究候选基因在不同的GO层面与性状，疾病的关系，深入探索生物学分子机制。
+    采用ClusterProfiler（T Wu et.al, 2021）计算目标基因中显著富集的GO条目。通过GO功能显著性富集分析能确定候选基因行使的主要生物学功能。 设定padjust<0.05 为显著性阈值。候选基因GO统计结果示例见下表：
+![富集分析表]{{table_go_report}}
+（1）ID：GO Term的ID
+（2）Ontology：该Term 所属分类
+（3）Description：GO Term的描述
+（4）Count1：富集到该Term的基因数目；
+（5）Count2：用于富集分析的基因数目；
+（6）Count3：富集到该Term的的背景基因数目；
+（7）Count4：用于富集分析时的背景基因数目；
+（8）pval：检验后的p值；
+（9）p.adjust：BH方法校正后的p值；
+（10）qval：检验后的q值；
+（11）*Gene：富集到该Term上的基因
+（12）*Count：富集到该Term上的基因数目
+（13）Links：该GO Term的数据库链接；
+（14）Result：该Term是否显著富集，yes，为显著；no，为不显著。
+
+GO功能富集分析得到的功能注释结果下载链接：
+![富集分析表]{{download_go_report}}
+
+@@@@GO_enrich
+选取每个类别最显著的10个GO条目（如果不足10则用该类别全部条目）用条形图展示GO富集分析结果如下：
+![富集分析图]{{image_go_bar}}
+纵坐标表示GO条目，横坐标表示富集到该条目的基因数量，颜色表示padjust，颜色越红表示越显著。
+选取每个类别最显著的10个GO条目（如果不足10则用该类别全部条目）用气泡图展示GO富集分析结果如下：
+![富集分析图]{{image_go_dot}}
+纵坐标表示GO条目，横坐标表示富集到该条目的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该条目的基因数量，气泡越大表示基因数量越多。
+
+### 参考文献
+T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu. clusterProfiler 4.0: A universal enrichment tool for interpreting omics data. The Innovation. 2021, 2(3):100141

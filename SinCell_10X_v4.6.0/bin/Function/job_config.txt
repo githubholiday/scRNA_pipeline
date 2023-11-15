@@ -1,0 +1,32 @@
+[Job Start]
+Name	MarkerAnno
+Memory	5G
+Qsub	False
+CPU	N
+Major	F
+Order	5
+Depend	Integrating
+Command	make -f BIN/DiffExpr/makefile_seurat_cmp log_file=LOGFILE outdir=OUTDIR species=Para_species compare=$(group)[0] Annotation_cmp
+[Job End]
+
+[Job Start]
+Name	DiffAnno
+Memory	5G
+Qsub	False
+CPU	N
+Major	F
+Order	1
+Depend	Integrating
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR species=Para_species compare=$(group)[0] Annotation_diff
+
+[Job Start]
+Name	Diff_anno
+Memory	5G
+Qsub	False
+CPU	N
+Major	T
+Order	6
+Depend	Integrating
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR species=Para_species compare=$(group)[0] GO
+make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR species=Para_species compare=$(group)[0] category=Para_category KEGG
+[Job End]

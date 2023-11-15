@@ -1,0 +1,37 @@
+目录结构：
+./wikiPathway
+├── *enrichPathway* #wikiPathway数据库富集分析结果
+└── *GSEAPathway* #wikipathway数据库GSEA分析结果
+
+文件介绍：
+结果文件包含enrich* 和GSEA*，enrich* 为富集分析结果，GSEA*为GSEA分析结果。
+文件内容说明：
+*enrich*.xls文件说明如下：
+（1）ID：数据库ID
+（2）Description：数据库term描述信息   
+（3）GeneRatio：目标基因占比
+（4）BgRatio：背景基因占比
+（5）pvalue：富集显著性检验p值        
+（6）p.adjust：富集显著性检验p纠正值      
+（7）qvalue：富集显著性检验q值
+（8）geneID：富集该term上的基因，以'/'分割
+（9）Count：富集该term上的基因个数
+*GSEA*.xls文件说明如下：
+（1）ID：数据库ID
+（2）Description：数据库term描述信息
+（3）setSize：该term基因集大小
+（4）enrichmentScore：富集得分。ES为正，表示某一功能gene集富集在排序序列前方；ES为负，表示某一功能gene集富集在排序序列后方
+（5）NES：ES标准值。某一功能gene set的ES/数据集所有随机组合得到的ES平均值
+（6）pvalue：富集显著性p值
+（7）p.adjust：富集显著性检验p纠正值      
+（8）qvalues：富集显著性检验q值      
+（9）rank：该term对应的rank
+（10）leading_edge：  leading-edge分析结果
+（11）core_enrichment：对富集分析最的核心的基因
+
+2，wikiPathway数据库分析结果图，说明如下：
+*bar.png/pdf 富集分析柱形图展示，横轴表示富集到该term上基因个数，纵轴表示富集的term，图例为富集显著性打分值纠正的值(p.adjust)；
+*dot.png/pdf 富集分析圈图表示，横轴表示富集到该term上的基因比例，纵轴表示富集的term，图例为基因count和p.adjust值；
+*net.png/pdf 富集分析基因网络图，中间节点为富集的term，周围节点为基因，节点大小由相关的基因个数决定；
+*GSEA-0-9.png/pdf GSEA分析结果图，流程展示富集分析前10个term。
+注：term 表示各个数据库的功能描述，例如Pathway中表示的为生物学通路。

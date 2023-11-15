@@ -1,0 +1,11 @@
+Type	A	B	C	D	Indir	Header	Description	Standard	Email
+Estimated_Number_of_Cells	(1000,12000)	(800,1000);(12000,15000)	(600,800);(15000,20000)	(0,600);(20000,1000000)	Indir/Basic/analysis_summary.xls	R	高质量细胞数	(1000,12000)	yes
+Median_Genes_per_Cell	(800,2000000)	(600,800)	NA 	(0,600)	Indir/Basic/analysis_summary.xls	R	每个细胞中的基因数目中位数	≥800	yes
+Sequencing_Saturation	(40,100)	(35,40)	(30,35)	(0,30)	Indir/Basic/analysis_summary.xls	R	测序数据饱和度	≥400%	yes
+Reads_Mapped_to_Genome	(70,100)	(65,70)	NA	(0,65)	Indir/Basic/analysis_summary.xls	R	比对到参考基因组的序列数百分比	≥70%	yes
+Reads_Mapped_Confidently_to_Transcriptome	(40,100)	NA	NA	(0,40)	Indir/Basic/analysis_summary.xls	R	比对到参考转录组的reads百分比	≥40%	yes
+Fraction_Reads_in_Cells	(70,100)	NA	NA	(0,70)	Indir/Basic/analysis_summary.xls	R	比对到参考基因且来源于高质量细胞的reads百分比	 ≥70%	yes
+Q30_Bases_in_Barcode	(85,100)	(80,85)	NA	(0,80)	Indir/Basic/analysis_summary.xls	R	Barcode中质量分数大于等于30的碱基百分比	 ≥85%	yes
+Q30_Bases_in_RNA_Read	(85,100)	(80,85)	NA	(0,80)	Indir/Basic/analysis_summary.xls	R	reads中质量分数大于等于30的碱基百分比	 ≥85%	yes
+Q30_Bases_in_UMI	(85,100)	(80,85)	NA	(0,80)	Indir/Basic/analysis_summary.xls	R	UMI标记中质量分数大于等于30的碱基百分比	 ≥85%	yes
+analysis_upload	NA	NA	NA	NA	Indir/Basic/analysis_summary.xls	R	分析质控统计	NA	NA

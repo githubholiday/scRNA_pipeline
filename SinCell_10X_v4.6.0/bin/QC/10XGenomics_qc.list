@@ -1,0 +1,9 @@
+Estimated_Number_of_Cells
+Median_Genes_per_Cell
+Sequencing_Saturation
+Q30_Bases_in_Barcode
+Q30_Bases_in_RNA_Read
+Q30_Bases_in_UMI
+Reads_Mapped_to_Genome
+Reads_Mapped_Confidently_to_Transcriptome
+Fraction_Reads_in_Cells

@@ -1,0 +1,27 @@
+#以下为单样本的报告生成模块 template_type=Multi_10XRNA
+[Job Start]
+Name	Report
+Memory	4G
+Queue	"sci.q,nassci.q"
+CPU	N
+Major	T
+Thread	1
+Order	8
+Depend	
+Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform Prepare
+make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=Singe_10XRNA Report
+[Job End]
+
+#以下为多样本的报告生成模块 template_type=Multi_10XRNA
+[Job Start]
+Name	Report
+Memory	4G
+Queue	"sci.q,nassci.q"
+CPU	N
+Major	T
+Thread	1
+Order	8
+Depend	
+Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform Prepare
+make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=Multi_10XRNA Report
+[Job End]

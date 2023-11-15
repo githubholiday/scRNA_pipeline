@@ -1,0 +1,107 @@
+20220301 zhaoqian
+1.增加对过滤后基因中位数和细胞数的统计，对比较差异基因的统计
+2.增加marker基因的气泡图（合并分析中线粒体过滤的bug）
+3.修改多样本合并分析的差异基因的富集分析方式调整为clusterprofiler（marker基因富集方式仍保持不变）
+4.增加精简版的结题报告（注意近阶段单细胞分析的项目，请交付结题报告和精简版的结题报告）
+
+20220217 zhaoqian
+1.增加结题报告中对MGI平台的适配
+2.修改线粒体基因匹配的方式，只要基因名称中以mt-开始（不区分大小写），则作为线粒体基因计算该细胞中线粒体的比例
+3.结题报告中部分内容修改
+
+20211223 zhaoqian
+1.结题报告中增加各种差异基因，marker基因的展示。
+
+20211210 zhaoqian
+1.增加scibet注释后分析的模块
+2.主脚本增加给定makerlist列表的参数
+3.同步更新结题报告中的内容
+
+20211122 zhaoqian-lihuayun
+1.seurat升级为4.0.1版本；
+2.monocle2升级为monocle3；
+3.cellranger由6.0.1升级为6.1.2；
+4.同步更新结题报告等相关内容。
+
+20211105 zhaoqian
+修改report/SinCell_10X.template中删除掉细胞类型鉴定的内容
+修改Sequencing Saturation中质控阈值为60%
+修改数据收集模块为拷贝
+收集信息搜集表中样本的相关的其他信息
+结题报告中文字修改
+
+20211008 zhaoqian
+增加了人相关数据搜集的模块8_1_Analysis_Collect.sh
+
+20210917 zhaoqian
+在主脚本中配置cellranger的forcecell参数，并配套修改其他相关的config文件等
+
+20210907 zhaoqian
+针对bug,Wikipathway中没有的物种不报错退出，替换
+cp /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/zhaoqian/15SinCell_10X/bin/DOSE/clusterProfile.R /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/SinCell_10X_v4.2.1/bin/DOSE/clusterProfile.R
+cp /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/zhaoqian/15SinCell_10X/bin/DOSE/makefile /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/SinCell_10X_v4.2.1/bin/DOSE/makefile
+cp /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/zhaoqian/15SinCell_10X/bin/DOSE/database/wikipathways-gmt-Rattus_norvegicus.gmt  /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/SinCell_10X_v4.2.1/bin/DOSE/database/
+
+同步更新：单样本和医学单细胞报告中的job_config和结题报告模板。
+
+
+20210803 zhaoqian
+1.增加结题报告中的个性化分析推荐内容
+2.在cellranger的统计结果中增加对原始数据的三个指标，以方便对细胞预估数的评估。
+   RawCellbarcodes：该样本中总的cell barcode的数量；
+   Cells_filterGene_200_10000：基因数在200到10000之间的细胞数量；
+   Cells_mt20_HB5：线粒体小于20%且红细胞数量低于5%的细胞数量
+3.审核表中增加对细胞数量的评估。
+
+20210628 zhaoqian
+bug修改
+1.【ID1001180】
+10x单细胞转录组标准分析-readme与交付结果不对应问题。
+2.【ID1001127】
+8_0_ArrangeDir.sh缺失python3的路径导致任务中断。
+3.【ID1001207】 
+【10x Genomics】线粒体筛选
+
+20210310 zhaoqian
+1.更新质控邮件发送模块。
+
+20201222 zhaoqian
+1.Cellranger版本由3.1.0版本升级到5.0.1,reads比对率提升，速度提升2-4倍，资源消耗减少一半
+
+2019-6-17 修改：luhuiping
+合并现有的10xGenomics流程，包含单个样本的标准分析流程，多个样本差异分析流程以及包含人注释信息的医学流程；
+10XGenomics 与 nas_10XGenomics 对应非样本间的比较分析流程；
+SinCell_10X 与 nas_SinCell_10X 对应样本间的比较分析流程，包含拟时间分析；
+SinCell_10X_med 与 nas_SinCell_10X 对应人注释信息的医学流程，包含多样本间比较分析，拟时间分析和数据库注释；
+具体细节修改：
+1，生成对标流程的结题报告；
+2，串如多样本比较分析和拟时间分析
+3，修改流程分析图，根据分析内容进行重新绘制，去除了医学分析内容；去除医学分析内容配置和结题报告内容；
+4，修改了目录整理流程，GO，KEGG和PPI拷贝文件txt 更改为doc。
+5，修改自动化流水线配置文件，添加10XGenomics标签。
+6，依据type识别相应流程结题报告。
+
+2020-6-20 修改 luhuiping
+主流程修改：
+1，config 搜寻BIN目录下的pipeline
+2，添加多样本整合进行样本间的分析
+3，去除多样本的合并分析，即对应之前的aggr
+4，统一单样本和多样本的seurat筛选标准，对于小鼠和人将进行红细胞的去除
+5，单样本分析添加UMAP的结果，且cluster从1开始
+6，多样本分析添加合并后的单样本细胞聚类分布
+7，拟时间分析对接seurat，拟时间仅针对单个样本进行
+8，多样本样本间差异基因分析，添加差异基因wikipathway富集和GSEA分析，目前仅针对人和小鼠
+9，对于单样本和多样本进行细胞鉴定分析，目前仅针对人和小鼠
+10，修改报告生成按照upload文件进行判断，仅涉及到上述提到的物种限制的分析模块
+
+20190314 chenjing
+更新
+（1）将所有的readme.txt 改成.doc格式；
+（2）将结题报告中错误的地方加以修正；
+（3）更新SOP文档。
+20190212 姚盟成 
+第一次推送，增加新流程
+
+20190401 姚盟成
+软件升级到3.01版本[cellranger-3.0.1]，由于结果输出目录有些不一样，修改了bin/DiffExpr/makefile_seurat的数据路径:dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_gene_bc_matrices*/*/改成了dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_*_bc_matrices*/*/
+CellRanger/makefile 将所有cellranger-3.0.1软件产生的结果，都改成与之前流程匹配的文件结果。

@@ -1,0 +1,11 @@
+GO_Rscript=/annoroad/data1/bioinfo/PMO/yaomengcheng/Anaconda3/bin/Rscript
+PERL=/annoroad/data1/software/bin/miniconda/bin/perl
+PYTHON3=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
+QSUB_SGE=/annoroad/data1/software/bin/pipeline_generate/bin/current/src/qsub_sge
+RSCRIPT=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/Rscript
+GLIBC=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH &&
+GO2NAME=/annoroad/data1/bioinfo/PMO/leiguo/k8s/1_Database_Build/Database/GO/20230815/data/go.class.clusterprofile
+ORGDB=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/ClusterProfile/OrgDb.list
+MAP2NAME=/annoroad/data1/bioinfo/PMO/leiguo/k8s/1_Database_Build/Database/KEGG/20230815/data/pathway_$(category).list
+KO2MAP=/annoroad/data1/bioinfo/PMO/leiguo/k8s/1_Database_Build/Database/KEGG/20230815/data/ko2map/ko2map.xls
+KEGG_MAP_DIR=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/ClusterProfile/KEGG

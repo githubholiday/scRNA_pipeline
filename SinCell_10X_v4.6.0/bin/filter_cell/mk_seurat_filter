@@ -1,0 +1,65 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+#path
+
+
+#arguments
+method=wilcox
+mincell=3
+mingene=200
+maxgene=10000
+mito=20
+hb=5
+
+#software
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 使用Seurat软件对cellranger结果进行细胞过滤
+	@echo USAGE:
+	@echo "Filter_cell：Seurat过滤细胞"
+	@echo -e "\t" make -f mk_seurat_filter dataDir= output_dir= sample_id= species_tag= Filter_cell
+	@echo -e "\t" "dataDir：cellranger稀疏矩阵结果目录【必选|路径】；"
+	@echo -e "\t" "sample_id: 样本名称【必选|字符串】；"
+	@echo -e "\t" "species_tag：物种ID，仅 人:9606 小鼠:10090过滤红细胞【必选|数字】;"
+	@echo -e "\t" "output_dir：输出目录 【必选|路径】。"
+	@echo -e "\t" "mincell: 基因表达的最小细胞数，小于该值的基因将被过滤 【选填|默认：3】；"
+	@echo -e "\t" "mingene：细胞包含最小基因数，小于该值的细胞将被过滤 【选填|默认：200】；"
+	@echo -e "\t" "maxgene：细胞包含最大基因数，大于该值的细胞将被过滤 【选填|默认：10000】；"
+	@echo -e "\t" "mito：细胞中线粒体基因表达占比，大于该值的细胞将被过滤 【选填|默认：20】；"
+	@echo -e "\t" "hb：细胞中红细胞基因表达占比，大于该值的细胞将被过滤 【选填|默认：5】;"
+
+
+dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_*_bc_matrices*/ref
+output_dir=$(outdir)/Seurat_Filter/$(sample_id)/
+.PHONY:Filter_cell
+Filter_cell:
+	@echo Filter_cell start at `date`
+	[ -d $(output_dir) ] && echo $(output_dir) dir exist || mkdir -p $(output_dir)
+	export HDF5_USE_FILE_LOCKING=FALSE && $(PYTHON3) $(Bin)/scQC.py -i $(dataDir) -s $(sample_id) -p $(species_tag) -o $(output_dir)
+	$(RSCRIPT) $(Bin)/seurat_filter_cell.R -d $(dataDir) -s $(sample_id) -o $(output_dir) --species $(species_tag) --mincell $(mincell) --min $(mingene) --max $(maxgene) --mtp $(mito) --hbp $(hb) --doublet $(output_dir)/$(sample_id)_Predicted_doublet_scores.csv
+	@echo Filter_cell finish at `date`
+
+
+.PHONY:Lims
+Lims:
+	@echo update lims start at `date`
+	$(PYTHON3) $(Bin)/updata_lims.py -c $(config_ini) -s $(sample_id) -t $(type) -a $(cellranger_stat) -f $(filter_stat) -d $(double_stat)
+	@echo update lims finish at `date`
+
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `find $(indir) -name *.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+	fi

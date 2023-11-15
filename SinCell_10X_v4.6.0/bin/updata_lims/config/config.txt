@@ -1,0 +1,3 @@
+Analysis_10X_Tools=/annoroad/data1/software/bin/cellranger/cellranger-7.1.0/cellranger
+Analysis_C4_Tools=/annoroad/data1/software/bin/miniconda/envs/DNBC4tools/bin/DNBC4tools
+PYTHON3=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3

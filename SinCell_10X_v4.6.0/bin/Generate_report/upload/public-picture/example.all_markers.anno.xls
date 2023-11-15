@@ -1,0 +1,16 @@
+Gene_ID	ENSG00000164587
+Gene_name	RPS14
+p_val	1.23503752243904e-279
+avg_logFC	-1.38849021513264
+pct.1	0.915
+pct.2	0.996
+p_val_adj	2.34471873635052e-275
+cluster	1
+gene	RPS14
+Up/Down	Down
+Significant	yes
+GO:biological_process	GO:0030218|erythrocyte differentiation;GO:0030490|maturation of 
+GO:cellular_component	GO:0005737|cytoplasm;GO:0022627|cytosolic small ribosomal subuni
+GO:molecular_function	GO:0048027|mRNA 5'-UTR binding;GO:0044822|poly(A) RNA binding;GO
+KEGG:KO	K02955
+KEGG:Description	RP-S14e, RPS14; small subunit ribosomal protein S14e

@@ -1,0 +1,10 @@
+文件说明：
+1.pbmc_singleR_celltype_stat.xls为依据singleR的预测结果的统计的总表
+1) clusters：类群
+2) labels：细胞类型
+3) Barcode：预测属于该类型的细胞数量
+4) cluster_totalcells：该cluster的总的细胞数
+5) precent：该细胞类型占该类群总数的比例
+
+2.pbmc_singleR_celltype_stat_top1.xls为上表中占比最多的细胞类群定义为注释类型
+列名同上

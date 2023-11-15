@@ -1,0 +1,10 @@
+1、protein_feature_ref.xls本次项目选用的蛋白抗体信息表，各列说明如下：
+（1）id：蛋白名称；
+（2）name：抗体官方名称；
+（3）read：RNA测序时，feature barcode序列所在的reads;
+（4）pattern：抗体barcode序列模式；
+（5）sequence：抗体对应feature barcode的核酸序列，一种抗体只对应一种特定的核酸序列；
+（6）feature_type：特征捕获的类型，在单细胞表面蛋白中固定为Antibody Capture（抗体捕获）。
+
+2、FeaturePlot_*.png捕获蛋白和其编码基因表达特征图
+    图中每一个小图代表一种基因或者蛋白的表达特征在umap上的投影，灰色细胞代表完全没有表达对应基因或蛋白，蓝色由浅到深分别代表表达量由低到高。

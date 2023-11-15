@@ -1,0 +1,15 @@
+目录作用：基于clusterprofile的KEGG分析模块
+撰写人：涂成芳
+撰写时间：2023-2-1
+
+其他说明：
+1、该目录下的文件是从公共模块5.7.0中拷贝的
+
+2、其中kegg.py是从/annoroad/data1/bioinfo/PROJECT/RD/Pipeline_test/suyalei/kegg_20230116.py拷贝而来
+
+3、DrawKEGGHeat和KEGGMap 都是基于原有的内容修改的适配clusterprofiler的结果的，主要差异在于kegg的结果文件report.xls文件的列与之前公共模块的产出有些许差异
+
+模块说明：
+1、KEGGEnrich：调用clusterprofiler的模块进行分析，输入为de_report.xls文件
+2、DrawKEGGHeat：输入为*/*.kegg.report.xls,取前15行做比较组间的kegg热图
+3、KEGGMap：绘制通路图，输入文件为de_report.xls文件

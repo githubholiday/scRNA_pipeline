@@ -1,0 +1,14 @@
+Gene_ID	ENSG00000132329
+Gene_Symbol	RAMP1
+p_val	7.69196662956762e-179
+avg_log2FC	-0.625864630917975
+pct.1	0.001
+pct.2	0.601
+p_val_adj	1.73907673527894e-174
+Up/Down	Down
+Significant	yes
+GO:biological_process	GO:0007189|adenylate cyclase-activating G-protein coupled recept
+GO:cellular_component	GO:1903440|amylin receptor complex;GO:0009986|cell surface;GO:19
+GO:molecular_function	GO:0097643|amylin receptor activity;GO:1990407|calcitonin gene-r
+KEGG:KO	K08447
+KEGG:Description	RAMP1; receptor activity modifying protein 1

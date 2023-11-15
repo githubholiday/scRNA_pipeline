@@ -1,0 +1,49 @@
+diff_gene 比较组的对应cluster的差异分析结果
+
+1. *diff_gene_symbol.anno.xls:差异基因注释文件
+（1）Gene_ID：基因ID；
+（2）Gene_Symbol：基因名；
+（3）p_val：差异表达分析的p-value；
+（4）avg_logFC：差异表达倍数的log值； 
+（5）pct.1：基因在Cluster中样本1有表达的细胞比例；
+（6）pct.2：基因在Cluster中样本2有表达的细胞比例；
+（7）p_val_adj：校正后的p-value；
+（8）Up/Down：上调还是下调表达，Up上调，Down为下调；
+（9）Significant：是否为显著性差异；
+（10）NR:Seq-id：基因同NR数据库的最优比对结果；
+（11）NR:Score：基因同NR数据库的比对得分；
+（12）NR:Evalue：基因同NR数据库的比对Evalue值； 
+（13）NR:Description：NR数据库中该基因的功能描述；
+（14）NT:Seq-id：基因同NT数据库的最优比对结果；
+（15）NT:Score：基因同NT数据库的比对得分；
+（16）NT:Evalue：基因同NT数据库的比对Evalue值； 
+（17）NT:Description：NT数据库中该基因的功能描述； 
+（18）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；
+（19）Uniprot:Score：基因同Uniprot数据库的比对得分；
+（20）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值； 
+（21）Uniprot:Description：Uniprot数据库中该基因的功能描述；
+（22）COG:gene：比对上的COG数据库中的基因名；
+（23）COG:Score：与COG数据库的比对得分； 
+（24）COG:Eval：与COG数据库的比对Evalue值； 
+（25）COG:num：比对上的COG数据库中的基因ID；
+（26）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；
+（27）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名； 
+（28）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；
+（29）GO:biological_process：注释到的描述生物进程的GO Term；
+（30）GO:cellular_component：注释到的描述细胞组分的GO Term；
+（31）GO:molecular_function：注释到的描述分子功能的GO Term；
+（32）KEGG:KO：注释到的KEGG中的ID； 
+（33）KEGG:Description：KEGG中的功能描述。
+
+2. *FeaturePlot.p*：差异featureplot图
+某个差异基因在UMAP降维上表达的分布结果，一般对【亚群编号_处理_VS_对照_diff_gene.csv】文件按照avg_logFC进行排序，选择top10的基因进行展示，如果老师想要更多的基因结果，可以提供基因列表。
+
+3. *VlnPlot.p*:差异基因小提琴图
+两组差异的top10基因在所有亚群中分布表达分布的小提琴图。不同的颜色代表不同的分组。
+
+4. *signif_Plot.*：差异显著性箱线图
+每个图表示一个基因，横轴为不同分组，纵轴为该基因的表达值，p值为两组差异显著性评分，一般认为小于0.05为具有显著性差异。
+
+5. GO：差异基因的富集分析结果，具体结果见目录下的readme.doc
+6. KEGG：差异基因的富集分析结果，具体结果见目录下的readme.doc
+

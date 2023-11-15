@@ -1,0 +1,28 @@
+tmpdir=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+config=$(tmpdir)/../config/config.txt
+include $(config)
+BIN=$(tmpdir)/..
+HELP:
+		@echo 程序功能：
+		@echo 拟时间分析，支持使用单样本的rds文件或多样本合并后的rds文件。
+		@echo 此流程仅支持单个rds输入，不支持多rds列表。
+		@echo -e 'difffile： 输入10x比较分析的rds文件，10x多样本合并后的rds文件：Integrating/*/2_clusters/*_immune_combined.rds【必须】'
+		@echo -e 'outdir：   输出目录【必须】'
+		@echo -e 'configini: Monocle3的部分参数文件,包含seurat_clusters、cores、resolution参数描述，示例：/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/limeng/04_10xRNA/Monocle3_all/script/config.ini【必须】'
+		@echo -e 'prefix：   文件前缀名称【必须】'
+		@echo -e 'cellname：   cluster注释到的细胞名称文件，如果是标准分析，不需要提供，如果是单细胞亚群注释流程，需要提供【可选】'
+		@echo
+		@echo 使用方法：
+		@echo make -f Monocle3_multi_mk difffile= outdir= prefix= configini= cellname= Monocle3
+		@echo 示例：
+		@echo make -f Monocle3_multi_mk outdir=../Analysis prefix=Het_VS_WT difffile=*/Het_VS_WT_immune_combined.rds configini=config.ini cellname=celltype_marker.xls Monocle3
+
+
+Monocle3:
+	echo start at `date`
+	[ -s $(outdir)/ ] || mkdir -p $(outdir)
+	export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$LD_LIBRARY_PATH:$LIBRARY_PATH && $(RSCRIPT_monocle3) $(tmpdir)/../script/monocle3_multi.R -i $(difffile) --prefix $(prefix) -o $(outdir)/ -c $(configini) -n $(cellname)
+	for i in `ls $(outdir)/*/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	cp $(tmpdir)/../script/readme.doc $(outdir)/$(prefix)
+	echo $(prefix) finsh at `date`
+
