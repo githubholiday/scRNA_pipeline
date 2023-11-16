@@ -7,8 +7,8 @@ rewrite based on Transcriptome_flow-line_autoConfig.py
 -c, --category, 物种类型配置文件，跟据参考基因组获取物种类型，animal，plant等类型，默认/annoroad/data1/bioinfo/PMO/Public/database/RNA/database/species_category.ini
 -ref, --refer_dir, cellranger参考基因组路径及前缀，默认/nas/data1/bioinfo/PROJECT/Commercial/Cooperation/Database/RNA/SinCell_10X/CellRanger_reference/refdata-cellranger-
 -cf, --pipeline_config, 流程配置文件，包含job_config路径，默认脚本同级目录config_pipeline.ini
--py, --python3, python软件路径，用于投递脚本生成，默认/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
--pg, --pipeline_generate, 生成流程的脚本路径，默认/annoroad/data1/software/bin/pipeline_generate/bin/current/pipeline_generate.py
+-py, --python3, python软件路径，用于投递脚本生成，默认 python3
+-pg, --pipeline_generate, 生成流程的脚本路径，默认 /annoroad/data1/software/bin/pipeline_generate/bin/current/pipeline_generate.py
 -pipd, --pipelineDir, 流程bin路径，默认为当前脚本所在目录
 -fc， --forcecell, cellranger强制细胞数，默认为空
 -pub, --publicDir, 10x单细胞转录组流程路径，用于识别模块，默认/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/current/bin
@@ -368,12 +368,12 @@ def main():
 		epilog='author:\t{0}\nmail:\t{1}\ndate:\t{2}\n'.format(__author__,__mail__,__date__))
 	parser.add_argument('-in','--indir',help='which dir have Filter info Analysis concession',dest='indir',type=str,default=os.path.abspath(os.getcwd()))
 	parser.add_argument('-t','--type',help='pipeline type, default is 10XGenomics',dest='type',type=str, default='10XGenomics')   
-	parser.add_argument('-c','--category',help='species category',dest='category',type=str,default=os.path.join('/annoroad/data1/bioinfo/PMO/Public/database/RNA/database/species_category.ini'))
-	parser.add_argument('-ref','--refer_dir',help='CellRanger reference dir',default='/nas/data1/bioinfo/PROJECT/Commercial/Cooperation/Database/RNA/SinCell_10X/CellRanger_reference/refdata-cellranger-')
+	parser.add_argument('-c','--category',help='species category',dest='category',type=str,default=os.path.join('/work/share/acdgo9idhi/tuchengfang/docker/database/species_category.ini'))
+	parser.add_argument('-ref','--refer_dir',help='CellRanger reference dir',default='/work/share/acdgo9idhi/tuchengfang/docker/database//refdata-cellranger-')
 
 	parser.add_argument('-cf','--pipeline_config',help='pipeline_config.ini',dest='pipeline_config',type=str,default=os.path.join(bin,'config_pipeline.ini'))
-	parser.add_argument('-py','--python3',help='python3 path',dest='python3',type=str,default='/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3')
-	parser.add_argument('-pg','--pipeline_generate',help='path of pipeline_generate.py',dest='pipeline_generate',type=str,default='/annoroad/data1/software/bin/pipeline_generate/bin/current/pipeline_generate.py')
+	parser.add_argument('-py','--python3',help='python3 path',dest='python3',type=str,default='python3)
+	parser.add_argument('-pg','--pipeline_generate',help='path of pipeline_generate.py',dest='pipeline_generate',type=str,default='/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/pipeline_generate_sugon.py')
 	parser.add_argument('-pipd','--pipelineDir',help='pipeline_bin',dest='pipelineDir',type=str,default=bin)
 	parser.add_argument('-fc','--forcecell',help='forcecell',dest='forcecell',type=str)
 	parser.add_argument('-cm','--clustermarker',help='clustermarker',dest='clustermarker',type=str)
