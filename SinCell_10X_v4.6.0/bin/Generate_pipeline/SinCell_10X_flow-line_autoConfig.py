@@ -372,7 +372,7 @@ def main():
 	parser.add_argument('-ref','--refer_dir',help='CellRanger reference dir',default='/work/share/acdgo9idhi/tuchengfang/docker/database//refdata-cellranger-')
 
 	parser.add_argument('-cf','--pipeline_config',help='pipeline_config.ini',dest='pipeline_config',type=str,default=os.path.join(bin,'config_pipeline.ini'))
-	parser.add_argument('-py','--python3',help='python3 path',dest='python3',type=str,default='python3)
+	parser.add_argument('-py','--python3',help='python3 path',dest='python3',type=str,default='python3')
 	parser.add_argument('-pg','--pipeline_generate',help='path of pipeline_generate.py',dest='pipeline_generate',type=str,default='/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/pipeline_generate_sugon.py')
 	parser.add_argument('-pipd','--pipelineDir',help='pipeline_bin',dest='pipelineDir',type=str,default=bin)
 	parser.add_argument('-fc','--forcecell',help='forcecell',dest='forcecell',type=str)
