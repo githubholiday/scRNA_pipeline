@@ -35,10 +35,30 @@ aggr_list=$(count_dir)/$(sample_id)_list.csv
 aggr_para = --id=$(sample_id) --csv=$(aggr_list) --normalize=mapped --localmem=$(mem) --localcores=$(cpu)
 clst_para = --localmem=$(mem) --localcores=$(cpu) --id=$(sample_id)
 
+
+rawdataDir=$(indir)/$(sample_id)/outs/raw_feature_bc_matrix/
+filterDir=$(indir)/$(sample_id)/outs/filtered_gene_bc_matrices/ref/
+
 Help:
-	'''
-	Count_Matrix 用CellRanger得到分析结果，表达量matrixs等
-	'''
+	@echo -e "Count_Matrix 用CellRanger得到分析结果，表达量matrixs等"
+	@echo -e "make -f makefile count_dir= sample_id= fq_dir= count_para= outs= fq_id= ref_dir=  Count_Matrix"
+	@echo -e "\t Parameters:\n"
+	@echo -e "\t count_dir: CellRanger的输出目录"
+	@echo -e "\t sample_id: 最终的样本名称"
+	@echo -e "\t fq_id: fastq文件的ID"
+	@echo -e "\t fq_dir: fastq文件目录,目录下为该样本的fastq.gz文件"
+	@echo -e "\t count_para: CellRanger count的参数"
+	@echo -e "\t outs: CellRanger count的输出目录,一般为count_dir/sample_id/outs"
+	@echo -e "\t ref_dir:参考基因组路径"
+
+	@echo -e "Stat 用seurat分析结果，得到分析结果的统计信息"
+	@echo -e "make -f makefile filterDir= rawDir= sample_id= outdir= species= Stat"
+	@echo -e "\t Parameters:\n"
+	@echo -e "\t filterDir: CellRanger count的输出目录,一般为 indir/sample_id/outs/"filtered_gene_bc_matrices"
+	@echo -e "\t rawDir: CellRanger count的输出目录,一般为 indir/sample_id/outs/raw_feature_bc_matrix"
+	@echo -e "\t species: 物种名称"
+	@echo -e "\t sample_id: 最终的样本名称"
+	@echo -e "\t outdir: 输出目录"
 
 
 Count_Matrix:
@@ -55,43 +75,7 @@ Count_Matrix:
 
 
 Stat:
-	mkdir -p $(count_dir)/$(sample_id)/stat
-	$(RSCRIPT) $(Bin)/seurat_stat.R -d $(dataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat
-	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species)
-	for i in `ls $(count_dir)/$(sample_id)/stat/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
-
-Aggregation:
-	[ -d $(count_dir)/$(sample_id) ] && rm -rf $(count_dir)/$(sample_id) || echo fresh analysis
-	mkdir -p $(count_dir)
-	$(PYTHON3) $(tmpdir)/prepare_aggr.py -i $(count_dir) -s $(sample_id) -l $(group_list) -o $(count_dir)/$(sample_id)_list.csv 
-	cd $(count_dir) && export PATH=$(CellRanger):$$PATH && $(CellRanger)/cellranger aggr $(aggr_para)
-	[ -d $(count_dir)/$(sample_id)/outs/filtered_feature_bc_matrix/ ] && mv $(count_dir)/$(sample_id)/outs/filtered_feature_bc_matrix/ $(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices && mkdir -p $(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/ref/ &&  mv $(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/*gz  $(dataDir)/
-	[ -f $(dataDir)/barcodes.tsv.gz ] && gunzip $(dataDir)/barcodes.tsv.gz && gunzip $(dataDir)/features.tsv.gz && gunzip $(dataDir)/matrix.mtx.gz 
-	[ -f $(dataDir)/features.tsv ] && mv $(dataDir)/features.tsv $(count_dir)/$(sample_id)/outs/ && cut -f  1-2 $(count_dir)/$(sample_id)/outs//features.tsv >$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/ref//genes.tsv
-	[ -f $(outs)/filtered_feature_bc_matrix.h5 ] && mv  $(outs)/filtered_feature_bc_matrix.h5 $(outs)/filtered_gene_bc_matrices_h5.h5
-
-Aggr_plot:
-	mkdir -p $(count_dir)/$(sample_id)/stat
-	[ -f $(outs)/aggregation.csv ] && mv $(outs)/aggregation.csv $(outs)/aggregation_csv.csv
-	$(PYTHON3) $(tmpdir)/get_cluster.py -i $(outs)/analysis/tsne/2_components/projection.csv -c $(outs)/analysis/clustering/graphclust/clusters.csv -o $(count_dir)/$(sample_id)/stat/$(sample_id)_graphcluster.xls -l $(outs)/aggregation_csv.csv
-	$(RSCRIPT3) $(tmpdir)/scatter_ggplot2.r -i $(count_dir)/$(sample_id)/stat/$(sample_id)_graphcluster.xls -o $(count_dir)/$(sample_id)/stat/$(sample_id)
-	for i in `ls $(count_dir)/$(sample_id)/stat/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
-
-Gene_Cluster:
-	mkdir -p $(cluster_dir)/info
-	ln -snf $(h5_matrix) $(re_matrix)
-	$(PYTHON3) $(tmpdir)/tsv2csv.py -i $(barcodes) -o $(cluster_dir)/info/$(sample_id).barcodes.csv -t 'Barcode' 
-	$(PYTHON3) $(tmpdir)/tsv2csv.py -i $(genes) -o $(cluster_dir)/info/$(sample_id).genes.csv -t 'Gene,Alias'
-	cd $(cluster_dir) && export PATH=$(CellRanger):$$PATH && $(CellRanger)/cellranger reanalyze $(clst_para) --matrix $(re_matrix) --barcodes=$(cluster_dir)/info/$(sample_id).barcodes.csv --genes=$(cluster_dir)/info/$(sample_id).genes.csv
-
-Create_Ref:
-	echo Reference preparation for for 10x Genomics Cell Ranger started 
-	[ -d $(origin_refdir) ] && rm -rf $(origin_refdir) || echo new origin_refdir
-	mkdir -p $(origin_refdir)
-	ln -snf $(ref_gtf) $(origin_refdir)
-	ln -snf $(ref_fa) $(origin_refdir)
-	#export LD_LIBRARY_PATH=$(BCL_LIB) && export PATH=$(BCL_PATH):$$PATH && 
-	$(CellRanger)/cellranger mkgtf $(origin_refdir)/$(notdir $(ref_gtf)) $(origin_refdir)/new_$(notdir $(ref_gtf))
-	cd $(origin_refdir) && export PATH=$(CellRanger):$$PATH && $(CellRanger)/cellranger mkref --nthreads=$(cpu) --genome=$(species) --fasta=$(origin_refdir)/$(notdir $(ref_fa)) --genes=$(origin_refdir)/new_$(notdir $(ref_gtf))
-	mv $(origin_refdir)/$(species) $(origin_refdir)/refdata-cellranger-$(species)
-	echo [Processed] Reference preparation for for 10x Genomics Cell Ranger Finished
+	mkdir -p $(outdir)
+	$(RSCRIPT) $(Bin)/seurat_stat.R -d $(filterDir) -s $(sample_id) -o$(outdir)
+	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawDir) -s $(sample_id) -o $(outdir) --species $(species)
+	for i in `ls $(outdir)/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
