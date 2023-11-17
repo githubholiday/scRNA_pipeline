@@ -26,9 +26,23 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job End]
 
 [Job Start]
+Name	QC_Basic
+Memory	5G
+Qsub	False
+CPU	N
+Major	F
+Thread	2
+Order	1
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Depend	Stat_Matrix
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
+[Job End]
+
+[Job Start]
 Name	FilterCell
 Memory	25G
-Queue	xahcnormal
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	10
@@ -41,7 +55,7 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 [Job Start]
 Name	Integrating
 Memory	30G
-Queue	xahcnormal
+Queue	"xahcnormal"
 CPU	10
 Major	T
 Thread	10
@@ -55,7 +69,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4
 [Job Start]
 Name	Monocle3
 Memory	100G
-Queue	xahcnormal
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	30
@@ -67,9 +81,49 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job End]
 
 [Job Start]
+Name	QC_Summary
+Memory	1G
+Queue	sci.q
+CPU	1
+Major	F
+Thread	1
+Order	5
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total QC_Check QC_path_release
+[Job End]
+
+[Job Start]
+Name	update_lims
+Memory	1G
+Qsub	False
+CPU	1
+Major	F
+Thread	1
+Order	5
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Depend	QC_Summary
+Command	make -f BIN/updata_lims/mk_updata config_ini=OUTDIR/../config.ini sample_id=$(sample)[4] type=10X cellranger_stat=OUTDIR/QC/Basic/analysis_summary.xls filter_stat=OUTDIR/QC/filter/Cell_filter_stat.xls double_stat=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_doublet_ratio.xls Lims
+[Job End]
+
+[Job Start]
+Name	Analysis_Collect
+Memory	1G
+Queue	sci.q
+CPU	1
+Major	F
+Thread	1
+Order	5
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Command	make -f BIN/Analysis_Project_Collection/makefile INDIR=OUTDIR Analysis_Project_Collection
+[Job End]
+
+[Job Start]
 Name	Convert
 Memory	1G
-Queue	xahcnormal
+Queue	sci.q
 CPU	1
 Major	F
 Thread	1
