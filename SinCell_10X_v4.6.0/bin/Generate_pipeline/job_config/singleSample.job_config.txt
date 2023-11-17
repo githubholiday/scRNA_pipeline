@@ -1,8 +1,8 @@
 [Job Start]
 Name	Count_Matrix
-Memory	40G
+Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	N
+CPU	10
 Major	T
 Thread	8
 Order	1
@@ -15,7 +15,7 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 Name	Stat_Matrix
 Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	N
+CPU	10
 Major	T
 Thread	6
 Order	1
@@ -29,7 +29,7 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 Name	QC_Basic
 Memory	5G
 Qsub	False
-CPU	N
+CPU	2
 Major	F
 Thread	1
 Order	1
@@ -43,7 +43,7 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
 Name	FilterCell
 Memory	25G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	N
+CPU	10
 Major	T
 Thread	1
 Order	2
@@ -54,9 +54,9 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 
 [Job Start]
 Name	Integrating
-Memory	40G
+Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	N
+CPU	10
 Major	T
 Thread	5
 Order	3
@@ -70,7 +70,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4
 Name	Monocle3
 Memory	100G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	N
+CPU	40
 Major	T
 Thread	8
 Order	4
@@ -84,7 +84,7 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 Name	QC_Summary
 Memory	1G
 Queue	sci.q
-CPU	N
+CPU	1
 Major	F
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
@@ -96,7 +96,7 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Pa
 Name	update_lims
 Memory	1G
 Qsub	False
-CPU	N
+CPU	1
 Major	F
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
@@ -109,7 +109,7 @@ Command	make -f BIN/updata_lims/mk_updata config_ini=OUTDIR/../config.ini sample
 Name	Analysis_Collect
 Memory	1G
 Queue	sci.q
-CPU	N
+CPU	1
 Major	F
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
@@ -121,7 +121,7 @@ Command	make -f BIN/Analysis_Project_Collection/makefile INDIR=OUTDIR Analysis_P
 Name	Convert
 Memory	1G
 Queue	sci.q
-CPU	N
+CPU	1
 Major	F
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
@@ -135,7 +135,7 @@ make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
 Name	Report
 Memory	4G
 Qsub	False
-CPU	N
+CPU	2
 Major	T
 Order	6
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
