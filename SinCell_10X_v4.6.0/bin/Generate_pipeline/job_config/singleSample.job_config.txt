@@ -2,9 +2,9 @@
 Name	Count_Matrix
 Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	10
+CPU	N
 Major	T
-Thread	8
+Thread	10
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -17,7 +17,7 @@ Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	10
 Major	T
-Thread	6
+Thread	10
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -29,9 +29,9 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 Name	QC_Basic
 Memory	5G
 Qsub	False
-CPU	2
+CPU	N
 Major	F
-Thread	1
+Thread	2
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -43,9 +43,9 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
 Name	FilterCell
 Memory	25G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	10
+CPU	N
 Major	T
-Thread	1
+Thread	10
 Order	2
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -58,7 +58,7 @@ Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	10
 Major	T
-Thread	5
+Thread	10
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -70,9 +70,9 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4
 Name	Monocle3
 Memory	100G
 Queue	"sci.q,nassci.q,super.q,mid.q"
-CPU	40
+CPU	N
 Major	T
-Thread	8
+Thread	30
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -86,6 +86,7 @@ Memory	1G
 Queue	sci.q
 CPU	1
 Major	F
+Thread	1
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -98,6 +99,7 @@ Memory	1G
 Qsub	False
 CPU	1
 Major	F
+Thread	1
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -111,6 +113,7 @@ Memory	1G
 Queue	sci.q
 CPU	1
 Major	F
+Thread	1
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -123,6 +126,7 @@ Memory	1G
 Queue	sci.q
 CPU	1
 Major	F
+Thread	1
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -137,6 +141,7 @@ Memory	4G
 Qsub	False
 CPU	2
 Major	T
+Thread	2
 Order	6
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
