@@ -15,7 +15,7 @@ para<-matrix(c(
 	'testmethod','tm',	2,	"character"
 ),byrow=TRUE,ncol=4)
 print("1")
-opt <- getopt(para,debug=TRUE)
+opt <- getopt(para,debug=FALSE)
 print("4")
 #=============
 print_usage <- function(para=NULL){

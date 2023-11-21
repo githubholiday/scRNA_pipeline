@@ -60,7 +60,7 @@ Stat:
 	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species)
 	for i in `ls $(count_dir)/$(sample_id)/stat/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
 
-Aggregation:
+Aggregation:	
 	[ -d $(count_dir)/$(sample_id) ] && rm -rf $(count_dir)/$(sample_id) || echo fresh analysis
 	mkdir -p $(count_dir)
 	$(PYTHON3) $(tmpdir)/prepare_aggr.py -i $(count_dir) -s $(sample_id) -l $(group_list) -o $(count_dir)/$(sample_id)_list.csv 
