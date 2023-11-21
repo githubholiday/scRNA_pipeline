@@ -14,6 +14,7 @@ para<-matrix(c(
 	'mt',	'mt',	2,	"character",
 	'testmethod',	'tm',	2,	"character"
 ),byrow=TRUE,ncol=4)
+print("1")
 opt <- getopt(para,debug=FALSE)
 #=============
 print_usage <- function(para=NULL){
@@ -38,6 +39,7 @@ print_usage <- function(para=NULL){
 	\n")
 	q(status=1)
 }
+print("3")
 if ( is.null(opt$datadir) || is.null(opt$sample) || is.null(opt$outdir) || is.null(opt$species)){ print_usage(para) } 
 if ( is.null(opt$mincell))	{ opt$mincell <- 3 }
 if ( is.null(opt$minumi))	{ opt$minumi <- 200 }
@@ -54,6 +56,7 @@ library(dplyr)
 library(Matrix)
 library(magrittr)
 
+print("2")
 prefix <- paste(opt$outdir,opt$sample,sep='/')
 ## creat object
 expression_matrix <- Read10X(data.dir = opt$datadir) ## 数据读入路径
