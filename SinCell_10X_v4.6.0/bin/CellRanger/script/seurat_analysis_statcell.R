@@ -1,18 +1,18 @@
 library(getopt)
 para<-matrix(c(
-	'help',	'h',	0,	"logical",
+	'help',	    'h',	0,	"logical",
 	'datadir',	'd',	1,	"character",
 	'outdir',	'o',	1,	"character",
 	'sample',	's',	1,	"character",
 	'minumi',	'mu',	2,	"integer",
 	'mincell',	'mc',	2,	"integer",
-	'min',	'min',	2,	"integer",
-	'max',	'max',	2,	"integer",
-	'mtp',	'mtp',	2,	"integer",
-	'hbp',	'hbp',	2,	"integer",
+	'min',	    'min',	2,	"integer",
+	'max',	    'max',	2,	"integer",
+	'mtp',	    'mtp',	2,	"integer",
+	'hbp',	    'hbp',	2,	"integer",
 	'species',	'sp',	1,	"character",
-	'mt',	'mt',	2,	"character",
-	'testmethod',	'tm',	2,	"character"
+	'mt',	    'mt',	2,	"character",
+	'testmethod','tm',	2,	"character"
 ),byrow=TRUE,ncol=4)
 print("1")
 opt <- getopt(para,debug=FALSE)
