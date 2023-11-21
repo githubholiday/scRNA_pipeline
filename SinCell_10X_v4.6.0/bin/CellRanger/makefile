@@ -57,7 +57,7 @@ Count_Matrix:
 Stat:
 	mkdir -p $(count_dir)/$(sample_id)/stat
 	$(RSCRIPT) $(Bin)/seurat_stat.R -d $(dataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat
-	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species)
+	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species)
 	for i in `ls $(count_dir)/$(sample_id)/stat/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
 
 Aggregation:
