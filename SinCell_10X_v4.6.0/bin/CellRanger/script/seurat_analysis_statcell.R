@@ -1,4 +1,4 @@
-library('getopt')
+library(getopt)
 para<-matrix(c(
 	'help',	'h',	0,	"logical",
 	'datadir',	'd',	1,	"character",
