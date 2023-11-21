@@ -77,5 +77,5 @@ Count_Matrix:
 Stat:
 	mkdir -p $(outdir)
 	$(RSCRIPT) $(Bin)/seurat_stat.R -d $(filterDir) -s $(sample_id) -o$(outdir)
-	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawDir) -s $(sample_id) -o $(outdir) --species $(species)
+	$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawDir) --sample $(sample_id) -o $(outdir) --species $(species)
 	for i in `ls $(outdir)/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
