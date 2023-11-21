@@ -16,6 +16,7 @@ para<-matrix(c(
 ),byrow=TRUE,ncol=4)
 print("1")
 opt <- getopt(para,debug=FALSE)
+print("4")
 #=============
 print_usage <- function(para=NULL){
 	cat(getopt(para,usage=TRUE))
