@@ -65,8 +65,7 @@ Major	T
 Thread	5
 Order	3
 Depend	MergeRDS
-Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] Integrating celltype 
-make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Annotation
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
 [Job End]
 
 [Job Start]
