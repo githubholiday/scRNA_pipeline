@@ -63,7 +63,8 @@ Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	FilterCell
-Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4] rds=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_filter_cell.rds species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4] rds=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_filter_cell.rds Integrating celltype
+make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4] rds=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_filter_cell.rds species_tag=Para_ppi_species species=Para_species Annotation
 [Job End]
 
 [Job Start]
