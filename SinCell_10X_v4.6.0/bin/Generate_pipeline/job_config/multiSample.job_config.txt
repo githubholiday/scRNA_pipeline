@@ -4,7 +4,7 @@ Memory	40G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	8
+Thread	12
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -17,7 +17,7 @@ Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	1
+Thread	10
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -26,26 +26,12 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job End]
 
 [Job Start]
-Name	QC_Basic
-Memory	5G
-Qsub	False
-CPU	N
-Major	F
-Thread	1
-Order	1
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
-Depend	Stat_Matrix
-Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
-[Job End]
-
-[Job Start]
 Name	FilterCell
 Memory	25G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	1
+Thread	8
 Order	2
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -58,7 +44,7 @@ Memory	30G
 Queue	sci.q
 CPU	N
 Major	T
-Thread	1
+Thread	10
 Order	2
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -72,7 +58,7 @@ Memory	60G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	5
+Thread	20
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -86,7 +72,7 @@ Memory	30G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	1
+Thread	10
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -100,7 +86,7 @@ Memory	5G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	1
+Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -114,6 +100,7 @@ Memory	5G
 Qsub	False
 CPU	N
 Major	T
+Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -127,6 +114,7 @@ Memory	5G
 Qsub	False
 CPU	N
 Major	T
+Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -140,7 +128,7 @@ Memory	100G
 Queue	"sci.q,nassci.q,super.q,mid.q"
 CPU	N
 Major	T
-Thread	8
+Thread	30
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -154,7 +142,7 @@ Memory	10G
 Queue	sci.q
 CPU	N
 Major	T
-Thread	1
+Thread	4
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -168,6 +156,7 @@ Memory	1G
 Queue	sci.q
 CPU	N
 Major	F
+Thread	1
 Order	6
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
@@ -182,7 +171,7 @@ Memory	4G
 Qsub	False
 CPU	N
 Major	T
-Thread	1
+Thread	2
 Order	7
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
