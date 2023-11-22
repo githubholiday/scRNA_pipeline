@@ -1,7 +1,7 @@
 [Job Start]
 Name	Count_Matrix
 Memory	40G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	12
@@ -14,7 +14,7 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job Start]
 Name	Stat_Matrix
 Memory	30G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	10
@@ -28,7 +28,7 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job Start]
 Name	FilterCell
 Memory	25G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	8
@@ -41,7 +41,7 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 [Job Start]
 Name	MergeRDS
 Memory	30G
-Queue	sci.q
+Queue	ahcnormal
 CPU	N
 Major	T
 Thread	10
@@ -55,7 +55,7 @@ Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(group)[0] Mer
 [Job Start]
 Name	Integrating
 Memory	60G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	20
@@ -69,7 +69,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0]
 [Job Start]
 Name	DE
 Memory	30G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	10
@@ -83,7 +83,7 @@ Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] species=Para_spec
 [Job Start]
 Name	DE-anno
 Memory	5G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	2
@@ -125,7 +125,7 @@ Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTD
 [Job Start]
 Name	Monocle3
 Memory	100G
-Queue	"sci.q,nassci.q,super.q,mid.q"
+Queue	"xahcnormal"
 CPU	N
 Major	T
 Thread	30
@@ -139,7 +139,7 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job Start]
 Name	Wikipathway
 Memory	10G
-Queue	sci.q
+Queue	ahcnormal
 CPU	N
 Major	T
 Thread	4
@@ -153,7 +153,7 @@ Command	make -f BIN/DOSE/makefile outdir=OUTDIR header=T upcutoff=0 downcutoff=0
 [Job Start]
 Name	Convert
 Memory	1G
-Queue	sci.q
+Queue	ahcnormal
 CPU	N
 Major	F
 Thread	1
