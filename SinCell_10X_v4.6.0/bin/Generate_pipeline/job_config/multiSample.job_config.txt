@@ -41,7 +41,7 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 [Job Start]
 Name	MergeRDS
 Memory	30G
-Queue	ahcnormal
+Queue	xahcnormal
 CPU	N
 Major	T
 Thread	10
@@ -139,7 +139,7 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job Start]
 Name	Wikipathway
 Memory	10G
-Queue	ahcnormal
+Queue	xahcnormal
 CPU	N
 Major	T
 Thread	4
@@ -153,7 +153,7 @@ Command	make -f BIN/DOSE/makefile outdir=OUTDIR header=T upcutoff=0 downcutoff=0
 [Job Start]
 Name	Convert
 Memory	1G
-Queue	ahcnormal
+Queue	xahcnormal
 CPU	N
 Major	F
 Thread	1
