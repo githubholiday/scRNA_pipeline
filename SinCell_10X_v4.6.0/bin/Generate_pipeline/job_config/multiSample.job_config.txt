@@ -20,7 +20,7 @@ Major	T
 Thread	10
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	Count_Matrix
 Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref species=Para_ppi_species Stat
 [Job End]
@@ -34,7 +34,7 @@ Major	T
 Thread	8
 Order	2
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[4] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
 [Job End]
 
@@ -47,7 +47,7 @@ Major	T
 Thread	10
 Order	2
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	FilterCell
 Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(group)[0] Merge
 [Job End]
@@ -61,7 +61,7 @@ Major	T
 Thread	20
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	MergeRDS
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
 [Job End]
@@ -75,7 +75,7 @@ Major	T
 Thread	10
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	Integrating
 Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] species=Para_species DE
 [Job End]
@@ -89,7 +89,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	DE
 Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[3] species=Para_species Annotation_diff
 [Job End]
@@ -103,7 +103,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
 [Job End]
@@ -117,7 +117,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
 [Job End]
@@ -131,7 +131,7 @@ Major	T
 Thread	30
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	Integrating
 Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(group)[0]/Pseudotime prefix=$(group)[0] difffile=OUTDIR/Integrating/$(group)[0]/2_clusters/$(group)[0]_immune_combined.rds configini=OUTDIR/Integrating/$(group)[0]/config.ini Monocle3
 [Job End]
@@ -145,7 +145,7 @@ Major	T
 Thread	4
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	DE-anno
 Command	make -f BIN/DOSE/makefile outdir=OUTDIR header=T upcutoff=0 downcutoff=0 species_type=Para_ppi_species combine=$(group)[0] cmp_name=$(group)[3] EnrichGSE
 [Job End]
@@ -159,7 +159,7 @@ Major	F
 Thread	1
 Order	6
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/Integrating Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
@@ -174,7 +174,7 @@ Major	T
 Thread	2
 Order	7
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
 make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_id=Para_project Report
