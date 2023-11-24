@@ -54,11 +54,11 @@ Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(group)[0] Mer
 
 [Job Start]
 Name	Integrating
-Memory	60G
+Memory	100G
 Queue	xahcnormal
 CPU	N
 Major	T
-Thread	20
+Thread	30
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
@@ -131,7 +131,7 @@ Major	T
 Thread	30
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/scrna_base_v0.1.sif
 Depend	Integrating
 Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(group)[0]/Pseudotime prefix=$(group)[0] difffile=OUTDIR/Integrating/$(group)[0]/2_clusters/$(group)[0]_immune_combined.rds configini=OUTDIR/Integrating/$(group)[0]/config.ini Monocle3
 [Job End]
