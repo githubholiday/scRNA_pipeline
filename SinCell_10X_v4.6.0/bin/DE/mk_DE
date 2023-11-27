@@ -52,7 +52,7 @@ DE:
 	@echo DE start at `date`
 	[ -d $(result_dir) ] && echo $(result_dir) dir exist || mkdir -p $(result_dir)
 	#export LD_LIBRARY_PATH=$(GLIBC):$(gcclib):$$LD_LIBRARY_PATH && 
-    $(RSCRIPT) $(Bin)/DE.R -i $(rds) -o $(result_dir) -c $(config_file) --prefix $(combine) --label $(label) $(para_celltype) --p_val $(pval) --q_val $(qval)
+	$(RSCRIPT) $(Bin)/DE.R -i $(rds) -o $(result_dir) -c $(config_file) --prefix $(combine) --label $(label) $(para_celltype) --p_val $(pval) --q_val $(qval)
 	@echo DE finish at `date`
 
 
