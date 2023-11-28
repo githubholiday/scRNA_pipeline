@@ -30,18 +30,34 @@ Annotation_diff:
 	$(PYTHON3) $(BIN)/Function/anno/DEnumber_stat_summary.py -d $(de_file) -s $(compare) -o $(de_dir)/$(compare).de_stat.xls
 	echo Annotation for DIFF end	
 
+GO_qsub:
+	echo "#############GO analsyis start at "`date`
+	[ -d $(go_shell_dir) ] || mkdir -p $(go_shell_dir)
+	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species) -c $(compare) 
+	#echo '$(QSUB_SGE) --queue $(queue) --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(go_shell) && echo GO analysis finished ' > $(go_shell_dir)/go_qsub.sh
+	$(QSUB_SGE) --queue $(queue) --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(go_shell) && echo GO analysis finished
+	echo "#############GO analsyis end at "`date`
+
 GO:
 	echo "#############GO analsyis start at "`date`
 	[ -d $(go_shell_dir) ] || mkdir -p $(go_shell_dir)
 	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species) -c $(compare) 
-	echo '$(QSUB_SGE) --queue sci.q --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(go_shell) && echo GO analysis finished ' > $(go_shell_dir)/go_qsub.sh
-	$(QSUB_SGE) --queue sci.q --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(go_shell) && echo GO anaysis finished
+	echo '$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell) && echo GO anaysis finished " > $(go_shell_dir)/go_qsub.sh
+	$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell) && echo GO anaysis finished
 	echo "#############GO analsyis end at "`date`
 
-KEGG:
+KEGG_qsub:
 	echo "#############KEGG analsyis start at "`date`
 	[ -d $(kegg_shell_dir) ] || mkdir -p $(kegg_shell_dir)
 	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(kegg_shell) -a kegg -s $(species) -c $(compare) -ca $(category)
 	echo '$(QSUB_SGE) --queue sci.q --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(kegg_shell) && echo KEGG analysis finished '> $(kegg_shell_dir)/kegg_qsub.sh
+	$(QSUB_SGE) --queue sci.q --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(kegg_shell) && echo KEGG analysis finished
+	echo "#############KEGG analysis end at" `date`
+
+KEGG_qsub:
+	echo "#############KEGG analsyis start at "`date`
+	[ -d $(kegg_shell_dir) ] || mkdir -p $(kegg_shell_dir)
+	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(kegg_shell) -a kegg -s $(species) -c $(compare) -ca $(category)
+	echo '$(SBATCH) -J GO -D $(kegg_shell_dir) -o $(kegg_shell_dir)/go.log -e $(kegg_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell) && echo GO anaysis finished " > $(kegg_shell_dir)/kegg_qsub.sh
 	$(QSUB_SGE) --queue sci.q --lines 1 --maxjob $(maxjob) --resource "vf=20G -l p=2" --maxcycle 1 --quota 1000G --jobidstart 0 $(kegg_shell) && echo KEGG analysis finished
 	echo "#############KEGG analysis end at" `date`
