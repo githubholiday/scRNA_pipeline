@@ -4,7 +4,7 @@ PYTHON3=python3
 SBATCH=/opt/gridview/slurm/bin/sbatch
 env=/usr/bin/env bash
 queue=xahcnormal
-
+sif=/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.3.sif
 
 RSCRIPT=Rscript
 #QSUB_SGE=/annoroad/data1/software/bin/pipeline_generate/bin/current/src/qsub_sge
