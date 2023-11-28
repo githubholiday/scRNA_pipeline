@@ -1,11 +1,8 @@
 SHARE_DIR=/annoroad/share/software/install/
 #General software
-PERL=/annoroad/data1/software/bin/miniconda/bin/perl
-PYTHON3=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
-RSCRIPT3=/annoroad/share/software/install/R-3.2.2/bin/Rscript
-RSCRIPT4=/annoroad/share/software/install/R-other/3.4.0/bin/Rscript
-RSCRIPT_mengcheng=/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/lihuayun/software/miniconda/miniconda3/bin/Rscript
-RSCRIPT_monocle3=/annoroad/data1/software/install/anaconda3/Anaconda3-2023.03-1/bin/Rscript
+PERL=perl
+PYTHON3=python3
+RSCRIPT=Rscript
 CONVERT=/usr/local/bin/convert
 TRANSPOSE=/annoroad/data1/software/bin/transpose-2.0/src/transpose
 #Filter

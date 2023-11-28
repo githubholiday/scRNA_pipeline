@@ -118,7 +118,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.3.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
 [Job End]
@@ -132,7 +132,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.3.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
 [Job End]
