@@ -1,0 +1,33 @@
+GO_clusterProfiler starts at 2023年 01月 30日 星期一 12:52:09 CST
+mkdir -p ./KEGG/APAP_control
+[ ! -e "/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Database/GenomeDatabase/animal/Mus_musculus/Mus_musculus.GRCm38.91/RNA/annotation/go/go.list" ] || /annoroad/share/software/install/Python-3.3.2/bin/python3 /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/renxue/RD/Model/GO_clusterProfiler//script//get_go.py -i /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Database/GenomeDatabase/animal/Mus_musculus/Mus_musculus.GRCm38.91/RNA/annotation/go/go.list -o ./KEGG/APAP_control/APAP_control.term2gene.list
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/Rscript /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/renxue/RD/Model/GO_clusterProfiler//script//GO.R -i ../test_std/APAP_control.sig.xls -s no -o ./KEGG/APAP_control/APAP_control.go.clusterProfiler.result -t T -g ./KEGG/APAP_control/APAP_control.term2gene.list -n /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/GO/20221108/data/go.class.clusterprofile -p 0.05 -m 10000
+character(0)
+[1] "go enrichment starts with local database: go term2gene and term2name"
+'data.frame':	43303 obs. of  3 variables:
+ $ GO       : chr  "GO:0000001" "GO:0000002" "GO:0000003" "GO:0000006" ...
+ $ Term_name: chr  "mitochondrion inheritance" "mitochondrial genome maintenance" "reproduction" "high-affinity zinc transmembrane transporter activity" ...
+ $ ONTOLOGY : chr  "BP" "BP" "BP" "MF" ...
+[1] "go enrichment finished"
+grep -E "Significant|yes" ./KEGG/APAP_control/APAP_control.go.clusterProfiler.result >./KEGG/APAP_control/APAP_control.go.enrichment.xls
+GO_clusterProfiler draw plot start
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/Rscript /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/renxue/RD/Model/GO_clusterProfiler//script//enrichment_plot.R -i ./KEGG/APAP_control/APAP_control.go.enrichment.xls -t APAP_control -p ./KEGG/APAP_control/APAP_control.go -n 20 -f T -y "GO Term"
+[1] "total row number is greater than -n,so cut data"
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
+if [ "T" = "F" ] ; then \
+		awk 'BEGIN{print "Gene"}{print $1}' ../test_std/APAP_control.sig.xls >./KEGG/APAP_control/APAP_control.genelist ;\
+	else \
+		cat ../test_std/APAP_control.sig.xls >./KEGG/APAP_control/APAP_control.genelist ;\
+	fi 
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/renxue/RD/Model/GO_clusterProfiler//script//generate_go -d ./KEGG/APAP_control/APAP_control.genelist -g ./KEGG/APAP_control/APAP_control.go.clusterProfiler.result -o ./KEGG/APAP_control/APAP_control.go.report.xls
+/annoroad/share/software/install/Python-3.3.2/bin/python3 /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/renxue/RD/Model/GO_clusterProfiler//script//anno.py -i ./KEGG/APAP_control/APAP_control.go.report.xls -o ./KEGG/APAP_control/go.example.report.xls
+Start :  Mon Jan 30 13:03:10 2023
+End :  Mon Jan 30 13:03:10 2023
+###### GO clusterProfile  ends at 2023年 01月 30日 星期一 13:03:10 CST

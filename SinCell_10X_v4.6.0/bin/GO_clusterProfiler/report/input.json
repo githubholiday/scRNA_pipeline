@@ -1,0 +1,12 @@
+{
+    "GO_clusterProfiler": {
+        "table_go_report": "upload/GO/go.example.report.xls",
+        "download_go_report": "upload/GO/*/*go.report.xls"
+    },
+	"clusterProfiler":{},
+	"GO_enrich":{
+		"table_go_enrich":"upload/GO/*/*enrichment.xls",
+		"image_go_bar": "upload/GO/*/*barplot*png", 
+        "image_go_dot": "upload/GO/*/*dotplot*png" 
+	}
+}

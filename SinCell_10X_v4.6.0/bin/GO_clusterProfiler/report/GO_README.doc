@@ -1,0 +1,46 @@
+
+|-- prefix.go.barplot.pdf   富集分析柱状图
+|-- prefix.go.barplot.png   富集分析柱状图
+|-- prefix.go.dotplot.pdf   富集分析气泡图 
+|-- prefix.go.dotplot.png   富集分析气泡图 
+|-- prefix.go.enrichment.xls  显著富集条目输出文件（默认 padjust<0.05）
+|-- prefix.go.report.xls    富集分析report文件，包括不显著的结果
+`-- go.example.report.xls  结果示例文件 
+
+其中，*enrichment.xls各列信息如下：
+(1) ONTOLOGY : GO Term的分类
+(2) ID : GO Term的ID
+(3) Description：GO Term的描述
+(4) GeneRatio：富集到该Term的基因数目/用于富集分析的基因数目;
+(5) BgRatio: 富集到该Term的的背景基因数目/用于富集分析时的背景基因数目;
+(6) pvalue：检验后的p值；
+(7) p.adjust：BH方法校正后的p值；
+(8) qvalue：检验后的q值；
+(9) geneID：富集到该Term的基因ID；
+(10) Count：富集到该Term的基因个数；
+(11) Significant：该Term是否显著富集，yes，为显著；no，为不显著。
+
+
+*report.xls各列信息如下：
+（1）ID：GO Term的ID
+（2）Ontology：该Term 所属分类
+（3）Description：GO Term的描述
+（4）Count1：富集到该Term的基因数目；
+（5）Count2：用于富集分析的基因数目；
+（6）Count3：富集到该Term的的背景基因数目；
+（7）Count4：用于富集分析时的背景基因数目；
+（8）pval：检验后的p值；
+（9）p.adjust：BH方法校正后的p值；
+（10）qval：检验后的q值；
+（11）*Gene：富集到该Term上的基因
+（12）*Count：富集到该Term上的基因数目
+（13）Links：该GO Term的数据库链接；
+（14）Result：该Term是否显著富集，yes，为显著；no，为不显著。
+
+
+*barplot.png GO富集条形图
+纵坐标表示GO条目，横坐标表示富集到该条目的基因数量，颜色表示padjust，颜色越红表示越显著。
+
+*dotplot.png GO富集气泡图
+纵坐标表示GO条目，横坐标表示富集到该条目的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该条目的基因数量，气泡越大表示基因数量越多。
+

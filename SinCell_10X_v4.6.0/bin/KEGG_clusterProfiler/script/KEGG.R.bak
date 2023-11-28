@@ -1,0 +1,159 @@
+library(getopt)
+
+para <- matrix(c(
+    "help",   "h",	0,	"logical",
+    "output",	"o",	1,	"character",
+    "input",	"i",	1,	"character",
+    "species",   "s",   1, "character",
+    "term2gene,",   "g",   1, "character",
+    "term2name,",   "n",   1, "character", 
+    "head,",   "t",   1, "logical", 
+    "maxgene,",   "m",   1, "integer", 
+    "pvalue,",   "p",   1, "double", 
+    "network,",   "e",   1, "logical", 
+    "config,",   "c",   1, "character"), byrow = TRUE, ncol = 4)
+
+opt <- getopt(para, debug = FALSE)
+print_usage <- function(para = NULL) {
+    cat(getopt(para, usage = TRUE))
+    cat("
+    Options:
+    --help		h	NULL		get this help
+    --output	o	file		outfile for enrichment report[forced]
+    --input 	i	file	input file that the first column is genelist [forced]
+    --species   s   character   species, homo_sapiens or mus_musculus [optional]
+    --term2gene	g	file	go term of genelist  [optional]
+    --term2name	n	file	go term of genename  [optional]
+    --config	c	file	go term of genename  [optional]
+    --padj	p	float	pvalue threadshold,default padj <0.05 is significant  [optional]
+    --head		t	NULL	whehter the tabel has title T or F [optional,default is T]
+    --network		net	NULL	whehter has network T or F [optional,default is T]
+    --maxgene	m	int	maximal size of genes annotated for testing [optional,default is 1000]
+    \n")
+    q(status = 1)
+}
+if (!is.null(opt$help))	{
+    print_usage(para)
+}
+if (is.null(opt$input)) {
+    cat("Please input the data file1 ...\n\n")
+     print_usage(para)
+}
+if (is.null(opt$output)) {
+    cat("Please speicfify the output prefix ...\n\n")
+    print_usage(para)
+}
+if (is.null(opt$head)) {
+	head = TRUE
+}else{
+	head = opt$head
+}
+if (is.null(opt$maxgene)) {
+	maxGene =1000
+}else{
+	maxGene = opt$maxgene
+}
+if (is.null(opt$head)) {
+	head = TRUE
+}else{
+	head = opt$head
+}
+if (is.null(opt$network)) {
+	network = T
+}else{
+	network = opt$network
+}
+if (network == T){use_local = F}
+if (network == F){
+    use_local = T
+    library(KEGG.db)
+}
+if (is.null(opt$padj)) {
+	padj = 0.05
+}else{
+	padj = opt$padj
+}
+path=commandArgs(trailingOnly=F)
+if (is.null(opt$config)) {
+    script_dir=dirname(sub("--file=","",path[grep("--file",path)]))
+    config = paste(c(script_dir,"/OrgDb.list"),collapse="")
+}else{
+	config =opt$config
+}
+
+std="yes"
+species="no"
+kegg_species="no"
+if (is.null(opt$species)){
+	std = "no"
+}else{
+	orgdb = read.table(config,T)
+	species =orgdb$OrgDb[which(orgdb$species==opt$species)]
+	kegg_species =orgdb$kegg[which(orgdb$species==opt$species)]
+	print(species)
+    print(kegg_species)
+	if(length(species) == 0){ std ="no"}
+}
+if (std =="no"){
+	if (is.null(opt$term2gene) || is.null(opt$term2name))  {
+    	cat("Please input species or provide term2gene and term2name to condact local kegg enrichment...\n\n")
+    	print_usage(para)
+	}
+}
+
+library(readr)
+library(dplyr)
+library(clusterProfiler)
+#library(enrichplot)
+
+## 读取物种信息
+
+#/annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/R
+#在外部传入前就先提取好，不在该脚本里处理文件
+input_table <- read_tsv(file = opt$input,head)
+#de_table <- filter(input_table, Significant == "yes")
+
+names(input_table)[1] <- "Gene"
+input_table = distinct(input_table,Gene)
+id_output=paste(opt$output,"id",sep=".")
+if(std == "yes"){
+	print("kegg enrichment starts with standard database")
+	ids = bitr(input_table$Gene, fromType="ENSEMBL", toType=c("ENTREZID","SYMBOL"), OrgDb = species)
+	str(ids)
+    write.table(ids,id_output,quote = FALSE , sep="\t" , row.names=FALSE)
+	ego <- enrichKEGG(gene         = ids$ENTREZID,
+                organism         = kegg_species,
+                pAdjustMethod = "BH",
+                maxGSSize = maxGene,
+				use_internal_data = use_local,
+                pvalueCutoff  = 1,
+                qvalueCutoff  = 1)
+    ego@result %>% arrange(p.adjust) %>%mutate(Significant=ifelse(p.adjust<padj,"yes","no"))->result
+    write.table(result,opt$output,
+            quote = FALSE , sep="\t" , row.names=FALSE)    
+}else{
+	print("kegg enrichment starts with local database: go term2gene and term2name")
+	term2gene <- read.table(opt$term2gene)
+	term2name <- read.table(opt$term2name,sep="\t",quote="")
+	term2name[,1] <- gsub("path:","",term2name[,1])
+	head(term2name)
+	ids=data.frame("geneID"=input_table$Gene, "ID"=input_table$Gene,"geneName"=input_table$Gene)
+    write.table(ids,id_output,quote = FALSE , sep="\t" , row.names=FALSE)
+	ego <- enricher(gene=input_table$Gene,  ## 基因集合
+           pvalueCutoff = 1, 
+           pAdjustMethod = "BH", 
+           qvalueCutoff = 1, 
+           minGSSize = 2,
+           maxGSSize = maxGene,
+           TERM2GENE = term2gene, ## KEGG  gene
+           TERM2NAME = term2name  ## KEGG  name
+       )
+	result=filter(ego@result,Description!="NA")
+	#result=ego@result
+	result %>% arrange(p.adjust) %>%mutate(Significant=ifelse(p.adjust<padj,"yes","no"))->result_new
+	write.table(result_new,opt$output,
+            quote = FALSE , sep="\t" , row.names=FALSE)
+}
+
+print("kegg enrichment finished")
+

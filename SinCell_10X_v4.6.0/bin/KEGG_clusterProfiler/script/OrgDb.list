@@ -1,0 +1,4 @@
+OrgDb	kegg	species
+org.Hs.eg.db	hsa	homo_sapiens
+org.Hs.eg.db	hsa	human
+org.MM.eg.db	mmu	mus_musculus

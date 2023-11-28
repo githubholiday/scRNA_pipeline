@@ -1,0 +1,7 @@
+PYTHON3=/annoroad/share/software/install/Python-3.3.2/bin/python3
+RSCRIPT=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/Rscript
+GLIBC=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH &&
+MAP2NAME=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/KEGG/20221108/data/pathway_$(category).list
+KO2MAP=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/KEGG/20221108/data/ko2map/ko2map.xls
+ORGDB=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/ClusterProfile/OrgDb.list
+KEGG_MAP_DIR=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/FTP/Database/ClusterProfile/KEGG

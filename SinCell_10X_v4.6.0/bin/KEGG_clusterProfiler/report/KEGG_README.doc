@@ -1,0 +1,44 @@
+
+|-- prefix.kegg.barplot.pdf   富集分析柱状图
+|-- prefix.kegg.barplot.png   富集分析柱状图
+|-- prefix.kegg.dotplot.pdf   富集分析气泡图 
+|-- prefix.kegg.dotplot.png   富集分析气泡图 
+|-- prefix.kegg.enrichment.xls  显著富集条目输出文件（默认 padjust<0.05）
+|-- prefix.kegg.report.xls    富集分析report文件，包括不显著的结果
+`-- kegg.example.report.xls  结果示例文件 
+
+其中，*enrichment.xls各列信息如下：
+(1) ID : 通路ID
+(2) Description：通路名称
+(3) GeneRatio：富集到该通路的基因数目/用于富集分析的基因数目;
+(4) BgRatio: 富集到该通路的的背景基因数目/用于富集分析时的背景基因数目;
+(5) pvalue：检验后的p值；
+(6) p.adjust：BH方法校正后的p值；
+(7) qvalue：检验后的q值；
+(8) geneID：富集到该通过的基因ID
+(9) Count：富集到该通过的基因个数
+(10) Significant：该map是否显著富集，yes，为显著；no，为不显著。
+
+
+*report.xls各列信息如下：
+（1）Map：kegg通路编号
+（2）Name：kegg通路名称
+（3）Count1：富集到该通路的基因数目；
+（4）Count2：用于富集分析的基因数目；
+（5）Count3：富集到该通路的的背景基因数目；
+（6）Count4：用于富集分析时的背景基因数目；
+（7）pval：检验后的p值；
+（8）p.adjust：BH方法校正后的p值；
+（8）qval：检验后的q值；
+（9）*Gene：富集到该通路上的基因
+（10）*Count：富集到该通路上的基因数目
+（11）Links：该map的数据库链接；
+（12）Result：该map是否显著富集，yes，为显著；no，为不显著。
+
+
+*barplot.png KEGG富集条形图
+纵坐标表示KEGG通路，横坐标表示富集到该通路的基因数量，颜色表示padjust，颜色越红表示越显著。
+
+*dotplot.png KEGG富集气泡图
+纵坐标表示KEGG通路，横坐标表示富集到该通路的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该通路的基因数量，气泡越大表示基因数量越多。
+

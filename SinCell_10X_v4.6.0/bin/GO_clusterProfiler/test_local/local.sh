@@ -1,0 +1,1 @@
+make -f ../GO_clusterProfiler.mk genelist=../test_std/APAP_control.sig.xls prefix=APAP_control outdir=./GO/APAP_control species=no term2gene=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Database/GenomeDatabase/animal/Mus_musculus/Mus_musculus.GRCm38.91/RNA/annotation/go/go.list GO_clusterProfiler

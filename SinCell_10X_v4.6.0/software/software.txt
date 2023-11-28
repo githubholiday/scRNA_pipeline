@@ -34,8 +34,8 @@ GO_Base=/annoroad/data1/bioinfo/PMO/Public/database/Public/Quarter/GO/current/da
 
 #Function
 QSUB_SGE=/annoroad/data1/software/bin/pipeline_generate/bin/current/src/qsub_sge
-go_cluster_profile=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Function_clusterProfiler/current/GO_clusterProfiler
-kegg_cluster_profile=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Function_clusterProfiler/current/KEGG_clusterProfiler
+go_cluster_profile=/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/bin/GO_clusterProfiler
+kegg_cluster_profile=/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/bin/KEGG_clusterProfiler
 
 # report
 get_upload=/annoroad/data1/software/install/tools/generate_upload/get_upload.py
