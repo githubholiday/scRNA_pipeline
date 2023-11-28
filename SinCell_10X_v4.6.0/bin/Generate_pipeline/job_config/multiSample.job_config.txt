@@ -63,8 +63,23 @@ Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
 Depend	MergeRDS
-Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] Integrating celltype
 [Job End]
+
+[Job Start]
+Name	geneAnno
+Memory	100G
+Queue	xahcnormal
+CPU	N
+Major	T
+Thread	30
+Order	3
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_v0.5.sif
+Depend	MergeRDS
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Annotation
+[Job End]
+
 
 [Job Start]
 Name	DE

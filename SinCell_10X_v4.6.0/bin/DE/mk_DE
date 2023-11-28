@@ -63,7 +63,7 @@ Annotation_diff:
 	@echo Annotation_diff start at `date`
 	for clst in `ls $(result_dir)/$(cmp_name)/*/*_diff_gene.csv`;do name=` basename $$clst | sed 's/\.csv//' ` ;\
 		dir=`dirname $$clst` ;\
-		$(PERL) $(Bin)/add_sig_DE.pl -result $$clst -tsv $(GENE) -p $(pval) -q $(qval) -lgfc $(lgfc) -out $$dir/$$name\_symbol.xls; \
+		$(PERL) $(Bin)/../Integration/script/add_sig.pl -result $$clst -tsv $(GENE) -p $(pval) -q $(qval) -lgfc $(lgfc) -out $$dir/$$name\_symbol.xls; \
 		$(PERL) $(Bin)/add_GO_KEGG.pl -in $$dir/$$name\_symbol.xls -anno $(REF_ANNOTATION) -out $$dir/$$name\_symbol.anno.xls -title NR:Seq-id NR:Score NR:Evalue NR:Description NT:Seq-id NT:Score NT:Evalue NT:Description Uniprot:UniProtKB-AC Uniprot:Score Uniprot:Evalue Uniprot:Description COG:gene COG:Score COG:Eval COG:num Pfam:pfam_ID Pfam:pfam_Name Pfam:pfam_Description GO:biological_process GO:cellular_component GO:molecular_function KEGG:KO KEGG:Description ;done
 	$(PYTHON3) $(Bin)/anno.py -i $(result_dir)/$(cmp_name)/*/*symbol.anno.xls -o $(result_dir)/$(cmp_name)/example_diff_gene.anno.xls
 	$(PYTHON3) $(Bin)/DEnumber_stat_summary.py -d $(result_dir)/$(cmp_name)/*/*diff_gene_symbol.xls -s $(cmp_name) -o $(result_dir)/$(cmp_name)/$(cmp_name).de_stat.xls
