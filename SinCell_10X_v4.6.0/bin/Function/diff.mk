@@ -41,7 +41,7 @@ GO_qsub:
 GO:
 	echo "#############GO analsyis start at "`date`
 	[ -d $(go_shell_dir) ] || mkdir -p $(go_shell_dir)
-	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species) -c $(compare) 
+	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species)
 	echo '$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell) && echo GO anaysis finished " > $(go_shell_dir)/go_qsub.sh
 	$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell) && echo GO anaysis finished
 	echo "#############GO analsyis end at "`date`
