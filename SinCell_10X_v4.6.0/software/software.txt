@@ -29,8 +29,8 @@ Public_webreport=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/P
 
 
 #database
-KEGG_Base=/annoroad/data1/bioinfo/PMO/Public/database/Public/Quarter/KEGG/current/data
-GO_Base=/annoroad/data1/bioinfo/PMO/Public/database/Public/Quarter/GO/current/data
+KEGG_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/
+GO_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/
 
 #Function
 QSUB_SGE=/annoroad/data1/software/bin/pipeline_generate/bin/current/src/qsub_sge
