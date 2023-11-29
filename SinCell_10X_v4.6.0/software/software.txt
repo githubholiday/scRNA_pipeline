@@ -24,7 +24,8 @@ Public_webreport=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/P
 TSV2SQL=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/current/bin/pushDB/mariadb_BJ.pyc
 RSCRIPT5=/annoroad/data1/software/bin/miniconda/envs/Monocle/bin/Rscript
 RSCRIPT2=$(SHARE_DIR)/R-3.2.2/bin/Rscript
-Rscript35=/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/luhuiping/Software/anaconda3/envs/r35/bin/Rscript
+#Rscript35=/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/luhuiping/Software/anaconda3/envs/r35/bin/Rscript
+Rscript35=Rscript
 Public_webreport=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Report/Report_local/current/Public_webreport
 
 

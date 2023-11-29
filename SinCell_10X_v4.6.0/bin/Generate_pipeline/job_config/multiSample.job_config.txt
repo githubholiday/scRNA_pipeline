@@ -75,7 +75,7 @@ Major	T
 Thread	30
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_v0.5.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_full_v0.0.1.sif
 Depend	MergeRDS
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Annotation
 [Job End]
@@ -104,7 +104,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_full_v0.0.1.sif
 Depend	DE
 Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[3] species=Para_species Annotation_diff
 [Job End]
@@ -118,7 +118,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.3.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.0.4.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
 [Job End]
@@ -132,7 +132,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.3.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.0.4.sif
 Depend	DE-anno
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
 [Job End]
