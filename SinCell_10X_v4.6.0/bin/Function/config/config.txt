@@ -12,8 +12,8 @@ RSCRIPT=Rscript
 #GLIBC=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH &&
 
 GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
-MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/datapathway_$(category).list
-KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/datako2map/ko2map.xls
+MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
+KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
 
 ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
 KEGG_MAP_DIR=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/KEGG
