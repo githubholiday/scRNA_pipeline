@@ -27,15 +27,18 @@ def main():
 	args=parser.parse_args()
 
 	#result = pd.DataFrame.empty
+	df_sum = pd.DataFrame()
+	flag = 0
 	for file in args.input:
 		if not os.path.exists(file): continue
 		name = os.path.basename(file).split('.|_')[0]
 		df = read_csv(file)
-		if 'result' in vars():
-			result = result.append(df)
-		else :
-			result = df
-	result.T.to_csv(args.output, sep='\t',index_label='Sample')
+		if flag == 0 :
+			df_sum = df
+			flag = 1
+		else:
+			df_sum = pd.concat([df_sum, df], axis=0)
+	df_sum.T.to_csv(args.output, sep='\t',index_label='Sample')
 
 if __name__ == '__main__':
 	main()
