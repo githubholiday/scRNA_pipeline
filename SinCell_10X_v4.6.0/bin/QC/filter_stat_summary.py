@@ -28,7 +28,7 @@ def main():
 		if not os.path.exists(cellfile): continue
 		name = os.path.basename(cellfile).split('_')[0]
 		df = pd.read_csv(cellfile,index_col = None, header = 0)
-		result=result.append(df)
+		result=pd.concat([result,df],axis=0)
 	infodf=result.T
 	infodf=infodf.fillna(0)
 	print(infodf)
