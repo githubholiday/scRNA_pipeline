@@ -26,6 +26,20 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job End]
 
 [Job Start]
+Name	QC_Basic
+Memory	5G
+Qsub	False
+CPU	N
+Major	F
+Thread	2
+Order	1
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_full_v0.0.1.sif
+Depend	Stat_Matrix
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project QC_Basic
+[Job End]
+
+[Job Start]
 Name	FilterCell
 Memory	25G
 Queue	xahcnormal
@@ -68,11 +82,11 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0]
 
 [Job Start]
 Name	geneAnno
-Memory	100G
+Memory	5G
 Queue	xahcnormal
 CPU	N
 Major	T
-Thread	30
+Thread	2
 Order	3
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_full_v0.0.1.sif
@@ -80,6 +94,18 @@ Depend	MergeRDS
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] species_tag=Para_ppi_species species=Para_species Annotation
 [Job End]
 
+[Job Start]
+Name	QC_Summary
+Memory	1G
+Queue	sci.q
+CPU	1
+Major	F
+Thread	1
+Order	5
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/conda_perl_r_py_full_v0.0.1.sif
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total 
+[Job End]
 
 [Job Start]
 Name	DE
