@@ -1,5 +1,5 @@
 CONVERT=/usr/local/bin/convert
-PYTHON3=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
+PYTHON3=python3
 get_upload=/annoroad/data1/software/install/tools/generate_upload/get_upload.py
 Report=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Report/Report_local/current/Public_webreport/Report.py
 pipline_stat=/annoroad/data1/bioinfo/PMO/tuchengfang/bin/scripts/python_program/pipeline_stat/pipeline_stat.py

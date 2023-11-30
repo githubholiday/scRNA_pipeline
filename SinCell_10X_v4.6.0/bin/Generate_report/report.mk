@@ -60,7 +60,7 @@ lims_conf=$(tmpdir)/config/lims.ini
 .PHONY:Report
 Report:
 	echo generate web report start at `date`
-	$(PYTHON3) $(get_upload) -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
+	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
 	ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud
 	echo ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud > $(report_dir)/report.sh
 	$(PYTHON3) $(pipline_stat) -p $(project_id) -d $(report_dir) -c $(lims_conf)
