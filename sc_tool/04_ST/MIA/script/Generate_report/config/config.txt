@@ -1,0 +1,4 @@
+PYTHON3_238=/annoroad/data1/software/bin/miniconda/bin/python3
+PYTHON3=/annoroad/share/software/install/Python-3.3.2/bin/python3
+get_upload=/annoroad/data1/software/install/tools/generate_upload/get_upload.py
+Report_py=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Report/Report_local/current/Public_webreport//Report.py
