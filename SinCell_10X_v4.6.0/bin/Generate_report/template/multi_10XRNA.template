@@ -13,12 +13,12 @@
 ## 信息分析流程
 测序所得原始下机序列（Raw reads），首先我们根据10x转录组文库结构进行数据的截取，获得包含barcode和UMI序列信息的Read1和目标序列Read2；然后利用10x官方软件CellRanger 进行数据的分析处理。
 安诺优达10x Genomics单细胞转录组测序信息分析流程主要分为四部分：CellRanger数据分析、Seurat细胞分群和差异分析、基于Seurat结果的功能注释分析和拟时间分析。
-PRE:
-（1）CellRanger数据分析：包含测序数据质控、质量评估和基因表达定量、细胞鉴定等分析 ；
-（2）Seurat细胞分群和差异分析：基于CellRanger获得的细胞基因表达矩阵，进行细胞再筛选、分群和差异分析等；
-（3）功能注释：主要对与找到的marker基因和cluster间差异基因进行功能注释和富集分析；
-（4）拟时间分析：通过构建细胞间的变化轨迹重塑细胞随着时间的变化过程。
-PRE
+
+!!!（1）CellRanger数据分析：包含测序数据质控、质量评估和基因表达定量、细胞鉴定等分析 ；   
+!!!（2）Seurat细胞分群和差异分析：基于CellRanger获得的细胞基因表达矩阵，进行细胞再筛选、分群和差异分析等；  
+!!!（3）功能注释：主要对与找到的marker基因和cluster间差异基因进行功能注释和富集分析；  
+!!!（4）拟时间分析：通过构建细胞间的变化轨迹重塑细胞随着时间的变化过程。  
+
 信息分析技术路线如下：
 ![信息分析流程图]{{image_bioinfo_pipeline}}
 注：分析结果以实际产出为准，其中细胞类型注释分析仅对样本为人或者小鼠的进行。
@@ -29,29 +29,28 @@ PRE
 ## Rawdata统计
 本项目中样本经CellRanger分析过程中的主要统计指标，如下表所示：
 ![CellRanger分析统计表]{{table_cellranger_summary}}
-!!!（1）Sample：样本名称；
-!!!（2）Estimated_Number_of_Cells：有效细胞数，有效细胞的判断，见下文附录；
-!!!（3）Mean_Reads_per_Cell：每个细胞的平均reads数；
-!!!（4）Median_Genes_per_Cell：每个细胞中基因数目的中位数；
-!!!（5）Number_of_Reads：比对到参考基因组的reads数；
-!!!（6）Valid_Barcodes：带有正确标记的reads百分比，每个标记对应到每个细胞；
-!!!（7）Sequencing_Saturation：测序数据饱和度；
-!!!（8）Reads_Mapped_to_Genome：比对到参考基因组的序列数百分比；
-!!!（9）Reads_Mapped_Confidently_to_Transcriptome：比对到参考转录组的reads百分比；
-!!!（10）Fraction_Reads_in_Cells：比对到参考基因组且来源于高质量细胞的reads百分比。
+!!!（1）Sample：样本名称；  
+!!!（2）Estimated_Number_of_Cells：有效细胞数，有效细胞的判断，见下文附录；  
+!!!（3）Mean_Reads_per_Cell：每个细胞的平均reads数；  
+!!!（4）Median_Genes_per_Cell：每个细胞中基因数目的中位数；  
+!!!（5）Number_of_Reads：比对到参考基因组的reads数；  
+!!!（6）Valid_Barcodes：带有正确标记的reads百分比，每个标记对应到每个细胞；  
+!!!（7）Sequencing_Saturation：测序数据饱和度；  
+!!!（8）Reads_Mapped_to_Genome：比对到参考基因组的序列数百分比；  
+!!!（9）Reads_Mapped_Confidently_to_Transcriptome：比对到参考转录组的reads百分比；  
+!!!（10）Fraction_Reads_in_Cells：比对到参考基因组且来源于高质量细胞的reads百分比。  
 
 ![CellRanger分析html下载链接]{{download_web_summary}}*
 ## Filterdata统计
 CellRanger分析后，Seurat选用目前普遍设定的阈值：
-（1）过滤基因表达数目低于200，高于10000的细胞；
-（2）过滤线粒体基因（以MT开头的基因，不区分大小写）比例大于20%的细胞；
-（3）除此之外，对于人或者小鼠的样本还进行红细胞的过滤，过滤红细胞基因表达大于5%的细胞。
+!!!（1）过滤基因表达数目低于200，高于10000的细胞；  
+!!!（2）过滤线粒体基因（以MT开头的基因，不区分大小写）比例大于20%的细胞；  
+!!!（3）除此之外，对于人或者小鼠的样本还进行红细胞的过滤，过滤红细胞基因表达大于5%的细胞。  
 统计过滤细胞后样品中每个细胞中的nCount_RNA（number of UMI），nFeature_RNA（number of Gene）和线粒体基因占nFeature_RNA的比例，结果如下图所示：
 ![表达量统计图]{{image_percent_png}}
-//Image:upload/*Basic_QC/*expression/*Gene_UMI_mito_percent.png,400,,表达量统计图
+
 注：图中小提琴图的每个点代表一个细胞，从左至右分别为基因表达数目nFeature_RNA、unique UMI总数nCount_RNA和线粒体基因所占比例percent.mt，没有线粒体注释信息的物种则线粒体基因占比为0。
-//过滤细胞后样品中基因表达量统计结果下载链接：
-//Excel:upload/*Basic_QC/*expression/*Gene_UMI_mito_percent.png,,,过滤细胞后样品中基因表达量统计结果下载链接
+
 Seurat过滤细胞数量统计表如下所示：
 ![Seurat过滤细胞数量统计表]{{table_cell_filter_stat}}
 !!!（1）sample：样本名称；
@@ -75,4 +74,5 @@ Seurat过滤细胞数量统计表如下所示：
 
 不同合并组的UMAP聚类结果，如下图：
 ![UMAP聚类结果图]{{image_umap_group_png}}
-Image:upload/*_Integrating_analysis/*/*clusters/*umap_cluster_groups.png,400,,,合并组UMAP聚类结果图
+
+
