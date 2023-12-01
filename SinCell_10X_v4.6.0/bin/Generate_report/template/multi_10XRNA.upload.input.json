@@ -27,7 +27,7 @@
     },
     "celltype":{
         "image_scibet_heatmap":"upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png",
-        "download_scibet_heatmap":"upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png",
+        "download_scibet_heatmap":"upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png"
     },
     "celltype_stat":{
         "table_scibet_stat":"upload/*_Integrating_analysis/*/*CellIdent/*scibet_stat.xls",
@@ -36,5 +36,37 @@
     "umap":{
         "image_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.png",
         "download_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.p*"
+    },
+    "celltype_cluster_stat":{
+        "image_sample_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.sample_stats.png",
+        "table_group_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*group.celltype.xls",
+        "image_group_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.group_stats.png"
+    },
+    "de_analysis":{
+        "table_de_stat":"upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls",
+        "table_de_anno":"upload/*Integrating_analysis/*/Diff_gene/*/example_diff_gene.anno.xls",
+        "image_de_vlnplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_VlnPlot.png",
+        "image_de_boxplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_signif_Plot.png"
+    },
+    "GO_clusterProfiler":{
+        "table_go_enrich":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/go.example.report.xls"
+    },
+    "GO_enrich":{
+        "image_go_barplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/*.go.barplot.png",
+    "image_go_dotplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/*.go.dotplot.png"
+    },
+    "KEGG_clusterProfiler":{
+        "table_kegg_enrich":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/KEGG/kegg.example.report.xls"
+    },
+    "KEGG_enrich":{
+        "image_kegg_barplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/KEGG/*.kegg.barplot.png",
+        "image_kegg_dotplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/KEGG/*.kegg.dotplot.png"
+    },
+    "monocle3":{
+        "image_pseudotime":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_cell_type.fine.partition.png",
+        "image_pseudotime_no_partition":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_learn_graph_cells.no.use_partition.png",
+        "image_pseudotime_partition":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_learn_graph_cells.png",
+        "image_pseudotime_order":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_order_cells_cells.no.use_partition.png",
+        "image_pseudotime_gene_module":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_Module.png"
     }
 }
