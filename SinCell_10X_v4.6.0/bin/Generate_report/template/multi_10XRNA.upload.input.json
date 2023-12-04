@@ -6,7 +6,7 @@
     "basci_QC":{
         "table_cellranger_summary":"upload/*Basic_QC/*summary/analysis_summary_short.xls",
         "download_web_summary":"upload/*Basic_QC/*summary/*web_summary.html",
-        "image_percent_png":"upload/*Basic_QC/*summary/*Gene_UMI_mito_percent.png",
+        "image_percent_png":"upload/*Basic_QC/*expression/*Gene_UMI_mito_percent.png",
         "table_cell_filter_stat":"upload/*Basic_QC/expression/Cell_filter_stat.xls"
     },
     "integrated_analysis":{
