@@ -178,20 +178,6 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job End]
 
 [Job Start]
-Name	Wikipathway
-Memory	10G
-Queue	xahcnormal
-CPU	N
-Major	T
-Thread	4
-Order	5
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
-Depend	DE-anno
-Command	make -f BIN/DOSE/makefile outdir=OUTDIR header=T upcutoff=0 downcutoff=0 species_type=Para_ppi_species combine=$(group)[0] cmp_name=$(group)[3] EnrichGSE
-[Job End]
-
-[Job Start]
 Name	Convert
 Memory	1G
 Queue	xahcnormal
@@ -215,7 +201,7 @@ Major	T
 Thread	2
 Order	7
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/clusterprofiler_v0.0.4.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
 make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_id=Para_project Report
