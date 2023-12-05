@@ -21,9 +21,9 @@
     },
     "marker_gene":{
         "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_markers_result.anno.xls",
-        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marke/*marker_heatmap.png",
-        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marke/*marker_vlnplot.png",
-        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marke/*_top_dotplot.png"
+        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marker/*marker_heatmap.png",
+        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marker/*marker_vlnplot.png",
+        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marker/*_top_dotplot.png"
     },
     "celltype":{
         "image_scibet_heatmap":"upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png",
