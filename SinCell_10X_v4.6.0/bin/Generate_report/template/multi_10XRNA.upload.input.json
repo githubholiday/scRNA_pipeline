@@ -16,7 +16,7 @@
     "cluster_stat":{
         "table_sample_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*sample.clusters.xls",
         "image_sample_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*sample.clusters_stats.png",
-        "table_group_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*group.cluster.xls",
+        "table_group_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*group.clusters.xls",
         "image_group_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*group.clusters_stats.png"
     },
     "marker_gene":{
