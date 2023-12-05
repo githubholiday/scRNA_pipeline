@@ -20,7 +20,7 @@
         "image_group_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*group.clusters_stats.png"
     },
     "marker_gene":{
-        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_markers_result.anno.xls",
+        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_markers.anno.xls",
         "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marker/*marker_heatmap.png",
         "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marker/*marker_vlnplot.png",
         "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marker/*_top_dotplot.png"

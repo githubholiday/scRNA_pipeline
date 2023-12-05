@@ -55,17 +55,20 @@ Prepare:
 
 template_file=$(template_dir)/$(template_type).template
 upload_conf=$(template_dir)/$(template_type).upload.conf
+input_json=$(template_dir)/$(template_type).upload.input.json
 no_tag=public-picture
 lims_conf=$(tmpdir)/config/lims.ini
 .PHONY:Report
 Report:
 	echo generate web report start at `date`
 	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
-	ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud
-	echo ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud > $(report_dir)/report.sh
-	$(PYTHON3) $(pipline_stat) -p $(project_id) -d $(report_dir) -c $(lims_conf)
-	echo generate web report end at `date`
-
+	ln -s $(report_dir)/report.template $(report_dir)/$(template_type).template
+	cp $(input_json) $(report_dir)/
+	cd $(report_dir) 
+	$(PYTHON3) $(Bin)/comm/generate_md_report_EB.py -d ./ -pipeline 123 -l -o html_raw.md
+	perl -pe 's/^\<br\s+\/\>/\n/' html_raw.md >new.md
+	$(PANDOC) --standalone -c html/css/markdown.css new.md --metadata title="$(project_name)" -o $(report_dir)/$(project_name)_report.tmp.html
+	$(PYTHON3) $(Bin)/comm/modify_html.py -i $(report_dir)/$(project_name)_report.tmp.html -o $(report_dir)/$(project_name)_report.html
 
 .PHONY:Convert
 Convert:
