@@ -74,9 +74,6 @@ pb=ggplot()+
       legend.position = "bottom",
       legend.title = element_text(size = legend.title.size,vjust = 1)
     )
-    #pdf("/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/yangzhang/test/tmp/bar/LH_plot1.pdf")
-    #print(pb)
-    #dev.off()
   
   #updf=as.data.frame(levels(miares$region))
   #colnames(updf)="region"
@@ -112,11 +109,19 @@ pb=ggplot()+
       axis.text.y.left = element_text(size = axis.text.y.left_uppanel,color = "black")
     )+
     guides(fill = guide_legend(override.aes = list(size=10), ncol = 2))
-    #pdf("/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/yangzhang/test/tmp/bar/LH_plot2.pdf")
-    #print(pa)
-    #dev.off()
+
   library(patchwork)
   celltype_num=length(unique(miares$term))
-  pa / pb + plot_layout(heights = c(1,celltype_num))
-  ggsave(opt$outpre,width = plotwidth,height = plotheight,units = "cm")
-  print('MIA分析运行完成')
+  p1 <- pa / pb + plot_layout(heights = c(1,celltype_num))
+  #ggsave(opt$outpre,width = plotwidth,height = plotheight,units = "cm")
+  #print('MIA分析运行完成')
+   # st <- readRDS(opt$rds)
+  #lable_names <- read.csv(opt$infile,header=T,sep="\t")
+   # labels <- lable_names[match(as.numeric(as.character(st@active.ident)), lable_names[,1]),2]
+    
+    #st@meta.data$group <-  labels
+    #p2 <- SpatialPlot(st, group.by="group")++theme(legend.position = "right")
+    #p3 <- p1+p2
+    #pdf(opt$outpre)
+    #print(p3)
+    #dev.off()
