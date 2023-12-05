@@ -99,7 +99,7 @@ pb=ggplot()+
     scale_x_discrete(expand = c(0,0))+
     #scale_fill_manual(values = q4,breaks = labeldf1$region,labels=labeldf1$region_gene_num)+
     scale_fill_manual(values = q4,breaks =main_type,labels=main_type)+
-    scale_y_continuous(expand = c(0,0),breaks = 0,labels = "Cell types")+
+    scale_y_continuous(expand = c(0,0),breaks = 0,labels = "Cell types (no. of genes)")+
     theme(
       legend.position = "top",
       legend.title = element_blank(),
@@ -112,12 +112,11 @@ pb=ggplot()+
       axis.text.y.left = element_text(size = axis.text.y.left_uppanel,color = "black")
     )+
     guides(fill = guide_legend(override.aes = list(size=10), ncol = 2))
-  #pdf("/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/yangzhang/test/tmp/bar/LH_plot2.pdf")
-  #print(pa)
-   # dev.off()
+    #pdf("/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/yangzhang/test/tmp/bar/LH_plot2.pdf")
+    #print(pa)
+    #dev.off()
   library(patchwork)
   celltype_num=length(unique(miares$term))
   pa / pb + plot_layout(heights = c(1,celltype_num))
-  prefix = opt$outpre
-  ggsave(paste(prefix, 'MIA.pdf', sep='_'),width = plotwidth,height = plotheight,units = "cm")
+  ggsave(opt$outpre,width = plotwidth,height = plotheight,units = "cm")
   print('MIA分析运行完成')

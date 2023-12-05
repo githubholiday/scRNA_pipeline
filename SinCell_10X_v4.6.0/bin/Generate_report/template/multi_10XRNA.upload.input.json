@@ -14,9 +14,9 @@
         "image_umap_group_png": "upload/*_Integrating_analysis/*/*clusters/*umap_cluster_groups.png"
     },
     "cluster_stat":{
-        "table_sample_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*sample_cluster_stat.xls",
+        "table_sample_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*sample.clusters.xls",
         "image_sample_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*sample.clusters_stats.png",
-        "table_group_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*group_cluster_stat.xls",
+        "table_group_cluster_stat":"upload/*_Integrating_analysis/*/*clusters/*group.cluster.xls",
         "image_group_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*group.clusters_stats.png"
     },
     "marker_gene":{

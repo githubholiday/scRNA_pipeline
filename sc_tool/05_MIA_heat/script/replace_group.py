@@ -36,6 +36,7 @@ def main():
 			if line.startswith('region'):	
 				head = line.rstrip('\n').split('\t')
 				out.write('\t'.join(head)+'\tgroup\n')
+				continue
 			tmp = line.rstrip('\n').split('\t')
 			cluster = line[0]
 			if cluster in cluster_group_dict:
