@@ -20,10 +20,10 @@
         "image_group_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*group.clusters_stats.png"
     },
     "marker_gene":{
-        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*clusters/*marker_gene_anno.xls",
-        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*clusters/*marker_heatmap.png",
-        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*clusters/*marker_vlnplot.png",
-        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*clusters/*marker_dotplot.png"
+        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_markers_result.anno.xls",
+        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marke/*marker_heatmap.png",
+        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marke/*marker_vlnplot.png",
+        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marke/*_top_dotplot.png"
     },
     "celltype":{
         "image_scibet_heatmap":"upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png",
