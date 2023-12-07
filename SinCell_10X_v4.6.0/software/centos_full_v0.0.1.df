@@ -1,0 +1,14 @@
+FROM seqwisdom/centos_miniconda:v0.0.1
+MAINTAINER "liutao" 
+
+USER root
+
+RUN mamba install -y  -c bioconda -c conda-forge -c anaconda pycosat requests pexpect  biopython pandas matplotlib mysql-connector-python pysam subprocess32 seaborn plotly && /software/conda/bin/conda clean --all --yes # buildkit  
+RUN mamba install -y  -c bioconda -c anaconda -c conda-forge r-base 
+RUN mamba install -y -c conda-forge r-ggplot2  r-gplots r-rcolorbrewer r-pheatmap r-igraph r-venndiagram r-dplyr r-reshape2 r-data.table r-getopt r-plotrix && /software/conda/bin/conda clean --all --yes # buildkit
+RUN mamba install -y  -c bioconda -c anaconda perl-uri perl-statistics-descriptive perl-statistics-distributions perl-app-cpanminus perl-dbd-sqlite
+
+RUN yum clean all && rm -rf /tmp/* rm -rf /var/cache/yum/*  && rm -rf /software/conda/pkgs/* 
+RUN export PERL5LIB=/software/conda/lib/site_perl/5.26.2:$PERL5LIB
+
+USER test_user

@@ -1,0 +1,15 @@
+From seqwisdom/centos_base:v0.0.1
+MAINTAINER "taoliu" 
+
+USER root
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh &&  \
+  /bin/bash /root/miniconda.sh -b -p /software/conda &&  \
+    rm ~/miniconda.sh &&  \
+    /software/conda/bin/conda clean -a -y 
+ARG PYTHON_VERSION=3.10
+
+RUN /software/conda/bin/conda install --update-all -y -c conda-forge  python=$PYTHON_VERSION mamba
+RUN mamba install -y  -c conda-forge  -c anaconda   pip  && mamba clean -a -y
+RUN yum clean all && rm -rf /tmp/* rm -rf /var/cache/yum/*  
+
+USER test_user
