@@ -1,9 +1,9 @@
 GO_Rscript=Rscript
 PERL=perl
 PYTHON3=python3
-SBATCH=/opt/gridview/slurm/bin/sbatch
-env=/usr/bin/env bash
+slurm_sge=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xahcnormal
+mount=/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
 RSCRIPT=Rscript
