@@ -51,7 +51,6 @@ def main():
 	parser.add_argument('-a','--action',help='go or kegg',dest='action',required=True)
 	parser.add_argument('-s','--species',help='species',dest='species')
 	parser.add_argument('-ca','--category',help='category name',dest='category')
-	parser.add_argument('--sif',help='sif file',dest='sif')
 	args=parser.parse_args()
 	map_dic = {'go':"GO_shell/diff_go.sh",'kegg':"KEGG_shell/diff_kegg.sh"}
 	para_check( args, map_dic)
@@ -61,11 +60,11 @@ def main():
 			file_num += 1
 			infile_dir_path, infile_name, cmp_name = info_from_infile( infile )
 			if args.action == 'go':
-				go_cmd = '#!/bin/sh\nmodule load singularity/3.7.3\nsingularity exec --bind /work/share/acdgo9idhi/:/work/share/acdgo9idhi/ {sif} make -f {BIN}/GO/go.mk de_report={infile} go_dir={infile_dir_path}/GO cmp={cmp_name} species={species} GO_Candidate GO_Enrich'.format(BIN=bindir, infile=infile, infile_dir_path=infile_dir_path, cmp_name=cmp_name, species=args.species,sif=args.sif)
+				go_cmd = 'make -f {BIN}/GO/go.mk de_report={infile} go_dir={infile_dir_path}/GO cmp={cmp_name} species={species} GO_Candidate GO_Enrich'.format(BIN=bindir, infile=infile, infile_dir_path=infile_dir_path, cmp_name=cmp_name, species=args.species)
 				outfile.write(go_cmd+'\n')
 			
 			elif args.action == 'kegg' :
-				kegg_cmd = '#!/bin/sh\nmodule load singularity/3.7.3\nsingularity exec --bind /work/share/acdgo9idhi/:/work/share/acdgo9idhi/ {sif} make -f {BIN}/KEGG/kegg.mk de_report={infile} kegg_dir={infile_dir_path}/KEGG cmp={cmp_name} species={species} category={category} KEGG_Candidate KEGG_Enrich'.format(BIN=bindir, infile=infile, infile_dir_path=infile_dir_path, cmp_name=cmp_name, species=args.species, category=args.category, sif=args.sif)
+				kegg_cmd = 'make -f {BIN}/KEGG/kegg.mk de_report={infile} kegg_dir={infile_dir_path}/KEGG cmp={cmp_name} species={species} category={category} KEGG_Candidate KEGG_Enrich'.format(BIN=bindir, infile=infile, infile_dir_path=infile_dir_path, cmp_name=cmp_name, species=args.species, category=args.category)
 				outfile.write(kegg_cmd+'\n')
 			else:
 				print("-a must be go or kegg")

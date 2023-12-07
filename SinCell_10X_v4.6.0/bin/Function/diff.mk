@@ -33,10 +33,9 @@ Annotation_diff:
 GO:
 	echo "#############GO analsyis start at "`date`
 	[ -d $(go_shell_dir) ] || mkdir -p $(go_shell_dir)
-	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species) --sif $(sif)
-	echo '$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell)" && echo GO anaysis finished ' > $(go_shell_dir)/go_qsub.sh
+	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species)
 	echo "#############GO analsyis end at "`date`
-	
+
 GOShellSubmit:
 	echo "############# GOShellSubmit  start at "`date`
 	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 1 --jobprefix GO --queue $(queue) -mount "$(mount)" -s $(sif) $(go_shell) && echo GO anaysis finished
@@ -45,10 +44,14 @@ GOShellSubmit:
 KEGG:
 	echo "#############KEGG analsyis start at "`date`
 	[ -d $(kegg_shell_dir) ] || mkdir -p $(kegg_shell_dir)
-	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(kegg_shell) -a kegg -s $(species) -ca $(category) --sif $(sif)
-	echo '$(SBATCH) -J KEGG -D $(kegg_shell_dir) -o $(kegg_shell_dir)/kegg.log -e $(kegg_shell_dir)/kegg.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo KEGG anaysis finished' > $(kegg_shell_dir)/kegg_qsub.sh
-	$(SBATCH) -J KEGG -D $(kegg_shell_dir) -o $(kegg_shell_dir)/kegg.log -e $(kegg_shell_dir)/kegg.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo KEGG anaysis finished
+	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(kegg_shell) -a kegg -s $(species) -ca $(category)
 	echo "#############KEGG analysis end at" `date`
+
+KEGGShellSubmit:
+	echo "############# KEGGShellSubmit  start at "`date`
+	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 1 --jobprefix KEGG --queue $(queue) -mount "$(mount)" -s $(sif) $(kegg_shell) && echo KEGG anaysis finished
+	echo "############# KEGGShellSubmit  end at "`date`
+
 
 GO_qsub:
 	echo "#############GO analsyis start at "`date`

@@ -159,10 +159,8 @@ Major	T
 Thread	2
 Order	4
 Depend	Function-GO
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh  species=Para_species config=Para_config GOShellSubmit
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GOShellSubmit
 [Job End]
-
-
 
 [Job Start]
 Name	Function-KEGG
@@ -176,6 +174,18 @@ Depend	DE-anno
 Mount	"/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/"
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category config=Para_config KEGG
+[Job End]
+
+[Job Start]
+Name	KEGGSubmit
+Memory	5G
+Qsub	False
+CPU	N
+Major	T
+Thread	2
+Order	4
+Depend	Function-KEGG
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE kegg_shell=OUTDIR/shell/Function_shell/KEGG_shell/kegg.sh config=Para_config KEGGShellSubmit
 [Job End]
 
 [Job Start]
