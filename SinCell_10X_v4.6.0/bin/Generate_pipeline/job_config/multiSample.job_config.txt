@@ -158,7 +158,7 @@ CPU	N
 Major	T
 Thread	2
 Order	4
-Depend	DE-anno
+Depend	Function-GO
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh  species=Para_species config=Para_config GOShellSubmit
 [Job End]
 
