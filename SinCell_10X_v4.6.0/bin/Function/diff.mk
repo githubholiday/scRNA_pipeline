@@ -35,8 +35,11 @@ GO:
 	[ -d $(go_shell_dir) ] || mkdir -p $(go_shell_dir)
 	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(go_shell) -a go -s $(species) --sif $(sif)
 	echo '$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell)" && echo GO anaysis finished ' > $(go_shell_dir)/go_qsub.sh
-	$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell)" && echo GO anaysis finished
 	echo "#############GO analsyis end at "`date`
+GOShellSubmit:
+	echo "############# GOShellSubmit  start at "`date`
+	$(SBATCH) -J GO -D $(go_shell_dir) -o $(go_shell_dir)/go.log -e $(go_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(go_shell)" && echo GO anaysis finished
+	echo "############# GOShellSubmit  end at "`date`
 
 KEGG:
 	echo "#############KEGG analsyis start at "`date`

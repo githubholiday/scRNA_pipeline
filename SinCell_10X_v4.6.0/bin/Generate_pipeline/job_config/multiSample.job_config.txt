@@ -139,7 +139,7 @@ Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)
 [Job Start]
 Name	Function-GO
 Memory	5G
-Qsub	True
+Qsub	False
 CPU	N
 Major	T
 Thread	2
@@ -147,8 +147,22 @@ Order	4
 Depend	DE-anno
 Mount	"/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/"
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species config=Para_config GO
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GO
 [Job End]
+
+[Job Start]
+Name	GOSubmit
+Memory	5G
+Qsub	False
+CPU	N
+Major	T
+Thread	2
+Order	4
+Depend	DE-anno
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh  species=Para_species config=Para_config GOShellSubmit
+[Job End]
+
+
 
 [Job Start]
 Name	Function-KEGG
