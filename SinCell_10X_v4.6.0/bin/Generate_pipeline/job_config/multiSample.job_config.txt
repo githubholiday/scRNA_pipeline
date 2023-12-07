@@ -145,7 +145,7 @@ Major	T
 Thread	2
 Order	4
 Depend	DE-anno
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ /opt/:/opt/
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
 [Job End]
@@ -159,7 +159,7 @@ Major	T
 Thread	2
 Order	4
 Depend	DE-anno
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ /opt/:/opt/
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
 [Job End]
