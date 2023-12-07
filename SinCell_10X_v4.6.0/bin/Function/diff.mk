@@ -42,8 +42,8 @@ KEGG:
 	echo "#############KEGG analsyis start at "`date`
 	[ -d $(kegg_shell_dir) ] || mkdir -p $(kegg_shell_dir)
 	$(PYTHON3) $(BIN)/Function/generate_shell.py -i $(de_file) -o $(kegg_shell) -a kegg -s $(species) -ca $(category) --sif $(sif)
-	echo '$(SBATCH) -J GO -D $(kegg_shell_dir) -o $(kegg_shell_dir)/go.log -e $(kegg_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo GO anaysis finished' > $(kegg_shell_dir)/kegg_qsub.sh
-	$(SBATCH) -J GO -D $(kegg_shell_dir) -o $(kegg_shell_dir)/go.log -e $(kegg_shell_dir)/go.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo GO anaysis finished
+	echo '$(SBATCH) -J KEGG -D $(kegg_shell_dir) -o $(kegg_shell_dir)/kegg.log -e $(kegg_shell_dir)/kegg.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo KEGG anaysis finished' > $(kegg_shell_dir)/kegg_qsub.sh
+	$(SBATCH) -J KEGG -D $(kegg_shell_dir) -o $(kegg_shell_dir)/kegg.log -e $(kegg_shell_dir)/kegg.err -p $(queue) -n 6 --mem 20G --wrap "$(env) $(kegg_shell)" && echo KEGG anaysis finished
 	echo "#############KEGG analysis end at" `date`
 
 GO_qsub:
