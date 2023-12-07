@@ -147,7 +147,7 @@ Order	4
 Depend	DE-anno
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species GO
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species config=Para_config GO
 [Job End]
 
 [Job Start]
@@ -161,7 +161,7 @@ Order	4
 Depend	DE-anno
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category KEGG
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category config=Para_config KEGG
 [Job End]
 
 [Job Start]
