@@ -4,13 +4,9 @@ PYTHON3=python3
 SBATCH=/opt/gridview/slurm/bin/sbatch
 env=/usr/bin/env bash
 queue=xahcnormal
-sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.3.sif
+sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
 RSCRIPT=Rscript
-#QSUB_SGE=/annoroad/data1/software/bin/pipeline_generate/bin/current/src/qsub_sge
-#RSCRIPT=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/suyalei/software/Anaconda/minconda3/envs/r_4/bin/Rscript
-#GLIBC=export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:$$LD_LIBRARY_PATH &&
-
 GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
 MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
 KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls

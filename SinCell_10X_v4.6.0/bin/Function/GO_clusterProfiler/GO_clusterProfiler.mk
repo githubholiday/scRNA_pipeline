@@ -1,5 +1,9 @@
 Bin=$(shell dirname $(abspath $(firstword $(MAKEFILE_LIST))))/
-config=$(Bin)/config/config.txt
+ifdef config
+	include $(config)
+else
+	include $(Bin)/config/config.txt
+endif
 Scr=$(Bin)/script/
 include $(config)
 
