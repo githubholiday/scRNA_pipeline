@@ -96,19 +96,6 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0]
 [Job End]
 
 [Job Start]
-Name	QC_Summary
-Memory	1G
-Queue	sci.q
-CPU	1
-Major	F
-Thread	1
-Order	5
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
-Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total 
-[Job End]
-
-[Job Start]
 Name	DE
 Memory	30G
 Queue	xahcnormal
@@ -202,6 +189,19 @@ Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/seurat_py.sif
 Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/Integrating Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
+[Job End]
+
+[Job Start]
+Name	QC_Summary
+Memory	1G
+Queue	sci.q
+CPU	1
+Major	F
+Thread	1
+Order	5
+Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
+Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total 
 [Job End]
 
 [Job Start]
