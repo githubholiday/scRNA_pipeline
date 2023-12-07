@@ -160,7 +160,7 @@ Major	T
 Thread	2
 Order	4
 Depend	CreateFunctionShell
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GOShellSubmit
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh species=Para_species config=Para_config GOShellSubmit
 [Job End]
 
 [Job Start]
@@ -172,7 +172,7 @@ Major	T
 Thread	2
 Order	4
 Depend	CreateFunctionShell
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE kegg_shell=OUTDIR/shell/Function_shell/KEGG_shell/kegg.sh config=Para_config KEGGShellSubmit
+Command	make -f BIN/Function/diff.mk log_file=LOGFILE kegg_shell=OUTDIR/shell/Function_shell/KEGG_shell/kegg.sh species=Para_species config=Para_config KEGGShellSubmit
 [Job End]
 
 [Job Start]
