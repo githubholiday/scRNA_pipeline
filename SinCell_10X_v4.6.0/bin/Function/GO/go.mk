@@ -44,7 +44,7 @@ GO_Enrich:
 	[ -d $(go_dir) ] || mkdir -p $(go_dir)
 	if [ `wc -l $(go_candidate) | awk '{print $$1}'` -gt 1 ];\
 		then \
-			make -f $(go_cluster_profile)/GO_clusterProfiler.mk genelist=species=no term2gene=$(GO_annotate) prefix=$(cmp) outdir=$(go_dir) genelist=$(go_candidate) config=$(BIN)/config/config.txt GO_clusterProfiler ;\
+			make -f $(BIN)/GO_clusterProfiler/GO_clusterProfiler.mk genelist=species=no term2gene=$(GO_annotate) prefix=$(cmp) outdir=$(go_dir) genelist=$(go_candidate) config=$(BIN)/config/config.txt GO_clusterProfiler ;\
 		else \
 			echo "no de gene , do not analysisGO_Enrich " ;\
 		fi;

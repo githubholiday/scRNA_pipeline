@@ -67,7 +67,7 @@ KEGG_Enrich:
 	[ -d $(kegg_dir) ] || mkdir -p $(kegg_dir)
 	if [ `wc -l $(de) | awk '{print $$1}'` -gt 1 ];\
 		then \
-			make -f $(kegg_cluster_profile)/KEGG_clusterProfiler.mk species=no term2gene=$(KEGG_annotate) prefix=$(cmp) outdir=$(kegg_dir) genelist=$(de) category=$(category) config=$(BIN)/config/config.txt KEGG_clusterProfiler ;\
+			make -f $(BIN)/KEGG_clusterProfiler/KEGG_clusterProfiler.mk species=no term2gene=$(KEGG_annotate) prefix=$(cmp) outdir=$(kegg_dir) genelist=$(de) category=$(category) config=$(BIN)/config/config.txt KEGG_clusterProfiler ;\
 		else \
 			echo "no de gene" ;\
 	fi;
