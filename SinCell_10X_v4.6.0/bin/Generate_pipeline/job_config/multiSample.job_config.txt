@@ -137,7 +137,7 @@ Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)
 [Job End]
 
 [Job Start]
-Name	Function-GO
+Name	CreateFunctionShell
 Memory	5G
 Qsub	False
 CPU	N
@@ -148,6 +148,7 @@ Depend	DE-anno
 Mount	"/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/"
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GO
+make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category config=Para_config KEGG
 [Job End]
 
 [Job Start]
@@ -158,22 +159,8 @@ CPU	N
 Major	T
 Thread	2
 Order	4
-Depend	Function-GO
+Depend	CreateFunctionShell
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GOShellSubmit
-[Job End]
-
-[Job Start]
-Name	Function-KEGG
-Memory	5G
-Qsub	True
-CPU	N
-Major	T
-Thread	2
-Order	4
-Depend	DE-anno
-Mount	"/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/"
-Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
-Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category config=Para_config KEGG
 [Job End]
 
 [Job Start]
@@ -184,7 +171,7 @@ CPU	N
 Major	T
 Thread	2
 Order	4
-Depend	Function-KEGG
+Depend	CreateFunctionShell
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE kegg_shell=OUTDIR/shell/Function_shell/KEGG_shell/kegg.sh config=Para_config KEGGShellSubmit
 [Job End]
 
@@ -195,10 +182,10 @@ Queue	xahcnormal
 CPU	N
 Major	T
 Thread	30
-Order	5
+Order	4
+Depend	Integrating
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/scrna_base_v0.1.sif
-Depend	Integrating
 Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(group)[0]/Pseudotime prefix=$(group)[0] difffile=OUTDIR/Integrating/$(group)[0]/2_clusters/$(group)[0]_immune_combined.rds configini=OUTDIR/Integrating/$(group)[0]/config.ini Monocle3
 [Job End]
 
@@ -207,9 +194,9 @@ Name	Convert
 Memory	1G
 Queue	xahcnormal
 CPU	N
-Major	F
+Major	T
 Thread	1
-Order	6
+Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/seurat_py.sif
 Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
