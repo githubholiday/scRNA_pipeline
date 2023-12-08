@@ -7,7 +7,7 @@ queue=xahcnormal
 mount=/work/share/acdgo9idhi/:/work/share/acdgo9idhi/ --bind /opt/:/opt/
 sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
-RSCRIPT=Rscript
+RSCRIPT=/opt/install/R-4.2.3/bin/Rscript
 GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
 MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
 KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
