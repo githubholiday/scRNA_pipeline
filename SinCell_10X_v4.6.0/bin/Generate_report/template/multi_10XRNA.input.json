@@ -69,5 +69,6 @@
         "image_pseudotime_partition":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_learn_graph_cells.png",
         "image_pseudotime_order":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_order_cells_cells.no.use_partition.png",
         "image_pseudotime_gene_module":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_Module.png"
-    }
+    },
+    "advanced_analysis":{}
 }
