@@ -1,0 +1,14 @@
+{
+    "smalltools":{
+      "韦恩图":{
+        "alias":"Venn" ,
+        "input_name":"infile"
+      },
+      "箱线图":{
+        "code":"adc22880bfb748c78b314bff66a6a5ce" ,
+        "version":"2.0.1"
+      }
+    },
+    "company" : "<br><center></center>"
+}
+  
