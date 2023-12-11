@@ -36,7 +36,8 @@
     },
     "umap":{
         "image_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.png",
-        "download_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.p*"
+        "download_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.p*",
+        "table_sample_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*sample.celltype.xls"
     },
     "celltype_cluster_stat":{
         "image_sample_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.sample_stats.png",
