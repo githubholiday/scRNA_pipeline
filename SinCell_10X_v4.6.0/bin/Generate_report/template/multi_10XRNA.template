@@ -14,7 +14,7 @@
 测序所得原始下机序列（Raw reads），首先我们根据10x转录组文库结构进行数据的截取，获得包含barcode和UMI序列信息的Read1和目标序列Read2；然后利用10x官方软件CellRanger 进行数据的分析处理。
 安诺优达10x Genomics单细胞转录组测序信息分析流程主要分为四部分：CellRanger数据分析、Seurat细胞分群和差异分析、基于Seurat结果的功能注释分析和拟时间分析。
 
-!!!（1）CellRanger数据分析：包含测序数据质控、质量评估和基因表达定量、细胞鉴定等分析 ；   
+!!!（1）CellRanger数据分析：包含测序数据质控、质量评估和基因表达定量、细胞鉴定等分析 ；  
 !!!（2）Seurat细胞分群和差异分析：基于CellRanger获得的细胞基因表达矩阵，进行细胞再筛选、分群和差异分析等；  
 !!!（3）功能注释：主要对与找到的marker基因和cluster间差异基因进行功能注释和富集分析；  
 !!!（4）拟时间分析：通过构建细胞间的变化轨迹重塑细胞随着时间的变化过程。  
@@ -53,14 +53,14 @@ CellRanger分析后，Seurat选用目前普遍设定的阈值：
 
 Seurat过滤细胞数量统计表如下所示：
 ![Seurat过滤细胞数量统计表]{{table_cell_filter_stat}}
-!!!（1）sample：样本名称；
-!!!（2）total_cell：总的有效细胞数；
-!!!（3）high_quality_cell：过滤后保留的有效高质量细胞数（过滤掉以下类型的细胞：表达基因数量过高过低的细胞，线粒体基因比例大于20%的细胞，红细胞基因比例大于5%的细胞）；
-!!!（4）low_nFeature：表达基因数低于200的细胞数（大概率是死细胞或者细胞碎片）；
-!!!（5）high_nFeature：表达基因数高于10000的细胞数（大概率是双细胞或者多细胞）；
-!!!（6）high_MT：线粒体基因比例高于20%的细胞数（线粒体比例高，除了特殊细胞类型外，可能是异常状态的细胞）；
+!!!（1）sample：样本名称；  
+!!!（2）total_cell：总的有效细胞数；  
+!!!（3）high_quality_cell：过滤后保留的有效高质量细胞数（过滤掉以下类型的细胞：表达基因数量过高过低的细胞，线粒体基因比例大于20%的细胞，红细胞基因比例大于5%的细胞）；  
+!!!（4）low_nFeature：表达基因数低于200的细胞数（大概率是死细胞或者细胞碎片）；  
+!!!（5）high_nFeature：表达基因数高于10000的细胞数（大概率是双细胞或者多细胞）；  
+!!!（6）high_MT：线粒体基因比例高于20%的细胞数（线粒体比例高，除了特殊细胞类型外，可能是异常状态的细胞）；  
 !!!（7）high_HB：红细胞基因比例高于5%的细胞；
-!!!（8）all_filtered_cell：所有被过滤掉的细胞数量：表达基因数量过高或过低的细胞，线粒体基因比例大于20%的细胞，红细胞基因比例大于5%的细胞。
+!!!（8）all_filtered_cell：所有被过滤掉的细胞数量：表达基因数量过高或过低的细胞，线粒体基因比例大于20%的细胞，红细胞基因比例大于5%的细胞。  
 
 @@@@integrated_analysis
 # 聚类分析
@@ -103,50 +103,50 @@ Seurat过滤细胞数量统计表如下所示：
 ## Marker基因分析
 聚类分析得到了不同的聚类，为了进一步研究每个聚类的特征，鉴定出每个聚类所特有的基因，即显著差异的基因或者称之为marker基因。
 marker基因分析过程如下（以cluster1为例）：
-（1）计算cluster1中某个基因的平均表达量；
-（2）计算所有cluster中除了cluster1的对应基因的平均表达量；
+（1）计算cluster1中某个基因的平均表达量；  
+（2）计算所有cluster中除了cluster1的对应基因的平均表达量；  
 （3）采用wilcox统计方法进行差异分析，得到差异基因。
 marker基因鉴定的阈值为：
-（1）min.pct为0.10；
-（2）avg_log2FC为0.25；
-（3）avg_log2FC>0为上调（Up）, avg_log2FC<0为下调（Down）。
+（1）min.pct为0.10；  
+（2）avg_log2FC为0.25；  
+（3）avg_log2FC>0为上调（Up）, avg_log2FC<0为下调（Down）。  
 统计每个细胞cluster中的marker基因，并进行功能注释，结果示例如下：
 ![marker基因功能注释表]{{table_marker_gene_anno}}*
 
-（1）Gene_ID：基因ID；
-（2）gene_name：基因名；
-（3）p_val：差异表达分析的p-value；
-（4）avg_log2FC：差异表达倍数的log值；
-（5）pct.1：基因在Cluster中样本1有表达的细胞比例；
-（6）pct.2：基因在Cluster中样本2有表达的细胞比例；
-（7）p_val_adj：校正后的p-value；
-（8）cluster：聚类号；
-（9）Up/Down：上调还是下调表达，Up上调，Down为下调；
-（10）Significant：是否为显著性差异；
-（11）NR:Seq-id：基因同NR数据库的最优比对结果；
-（12）NR:Score：基因同NR数据库的比对得分；
-（13）NR:Evalue：基因同NR数据库的比对Evalue值；
-（14）NR:Description：NR数据库中该基因的功能描述；
-（14）NT:Seq-id：基因同NT数据库的最优比对结果；
-（16）NT:Score：基因同NT数据库的比对得分；
-（17）NT:Evalue：基因同NT数据库的比对Evalue值；
-（18）NT:Description：NT数据库中该基因的功能描述；
-（19）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；
-（20）Uniprot:Score：基因同Uniprot数据库的比对得分；
-（21）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；
-（22）Uniprot:Description：Uniprot数据库中该基因的功能描述；
-（23）COG:gene：比对上的COG数据库中的基因名；
-（24）COG:Score：与COG数据库的比对得分；
-（25）COG:Eval：与COG数据库的比对Evalue值；
-（26）COG:num：比对上的COG数据库中的基因ID；
-（27）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；
-（28）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；
-（29）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；
-（30）GO:biological_process：注释到的描述生物进程的GO Term；
-（31）GO:cellular_component：注释到的描述细胞组分的GO Term；
-（32）GO:molecular_function：注释到的描述分子功能的GO Term；
-（33）KEGG:KO：注释到的KEGG中的ID；
-（34）KEGG:Description：KEGG中的功能描述。
+（1）Gene_ID：基因ID；  
+（2）gene_name：基因名；  
+（3）p_val：差异表达分析的p-value；  
+（4）avg_log2FC：差异表达倍数的log值；  
+（5）pct.1：基因在Cluster中样本1有表达的细胞比例；  
+（6）pct.2：基因在Cluster中样本2有表达的细胞比例；  
+（7）p_val_adj：校正后的p-value；  
+（8）cluster：聚类号；  
+（9）Up/Down：上调还是下调表达，Up上调，Down为下调；  
+（10）Significant：是否为显著性差异；  
+（11）NR:Seq-id：基因同NR数据库的最优比对结果；  
+（12）NR:Score：基因同NR数据库的比对得分；  
+（13）NR:Evalue：基因同NR数据库的比对Evalue值；  
+（14）NR:Description：NR数据库中该基因的功能描述；  
+（14）NT:Seq-id：基因同NT数据库的最优比对结果；  
+（16）NT:Score：基因同NT数据库的比对得分；  
+（17）NT:Evalue：基因同NT数据库的比对Evalue值；  
+（18）NT:Description：NT数据库中该基因的功能描述；  
+（19）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；  
+（20）Uniprot:Score：基因同Uniprot数据库的比对得分；  
+（21）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；  
+（22）Uniprot:Description：Uniprot数据库中该基因的功能描述；  
+（23）COG:gene：比对上的COG数据库中的基因名；  
+（24）COG:Score：与COG数据库的比对得分；  
+（25）COG:Eval：与COG数据库的比对Evalue值；  
+（26）COG:num：比对上的COG数据库中的基因ID；  
+（27）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；  
+（28）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；  
+（29）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；  
+（30）GO:biological_process：注释到的描述生物进程的GO Term；  
+（31）GO:cellular_component：注释到的描述细胞组分的GO Term；  
+（32）GO:molecular_function：注释到的描述分子功能的GO Term；  
+（33）KEGG:KO：注释到的KEGG中的ID；  
+（34）KEGG:Description：KEGG中的功能描述。  
 
 选择各cluster的前10的marker基因绘制表达量热图，如下：
 ![marker基因表达量热图]{{image_marker_heatmap}}*
@@ -177,9 +177,9 @@ marker基因表达量气泡图如下：
 基于Seurat聚类的准确性和scibet的亚群自动注释，再结合积累的marker基因的信息，将Seurat的聚类结果、scibet的注释结果以及给定的细胞对应marker信息整合成一个表格，整合的方法是选取scibet中每个cluster注释上细胞数最多的celltype作为该cluster的细胞类型。如果其中细胞类型与给定的markerlist类型一致，则判断该marker列表与cluster covered marker的个数及具体的基因名称，并在表格中展示；如果celltype不一致，则展示对应cluster的top10的marker基因。
 scibet亚群统计表:
 ![scibet亚群统计表]{{table_scibet_stat}}*
-（1）CLUSTER：聚类号；
-（2）CellTypeN：细胞数量最多的前三种细胞类型；
-（3）CellTypeN_Count：细胞类型对应的细胞数量（括号中为该类细胞数占该cluster细胞数的比例）。
+（1）CLUSTER：聚类号；  
+（2）CellTypeN：细胞数量最多的前三种细胞类型；  
+（3）CellTypeN_Count：细胞类型对应的细胞数量（括号中为该类细胞数占该cluster细胞数的比例）。  
 
 @@@@umap
 ## 亚群注释UMAP图谱
@@ -194,8 +194,8 @@ scibet亚群统计表:
 样本在不同细胞类型中的细胞占比统计表如下：
 ![样本在不同细胞类型中的细胞占比统计表]{{table_sample_celltype_stat}}*
 
-!!!（1）celltype：细胞类型名；
-!!!（2）第2列-最后：样本名，每个单元格表示样本在不同细胞类型中的细胞数（细胞占比）。
+!!!（1）celltype：细胞类型名；  
+!!!（2）第2列-最后：样本名，每个单元格表示样本在不同细胞类型中的细胞数（细胞占比）。  
 
 样本在不同细胞类型中的细胞占比柱形图如下：
 ![样本在不同细胞类型中的细胞占比柱形图]{{image_sample_celltype_stat_png}}*
@@ -203,8 +203,8 @@ scibet亚群统计表:
 
 比较组在不同细胞类型中的细胞占比统计表如下：
 ![比较组在不同细胞类型中的细胞占比统计表]{{table_group_celltype_stat}}*
-!!!（1）celltype：细胞类型名；
-!!!（2）第2列-最后：样本名，每个单元格表示比较组在不同细胞类型中的细胞数（细胞占比）。
+!!!（1）celltype：细胞类型名；  
+!!!（2）第2列-最后：样本名，每个单元格表示比较组在不同细胞类型中的细胞数（细胞占比）。  
 
 比较组在不同细胞类型中的细胞占比堆叠柱形图如下：
 ![比较组在不同细胞类型中的细胞占比堆叠柱形图]{{image_group_celltype_stat_png}}*
@@ -215,54 +215,54 @@ scibet亚群统计表:
 ## 差异基因分析
 对同一聚类中的不同比较组进行差异分析，但是由于某些特异性的聚类可能只有一个样品的细胞，因此并不是所有的聚类都有结果。
 差异分析基因鉴定的阈值为：
-（1）min.pct为0.10；
-（2）|logfc|为0.25；
-（3）p_value<=0.05，q_value <=0.05；
-（4）logfc>0.25为上调（Up），logfc <0.25为下调（Down）；
+（1）min.pct为0.10；  
+（2）|logfc|为0.25；  
+（3）p_value<=0.05，q_value <=0.05；  
+（4）logfc>0.25为上调（Up），logfc <0.25为下调（Down）；  
 不同比较组在各聚类中的差异基因数量统计表，文件名为比较组名，统计表示例如下：
 ![不同比较组在各聚类中的差异基因数量统计表]{{table_de_stat}}*  
 
-（1）Cluster：聚类；
-（2）Up_gene：比较组在该聚类中上调差异基因数；
-（3）Down_gene：比较组在该聚类中下调差异基因数；
-（4）Total_gene：比较组在该聚类中总的差异基因数量。
+（1）Cluster：聚类；  
+（2）Up_gene：比较组在该聚类中上调差异基因数；  
+（3）Down_gene：比较组在该聚类中下调差异基因数；  
+（4）Total_gene：比较组在该聚类中总的差异基因数量。  
 
 对不同比较组在各聚类中的差异基因进行功能注释。结果示例如下：
 ![差异基因功能注释表]{{table_de_anno}}*
 
-!!!（1）Gene_ID：基因ID；
-!!!（2）gene_name：基因名；
-!!!（3）p_val：差异表达分析的p-value；
-!!!（4）avg_log2FC：差异表达倍数的log值；
-!!!（5）pct.1：基因在Cluster中处理组有表达的细胞比例；
-!!!（6）pct.2：基因在Cluster中对照组有表达的细胞比例；
-!!!（7）p_val_adj：校正后的p-value；
-!!!（8）Up/Down：上调还是下调表达，Up上调，Down为下调；
-!!!（9）Significant：是否为显著性差异；
-!!!（10）NR:Seq-id：基因同NR数据库的最优比对结果；
-!!!（11）NR:Score：基因同NR数据库的比对得分；
-!!!（12）NR:Evalue：基因同NR数据库的比对Evalue值；
-!!!（13）NR:Description：NR数据库中该基因的功能描述；
-!!!（14）NT:Seq-id：基因同NT数据库的最优比对结果；
-!!!（15）NT:Score：基因同NT数据库的比对得分；
-!!!（16）NT:Evalue：基因同NT数据库的比对Evalue值；
-!!!（17）NT:Description：NT数据库中该基因的功能描述；
-!!!（18）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；
-!!!（19）Uniprot:Score：基因同Uniprot数据库的比对得分；
-!!!（20）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；
-!!!（21）Uniprot:Description：Uniprot数据库中该基因的功能描述；
-!!!（22）COG:gene：比对上的COG数据库中的基因名；
-!!!（23）COG:Score：与COG数据库的比对得分；
-!!!（24）COG:Eval：与COG数据库的比对Evalue值；
-!!!（25）COG:num：比对上的COG数据库中的基因ID；
-!!!（26）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；
-!!!（27）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；
-!!!（28）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；
-!!!（29）GO:biological_process：注释到的描述生物进程的GO Term；
-!!!（30）GO:cellular_component：注释到的描述细胞组分的GO Term；
-!!!（31）GO:molecular_function：注释到的描述分子功能的GO Term；
-!!!（32）KEGG:KO：注释到的KEGG中的ID；
-!!!（33）KEGG:Description：KEGG中的功能描述。
+!!!（1）Gene_ID：基因ID；  
+!!!（2）gene_name：基因名；  
+!!!（3）p_val：差异表达分析的p-value；  
+!!!（4）avg_log2FC：差异表达倍数的log值；  
+!!!（5）pct.1：基因在Cluster中处理组有表达的细胞比例；  
+!!!（6）pct.2：基因在Cluster中对照组有表达的细胞比例；  
+!!!（7）p_val_adj：校正后的p-value；  
+!!!（8）Up/Down：上调还是下调表达，Up上调，Down为下调；  
+!!!（9）Significant：是否为显著性差异；  
+!!!（10）NR:Seq-id：基因同NR数据库的最优比对结果；  
+!!!（11）NR:Score：基因同NR数据库的比对得分；  
+!!!（12）NR:Evalue：基因同NR数据库的比对Evalue值；  
+!!!（13）NR:Description：NR数据库中该基因的功能描述；  
+!!!（14）NT:Seq-id：基因同NT数据库的最优比对结果；  
+!!!（15）NT:Score：基因同NT数据库的比对得分；  
+!!!（16）NT:Evalue：基因同NT数据库的比对Evalue值；  
+!!!（17）NT:Description：NT数据库中该基因的功能描述；  
+!!!（18）Uniprot:UniProtKB-AC：基因同Uniprot数据库的最优比对结果；  
+!!!（19）Uniprot:Score：基因同Uniprot数据库的比对得分；  
+!!!（20）Uniprot:Evalue：基因同Uniprot数据库的比对Evalue值；  
+!!!（21）Uniprot:Description：Uniprot数据库中该基因的功能描述；  
+!!!（22）COG:gene：比对上的COG数据库中的基因名；  
+!!!（23）COG:Score：与COG数据库的比对得分；  
+!!!（24）COG:Eval：与COG数据库的比对Evalue值；  
+!!!（25）COG:num：比对上的COG数据库中的基因ID；  
+!!!（26）Pfam:pfam_ID：比对上的蛋白家族Pfam的基因ID；  
+!!!（27）Pfam:pfam_Name：比对上的蛋白家族Pfam的基因名；  
+!!!（28）Pfam:pfam_Description：比对上的蛋白家族Pfam的功能描述；  
+!!!（29）GO:biological_process：注释到的描述生物进程的GO Term；  
+!!!（30）GO:cellular_component：注释到的描述细胞组分的GO Term；  
+!!!（31）GO:molecular_function：注释到的描述分子功能的GO Term；  
+!!!（32）KEGG:KO：注释到的KEGG中的ID；  
+!!!（33）KEGG:Description：KEGG中的功能描述。  
 
 
 不同比较组在各聚类中的差异基因表达量进行展示，跟据avg_log2FC绝对值从大到小排序，取每个比较组在各聚类中的top10的差异基因表达量绘制小提琴图、箱线图。
@@ -283,20 +283,20 @@ scibet亚群统计表:
 
 ![GO富集分析结果表]{{table_go_enrich}}
 
-!!!（1）ID：GO Term的ID；
-!!!（2）Ontology：该Term 所属分类；
-!!!（3）Description：GO Term的描述；
-!!!（4）Count1：富集到该Term的基因数目；
-!!!（5）Count2：用于富集分析的基因数目；
-!!!（6）Count3：富集到该Term的的背景基因数目；
-!!!（7）Count4：用于富集分析时的背景基因数目；
-!!!（8）pval：检验后的p值；
-!!!（9）p.adjust：BH方法校正后的p值；
-!!!（10）qval：检验后的q值；
-!!!（11）*Gene：富集到该Term上的基因；
-!!!（12）*Count：富集到该Term上的基因数目；
-!!!（13）Links：该GO Term的数据库链接；
-!!!（14）Result：该Term是否显著富集，yes，为显著；no，为不显著。
+!!!（1）ID：GO Term的ID；  
+!!!（2）Ontology：该Term 所属分类；  
+!!!（3）Description：GO Term的描述；  
+!!!（4）Count1：富集到该Term的基因数目；  
+!!!（5）Count2：用于富集分析的基因数目；  
+!!!（6）Count3：富集到该Term的的背景基因数目；  
+!!!（7）Count4：用于富集分析时的背景基因数目；  
+!!!（8）pval：检验后的p值；  
+!!!（9）p.adjust：BH方法校正后的p值；  
+!!!（10）qval：检验后的q值；  
+!!!（11）*Gene：富集到该Term上的基因；  
+!!!（12）*Count：富集到该Term上的基因数目；  
+!!!（13）Links：该GO Term的数据库链接；  
+!!!（14）Result：该Term是否显著富集，yes，为显著；no，为不显著。  
 
 
 @@@@GO_enrich
@@ -321,19 +321,19 @@ KEGG（Kyoto Encyclopedia of Genes and Genomes，京都基因与基因组百科�
 差异基因KEGG通路富集分析结果示例如下表：
 ![差异基因KEGG通路富集分析结果示例表]{{table_kegg_enrich}}
 
-!!!（1）Map：kegg通路编号；
-!!!（2）Name：kegg通路名称；
-!!!（3）Count1：富集到该通路的基因数目；
-!!!（4）Count2：用于富集分析的基因数目；
-!!!（5）Count3：富集到该通路的的背景基因数目；
-!!!（6）Count4：用于富集分析时的背景基因数目；
-!!!（7）pval：检验后的p值；
-!!!（8）p.adjust：BH方法校正后的p值；
-!!!（9）qval：检验后的q值；
-!!!（10）*Gene：富集到该通路上的基因；
-!!!（11）*Count：富集到该通路上的基因数目；
-!!!（12）Links：该map的数据库链接；
-!!!（13）Result：该map是否显著富集，yes，为显著；no，为不显著。
+!!!（1）Map：kegg通路编号；  
+!!!（2）Name：kegg通路名称；  
+!!!（3）Count1：富集到该通路的基因数目；  
+!!!（4）Count2：用于富集分析的基因数目；  
+!!!（5）Count3：富集到该通路的的背景基因数目；  
+!!!（6）Count4：用于富集分析时的背景基因数目；  
+!!!（7）pval：检验后的p值；  
+!!!（8）p.adjust：BH方法校正后的p值；  
+!!!（9）qval：检验后的q值；  
+!!!（10）*Gene：富集到该通路上的基因；  
+!!!（11）*Count：富集到该通路上的基因数目；  
+!!!（12）Links：该map的数据库链接；  
+!!!（13）Result：该map是否显著富集，yes，为显著；no，为不显著。  
 
 @@@@KEGG_enrich
 选取最显著的30个pathway通路（如果不足30则用全部通路）用条形图展示KEGG富集分析结果如下：
@@ -452,7 +452,7 @@ Image:upload/*/singleR_cellident_example.png,300,1,singleR细胞鉴定示例。
 有效细胞的判定主要基于UMI数目分布来确定的。其评估方法如下：
 !!!（1）根据ChromiumTM Single Cell 3’/5’Solution 的细胞捕获率，预估细胞数量N；  
 !!!（2）根据每个barcode的UMI数量降序排列，计算前N个barcode的UMI数量的99分位数，记为Y；  
-!!!（3）满足条件(UMI数量 > Y × 10%)的barcode即为有效细胞。    
+!!!（3）满足条件(UMI数量 > Y × 10%)的barcode即为有效细胞。  
 
 ### 软件版本说明
 本次分析所使用的软件见下表：
