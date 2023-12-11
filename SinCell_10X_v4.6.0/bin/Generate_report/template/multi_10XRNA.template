@@ -171,8 +171,6 @@ marker基因表达量气泡图如下：
 ![细胞亚群预测结果热图]{{image_scibet_heatmap}}*
 
 注：横轴为聚类号，纵轴为预测的细胞类型名。颜色从紫色到黄色，表示属于该聚类预测为该细胞类型的可能性逐渐增大。
-细胞亚群预测结果热图下载链接：
-![细胞亚群预测结果热图下载链接]{{download_scibet_heatmap}}*
 
 @@@@celltype_stat
 ## 亚群注释结果统计
@@ -189,8 +187,6 @@ scibet亚群统计表:
 ![细胞UMAP图谱]{{image_umap_celltype}}*
 
 注：细胞亚群注释后UMAP的图谱,左边为各细胞在样本中的分布展示，右边为各细胞在细胞类群上的分布。
-细胞亚群注释后图谱下载链接：
-![细胞亚群注释后图谱下载链接]{{download_umap_celltype}}*
 
 @@@@celltype_cluster_stat
 ## 聚类细胞占比统计

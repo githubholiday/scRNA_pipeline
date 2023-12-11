@@ -35,13 +35,12 @@
         "image_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*celltype_stat.png"
     },
     "umap":{
-        "image_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.png",
-        "download_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.p*",
-        "table_sample_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*sample.celltype.xls"
+        "image_umap_celltype":"upload/*Integrating_analysis/*/*CellIdent/*umap_cluster_anno.png"  
     },
     "celltype_cluster_stat":{
         "image_sample_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.sample_stats.png",
         "table_group_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*group.celltype.xls",
+        "table_sample_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*sample.celltype.xls",
         "image_group_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.group_stats.png"
     },
     "de_analysis":{
