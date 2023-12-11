@@ -59,7 +59,7 @@ input_json=$(template_dir)/$(template_type).input.json
 no_tag=public-picture
 lims_conf=$(tmpdir)/config/lims.ini
 .PHONY:Report
-Report_Upload:
+Report:
 	echo generate web report start at `date`
 	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
 	ln -sf $(report_dir)/report.template $(report_dir)/$(template_type).template.md
