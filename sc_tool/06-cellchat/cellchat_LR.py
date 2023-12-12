@@ -57,17 +57,19 @@ def main():
 	sample_name = os.path.basename(args.input).split('_net')[0]
 	with open( args.input, 'r') as infile, open(args.output, 'w') as outfile :
 		selected_index = 0
+		out_list = [0,1,4,5,7,8,9,10]
 		for line_index, line in enumerate(infile) :
 			tmp = line.rstrip().split('\t')
 			if line_index == 0 :
 				for i_index, value in enumerate( tmp ) :
 					if value == args.type :
 						selected_index = i_index
-				header = ['sample']+tmp
+				out_head = [tmp[i] for i in out_list]
+				header = [sample_name]+out_head
 				outfile.write( '\t'.join(header) + '\n' )
 			else :
 				if tmp[selected_index] == args.name :
-					value = [sample_name] + tmp
+					value = ["1"] + [tmp[i] for i in out_list]
 					outfile.write( '\t'.join(value) + '\n' )
 				else:
 					continue
