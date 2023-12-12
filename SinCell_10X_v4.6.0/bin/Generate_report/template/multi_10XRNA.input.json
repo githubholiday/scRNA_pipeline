@@ -47,7 +47,7 @@
         "table_de_stat":"upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls",
         "table_de_anno":"upload/*Integrating_analysis/*/Diff_gene/*/example_diff_gene.anno.xls",
         "image_de_vlnplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_VlnPlot.png",
-        "image_de_vlnplot.zip":"upload/*_Integrating_analysis/image_de_vlnplot.zip",
+        "image_de_vlnplot_zip":"upload/*_Integrating_analysis/image_de_vlnplot.zip",
         "image_de_boxplot":"upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_signif_Plot.png"
     },
     "GO_clusterProfiler":{
