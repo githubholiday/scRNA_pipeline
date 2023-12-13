@@ -16,8 +16,8 @@
 输入md模板文件，然后使用json作为变量的输入，导出最终的md的文件。
 md模板中有以下类型：
 * 字符串：{{string}}
-* 图片： ![title,w,h]{{image_}},支持单图、多图以及html结尾的动图， 末尾带* ，则自动添加下载链接
-* 表格： ![title,column_number,row_number]{{table_}}，自动将第一个表格转为md，末尾带*，自动添加下载链接，是否需要压缩后下载
+* 图片： ![title,w,h]{{image_}},支持单图、多图以及html结尾的动图， 末尾带* ，则自动添加下载链接, 可以加一个image_*_zip 来表示zip文件路径
+* 表格： ![title,column_number,row_number]{{table_}}，自动将第一个表格转为md，末尾带*，自动添加下载链接，是否需要压缩后下载，可以加一个table_*_zip 来表示zip文件路径
 * 下载： ![title]{{download_}}
 * 跳转链接: ![title]{{href_}} , 构建跳转链接。
 * json: ![title]{{json_}} , 后面的注释以@开头
@@ -140,7 +140,7 @@ class Content():
         else:
             pass
 
-    def is_contain_variable(self):
+    def is_contain_variable(self ):
         '''
         check a line whether contain a variable
         '''
@@ -295,7 +295,7 @@ index="">
             inputs_dict[self.variable] = a_path.file_to_table(self.parameters)  ### 读取表格文件，直接替换成文件内容
             self.output_table(count['table'])  ## 添加个 标题
             if self.downloadable:
-                a_path.zip_files()  ### 打包文件，存储zip文件路径
+                a_path.zip_files( inputs_dict )  ### 打包文件，存储zip文件路径
                 inputs_dict['{0}_zip'.format(self.variable)] = a_path.add_prefix('zip', project, bool_local)  ### 获得文件的路径，本地就是路径
                 self.output_download('{0}_zip'.format(self.variable))  ## 添加一行html
         elif self.type == 'image':
@@ -320,25 +320,25 @@ index="">
             ## inputs_dict['{0}_zip'.format(self.variable)] = a_path.file1
             if self.downloadable:
                 bool_image = True
-                a_path.zip_files(bool_image)
+                a_path.zip_files( inputs_dict , bool_image)
                 inputs_dict['{0}_zip'.format(self.variable)] = a_path.add_prefix('zip', project, bool_local)
                 self.output_download('{0}_zip'.format(self.variable))
         elif self.type == 'download':
-            a_path.zip_files()
+            a_path.zip_files( inputs_dict )
             inputs_dict['{0}_zip'.format(self.variable)] = a_path.add_prefix('zip', project, bool_local)
             self.output_download('{0}_zip'.format(self.variable))
         elif self.type == 'json':
             keys, group = a_path.to_json(self.description)
             self.output_json(project, keys, group)
             if self.downloadable:
-                a_path.zip_files()
+                a_path.zip_files( inputs_dict )
                 inputs_dict['{0}_zip'.format(self.variable)] = a_path.add_prefix('zip', project, bool_local)
                 self.output_download('{0}_zip'.format(self.variable))
         elif self.type == 'smalltool':
             self.output_smalltool(a_path.add_prefix('st', project, bool_local))
             # inputs_dict['{0}'.format(self.variable)] = a_path.add_prefix('st', project , bool_local)
             if self.downloadable:
-                a_path.zip_files()
+                a_path.zip_files( inputs_dict )
                 inputs_dict['{0}_zip'.format(self.variable)] = a_path.add_prefix('zip', project, bool_local)
                 self.output_download('{0}_zip'.format(self.variable))
         elif self.type == 'href':
@@ -420,7 +420,9 @@ class Pathway():
         # print(self.filelist)
         if len(self.filelist) == 0:
             self.is_file_miss = True
-            if self.name.startswith('image'):
+            if self.name.endswith('zip'):
+                pass
+            elif self.name.startswith('image'):
                 dest_file = "{0}/{1}".format(glob.glob(os.path.dirname(self.path))[0],
                                              os.path.basename(default_picture))
                 copyfile(default_picture, dest_file)
@@ -439,7 +441,9 @@ class Pathway():
             for i, j in enumerate(self.filelist):
                 if not os.path.isfile(j):
                     self.is_file_miss = True
-                    if self.name.startswith('image'):
+                    if self.name.endswith('zip'):
+                        pass
+                    elif self.name.startswith('image'):
                         copyfile(default_picture, self.filelist[i])
                     elif self.name.startswith('table') or self.name.startswith('download') or self.name.startswith(
                             'json'):
@@ -574,7 +578,7 @@ class Pathway():
         else:
             pass
 
-    def zip_files(self, bool_image=False):
+    def zip_files(self, input_dict , bool_image=False ):
         '''
         zip files and return zip file path
         '''
@@ -586,7 +590,12 @@ class Pathway():
             else:
                 output_dir = os.path.dirname(output_dir)
             #output_dir = glob.glob(output_dir)[0]
-        out_zip = '{0}/{1}.zip'.format(output_dir, self.name)
+        a_key = "{0}_zip".format(self.name)
+        if a_key in input_dict:
+            out_zip = input_dict[a_key].value
+        else: 
+            out_zip = '{0}/{1}.zip'.format(output_dir, self.name)
+
         with zipfile.ZipFile(out_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
             for i in self.filelist:
                 if bool_image:
