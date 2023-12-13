@@ -215,7 +215,7 @@ Order	7
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/md_report_v0.0.4.sif
 Depend	Convert
-Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
-make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_id=Para_project ReportUpload
-make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_name=Para_projectName contract_id=Para_project_id GenerateReport
+Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report indir=OUTDIR template_type=multi_10XRNA project_id=Para_project ReportUpload
+make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report  template_type=multi_10XRNA project_name=Para_projectName contract_id=Para_project_id GenerateReport
+make -f /software/md2typ/makefile input=OUTDIR/Report/html_raw.md outpdf=OUTDIR/Report/Para_projectName.pdf contract_number=Para_project_id contract_title=Para_projectName pdf_and_clean
 [Job End]

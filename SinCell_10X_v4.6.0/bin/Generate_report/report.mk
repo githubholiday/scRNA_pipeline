@@ -8,7 +8,7 @@ endif
 include $(Bconfig)
 date = $(shell date +%Y%m%d)
 #Single_Report,Multi_Report
-report_dir=$(outdir)/report
+report_dir=$(outdir)/Report
 template_dir=$(tmpdir)/template
 version=v$(shell echo $(pipeline) | awk -F'_v' '{print $$2}' | awk -F'/' '{print $$1}')
 
