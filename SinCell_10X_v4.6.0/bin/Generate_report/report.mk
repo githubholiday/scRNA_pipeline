@@ -35,7 +35,17 @@ Help:
 	@echo -e "\ttemplate_file：结题报告模板文件，可由template_dir/template_type.template组合成，template_dir为流程报告脚本路径，即该mk的路径，template_type为报告模板的前缀，一般为Single_10XRNA 或 Multi_10XRNA"
 	@echo -e "\tupload_conf：整理upload目录的config文件，默认为template_dir/upload.conf,template_dir为该mk所在目录"
 
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `find $(indir) -name *.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+		exit 1 ; \
+	fi
 
+.PHONY:Clean_Upload
 Clean_Upload:
 	for file in `find $(upload_dir) -type l` ;\
 	do \
@@ -57,14 +67,15 @@ template_file=$(template_dir)/$(template_type).template
 upload_conf=$(template_dir)/$(template_type).upload.conf
 input_json=$(template_dir)/$(template_type).input.json
 no_tag=public-picture
-lims_conf=$(tmpdir)/config/lims.ini
-.PHONY:Report
+
+.PHONY:ReportUpload
 ReportUpload:
 	echo generate web report start at `date`
 	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
 	ln -sf $(report_dir)/report.template $(report_dir)/$(template_type).template.md
 	cp $(input_json) $(report_dir)/
 
+.PHONY:GenerateReport
 GenerateReport:
 	mkdir -p $(report_dir)
 	cd $(report_dir) && $(PYTHON3) $(generate_md_report_EB) -d ./ -pipeline $(template_type) -l -o html_raw.md 
@@ -74,12 +85,4 @@ GenerateReport:
 	#make -f /software/md2typ/makefile all input=$(report_dir)/html_raw.md outpdf=$(report_dir)/$(project_name).pdf contract_number=$(contract_id) contract_title=$(project_name) report_date=$(date)
 
 
-.PHONY:Convert
-Convert:
-	if [ -s $(CONVERT) ] ; \
-	then \
-		for i in `find $(indir) -name *.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
-	else \
-		echo "$(CONVERT) May not exist on the task running node " ; \
-		exit 1 ; \
-	fi
+
