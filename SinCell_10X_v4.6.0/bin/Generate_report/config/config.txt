@@ -1,3 +1,4 @@
 CONVERT=/usr/bin/convert
 PYTHON3=python3
 PANDOC=pandoc
+generate_md_report_EB=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/3_md_report/v2.0/generate_md_report_EB.py

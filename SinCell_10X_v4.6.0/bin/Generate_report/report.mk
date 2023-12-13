@@ -67,11 +67,11 @@ ReportUpload:
 
 GenerateReport:
 	mkdir -p $(report_dir)
-	cd $(report_dir) && $(PYTHON3) $(Bin)/comm/generate_md_report_EB.py -d ./ -pipeline $(template_type) -l -o html_raw.md 
+	cd $(report_dir) && $(PYTHON3) $(generate_md_report_EB) -d ./ -pipeline $(template_type) -l -o html_raw.md 
 	perl -pe 's/^\<br\s+\/\>/\n/' $(report_dir)/html_raw.md > $(report_dir)/new.md
 	$(PANDOC) --standalone -c $(report_dir)/html/css/markdown.css $(report_dir)/new.md --metadata title="$(project_name)" -o $(report_dir)/$(project_name)_report.tmp.html
 	$(PYTHON3) $(Bin)/comm/modify_html.py -i $(report_dir)/$(project_name)_report.tmp.html -o $(report_dir)/$(project_name)_report.html
-	make -f /software/md2typ/makefile all input=$(report_dir)/html_raw.md outpdf=$(report_dir)/$(project_name).pdf contract_number=$(contract_id) contract_title=$(project_name) report_date=$(date)
+	#make -f /software/md2typ/makefile all input=$(report_dir)/html_raw.md outpdf=$(report_dir)/$(project_name).pdf contract_number=$(contract_id) contract_title=$(project_name) report_date=$(date)
 
 
 .PHONY:Convert
