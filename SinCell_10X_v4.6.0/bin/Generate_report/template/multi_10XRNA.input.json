@@ -20,10 +20,12 @@
         "image_group_cluster_stat_png":"upload/*_Integrating_analysis/*/*clusters/*group.clusters_stats.png"
     },
     "marker_gene":{
-        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_markers.anno.xls",
-        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marker/*marker_heatmap.png",
-        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marker/*marker_vlnplot.png",
-        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marker/*_top_dotplot.png"
+        "table_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/example.all_marker.anno.xls",
+        "download_marker_gene_anno":"upload/*_Integrating_analysis/*/*marker/*.all_marker.anno.xls",
+        "image_marker_heatmap":"upload/*_Integrating_analysis/*/*marker/*marker.heatmap.png",
+    
+        "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marker/*marker.vlnplot.png",
+        "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marker/*marker.dotplot.png"
     },
     "celltype":{},
     "heatmap":{
@@ -71,5 +73,9 @@
         "image_pseudotime_order":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_order_cells_cells.no.use_partition.png",
         "image_pseudotime_gene_module":"upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_Module.png"
     },
-    "advanced_analysis":{}
+    "Appendix":{
+        "table_software_list":"upload/*public-picture/soft_10x.xls",
+        "download_method_pdf":"upload/public-picture/*Methods.pdf",
+        "download_FAQ_pdf":"upload/public-picture/*FAQ.pdf"
+    }
 }

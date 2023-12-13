@@ -213,9 +213,9 @@ Major	T
 Thread	2
 Order	7
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
+Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/md_report_v0.0.4.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
 make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_id=Para_project ReportUpload
-make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_name=Para_projectName GenerateReport
+make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=multi_10XRNA project_name=Para_projectName contract_id=Para_project_id GenerateReport
 [Job End]
