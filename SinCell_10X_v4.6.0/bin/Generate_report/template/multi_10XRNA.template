@@ -178,7 +178,7 @@ marker基因表达量气泡图如下：
 ## 亚群注释结果统计
 基于Seurat聚类的准确性和scibet的亚群自动注释，再结合积累的marker基因的信息，将Seurat的聚类结果、scibet的注释结果以及给定的细胞对应marker信息整合成一个表格，整合的方法是选取scibet中每个cluster注释上细胞数最多的celltype作为该cluster的细胞类型。如果其中细胞类型与给定的markerlist类型一致，则判断该marker列表与cluster covered marker的个数及具体的基因名称，并在表格中展示；如果celltype不一致，则展示对应cluster的top10的marker基因。
 scibet亚群统计表:
-![scibet亚群统计表,3]{{table_scibet_stat}}*
+![scibet亚群统计表,3,50]{{table_scibet_stat}}*
 （1）CLUSTER：聚类号；  
 （2）CellTypeN：细胞数量最多的前三种细胞类型；  
 （3）CellTypeN_Count：细胞类型对应的细胞数量（括号中为该类细胞数占该cluster细胞数的比例）。  
