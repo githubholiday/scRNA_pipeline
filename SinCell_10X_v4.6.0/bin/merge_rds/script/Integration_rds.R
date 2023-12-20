@@ -1,21 +1,9 @@
-# 组合1	N	N2THY/N1THY/N3THY
-# 组合2	H	H2THY/H3THY/H1THY
-# SCH1THY	Homo sapiens	样品2	SCH
-# 1)提供组间比较结果
-# N、H：N为对照组，H为处理组
-# N、H、SCH：N为对照组 处理组H、SCH
-
-# 2）基因在各组的哪些细胞中是否有差异:NLRP3   AIM2   NLRP1A   NLRP1B   NLRC4   caspase-1   caspase-11    Gasdermin-D     IL18   IL-1β   ，想看看在哪些组织中有表达，在各组中是否有差异，尤其是想看看NLRP3
-#!/annoroad/data1/bioinfo/PMO/yaomengcheng/Anaconda3/bin/Rscript
-#名称：DE_10xGenomics.R
-#作者：姚盟成
-#邮箱：mengchengyao@genome.cn
-#时间：201901011
-#版本：v0.0.2
-#用途：利用seurat v3.0进行10x 进行不同条件比较分析,需要输入配置文件，配置可以设置具有生物学重复的分析，指定分组。如果有
-#两个以上样品，则需要分别取做差异分析。
-###说明：
-#程序开发环境/annoroad/data1/bioinfo/PMO/yaomengcheng/Anaconda3/bin/Rscript，需要指定R，指定包的路径,使用为seurat3.0版本以上
+#名称：Integration_rds.R
+#作者：mengli
+#邮箱：mengli@genome.cn
+#时间：20231130
+#版本：v0.0.3
+#用途：将项目中所有的样本对过滤后的rds文件进行合并、聚类、分群。
 #===========================================================
 library('getopt')
 para<- matrix(c(
@@ -68,17 +56,31 @@ library(scales)
 library(ggplot2)
 library(configr)
 library(cowplot)
-#library(harmony)
+library(harmony)
 mkdirs <- function(outdir,fp) {
 	if(!file.exists(file.path(outdir,fp))) {
 #		mkdirs(dirname(fp))
 		dir.create(file.path(outdir,fp))
 	}else{
 			print(paste(fp,"Dir already exists!",sep="     "))
-			unlink(file.path(outdir,fp), recursive=TRUE)
-			dir.create(file.path(outdir,fp))
+			#unlink(file.path(outdir,fp), recursive=TRUE)
+			#dir.create(file.path(outdir,fp))
 		}
 }
+get_table <- function(df1){
+	row <- dim(df1)[1]
+	col <- dim(df1)[2]
+	df2 <- df1
+	for (c in 1:col){
+  		all <- sum(as.numeric(df1[,c]))
+  		for (r in 1:row){
+    			s <- round(as.numeric(df1[r,c])/all*100,2)
+    			df2[r,c] <- paste(df1[r,c],'(',s,'%)',sep='')
+ 		}
+	}
+	return(df2)
+}
+
 ##1_QC  2_clusters  3_marker  4_conserved_markers  5_diff_gene_condition
 sample2SeuratObject_list <- function(indir,oudir,samplenames){
   print("start read")
@@ -120,37 +122,156 @@ qc_pca_plot<-function(immune.combined,outdir=getwd(),pref='10x',w_h=c(12,8)){
 	print(p5)
     dev.off()
 }
-integration <- function(object_list,cca_dims=20,pca_dims=20,RunPCA_npcs=30){
-  all_samples<-names(object_list)
-  if(length(all_samples)>1){
-  immune.anchors <- FindIntegrationAnchors(object.list = object_list, dims = 1:as.numeric(cca_dims))
-  immune.combined <- IntegrateData(anchorset = immune.anchors, dims = 1:as.numeric(pca_dims))
-  DefaultAssay(immune.combined) <- "integrated"
-  }else{
-  print(paste('You just have only one sample: hahahahah',all_samples,sep=' '))
-  immune.combined=object_list[[1]]
-  }
-  
-  return (immune.combined)
+
+reduction<-function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pref='10x',w_h=c(24,8)){
+	x_umap <-c()
+	y_umap <-c()
+	if ( length(unique(immune.combined@meta.data$orig.ident)) > 1 ){
+		immune.combined <- NormalizeData(immune.combined) %>% FindVariableFeatures() %>% ScaleData() %>% RunPCA(verbose = FALSE)
+		immune.combined <- RunHarmony(immune.combined, group.by.vars = "stim")
+		immune.combined_umap <- RunUMAP(immune.combined, reduction = "harmony",dims = 1:as.numeric(dims_num))
+		immune.combined_umap <- FindNeighbors(object = immune.combined_umap, reduction = "harmony", dims = 1:as.numeric(dims_num))
+	}else{
+		immune.combined_umap <- RunUMAP(immune.combined, reduction = "pca",dims = 1:as.numeric(dims_num))
+		immune.combined_umap <- FindNeighbors(object = immune.combined_umap, reduction = "pca", dims = 1:as.numeric(dims_num))
+	}
+	immune.combined_umap <- FindClusters(immune.combined_umap, resolution = as.numeric(resolution))
+	levels(Idents(immune.combined_umap))
+	#改聚类号，从1开始
+	current.cluster.ids <- levels(Idents(immune.combined_umap))
+	new.cluster.ids <- as.numeric(current.cluster.ids)+1
+	Idents(immune.combined_umap) <- plyr::mapvalues(x = Idents(immune.combined_umap), from = current.cluster.ids, to = new.cluster.ids)
+	immune.combined_umap$seurat_clusters <- Idents(immune.combined_umap)
+	#
+	p_tmp<<-theme(panel.grid=element_blank(), legend.background = element_rect(colour = NA),
+        legend.title = element_blank(),legend.text =  element_text(color="black",size=30),
+        axis.text.x = element_text(color="black",size=30),
+        axis.text.y = element_text(color="black",size=30),
+        axis.title.x = element_text(face="plain", color="black",size=30),
+        axis.title.y = element_text(face="plain", color="black",size=30))
+	pdf(paste(outdir,paste(pref,"umap_cluster_samples.pdf",sep='_'),sep='/'),w=w_h[1],h=w_h[2])
+	# Visualization
+	p1 <- DimPlot(immune.combined_umap, reduction = "umap", group.by = "stim",pt.size = 1)+p_tmp+ggtitle("")
+	p2 <- DimPlot(immune.combined_umap, reduction = "umap", label = TRUE,label.size = 5,pt.size = 1,repel = T)+p_tmp
+	p3<-plot_grid(p1, p2)
+	print(p3)
+	p4 <- DimPlot(immune.combined_umap, reduction = "umap", label = TRUE,label.size = 5,pt.size = 1,split.by = "stim",repel = T)+p_tmp
+	print(p4)
+	dev.off()
+	x_umap <-as.data.frame(immune.combined_umap@reductions$umap@cell.embeddings)
+	x_umap$orig.ident<-rownames(x_umap)
+	res <-immune.combined_umap@meta.data
+	y_umap <-data.frame(orig.ident=rownames(res),sample=res$stim,cluster=res$seurat_clusters)
+	c<-merge(x_umap,y_umap,by='orig.ident')
+	print("保存细胞的umap坐标结果：cell.umap.csv")
+	write.csv(c,paste(outdir,"cell.umap.csv",sep='/'),quote=F,row.names=F)
+	
+	#各样本cluster统计
+	a<-data.frame(Clusters=immune.combined_umap@meta.data[,'seurat_clusters'],Samples=immune.combined_umap@meta.data[,'orig.ident'])
+	a$Clusters<-factor(a$Clusters,levels=sort(unique(a$Clusters)))
+	if (length(unique(a$Samples)) > 1) {
+	pdf(paste(outdir,paste(pref,"sample.clusters_stats.pdf",sep='_'),sep='/'),w=12,h=8)
+	p<-ggplot(a, aes(Clusters)) + geom_bar(aes(fill=Samples), position='fill',width=0.6)+labs(x=" ", y = "",fill= "Samples")+theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.background = element_rect(colour = NA),plot.title=element_text(size = 25),axis.text.x=element_text(size=20,angle=60,hjust=1),axis.text.y=element_text(size=20),axis.title.x=element_text(size = 25),axis.title.y=element_text(size = 25),legend.text =element_text(size = 25),legend.title =element_text(size = 25))
+	print(p)
+	dev.off()
+	}
+	a1 <- get_table(as.data.frame.array(table(a)))
+	a2 <- data.frame(Clusters=rownames(a1), a1)
+	write.table(a2,paste(pref,'sample.clusters.xls',sep='_'),quote=F,sep="\t", row.names=F)
+
+
+	#####tsne分析
+	x_tsne <-c()
+	y_tsne <-c()
+	if ( length(unique(immune.combined@meta.data$orig.ident)) > 1 ){
+		immune.combined_tsne <- RunTSNE(immune.combined_umap, reduction = "harmony",dims = 1:as.numeric(dims_num), check_duplicates = FALSE)
+		immune.combined_tsne  <- FindNeighbors(object = immune.combined_tsne , reduction = "harmony", dims = 1:as.numeric(dims_num))
+	}else{
+		immune.combined_tsne <- RunTSNE(immune.combined_umap, reduction = "pca",dims = 1:as.numeric(dims_num))
+		immune.combined_tsne  <- FindNeighbors(object = immune.combined_tsne , reduction = "pca", dims = 1:as.numeric(dims_num))
+	}
+	immune.combined_tsne  <- FindClusters(immune.combined_tsne , resolution = as.numeric(resolution))
+	#改聚类号，从1开始
+	current.cluster.ids <- levels(Idents(immune.combined_tsne))
+	new.cluster.ids <- as.numeric(current.cluster.ids)+1
+	Idents(immune.combined_tsne) <- plyr::mapvalues(x = Idents(immune.combined_tsne), from = current.cluster.ids, to = new.cluster.ids)
+	immune.combined_tsne$seurat_clusters <- Idents(immune.combined_tsne)
+	pdf(paste(outdir,paste(pref,"tsne_cluster_samples.pdf",sep='_'),sep='/'),w=w_h[1],h=w_h[2])
+	# Visualization
+	p1 <- DimPlot(immune.combined_tsne, reduction = "tsne", group.by = "stim",pt.size = 1)+p_tmp
+	p2 <- DimPlot(immune.combined_tsne, reduction = "tsne", label = TRUE,label.size = 5,pt.size = 1, repel = T)+p_tmp
+	p3<-plot_grid(p1, p2)
+	print(p3)
+	p4 <- DimPlot(immune.combined_tsne, reduction = "tsne", label = TRUE,label.size = 5,pt.size = 1,split.by = "stim",repel = T)+p_tmp
+	print(p4)
+	dev.off()
+	x_tsne <-as.data.frame(immune.combined_tsne@reductions$tsne@cell.embeddings)
+	x_tsne$orig.ident<-rownames(x_tsne)
+	res <-immune.combined_tsne@meta.data
+	y_tsne <-data.frame(orig.ident=rownames(res),sample=res$stim,cluster=res$seurat_clusters)
+	c<-merge(x_tsne,y_tsne,by='orig.ident')
+	print("保存细胞的tsne坐标结果：cell.tsne.csv")
+	write.csv(c,"cell.tsne.csv",quote=F,row.names=F)
+	
+	
+	cluster_num<-length(unique(Idents(immune.combined_tsne)))
+	color<-hue_pal()(cluster_num)
+	for (i in 1:cluster_num){
+		c_umap<-merge(x_umap,y_umap,by='orig.ident')
+		c_umap$cluster<-as.character(as.numeric(c_umap$cluster))
+		#c_umap$cluster <-as.character(c_umap$cluster)
+		c_umap[c_umap$cluster!=i,]$cluster <- 'Not in'
+		mycolo<-c(color[as.numeric(i+1)],'grey') 
+		legend<-c(i,'Not in')
+		graph <- paste(i,'grey.clusters.pdf',sep='_')
+		pdf(graph, w=12, h=8)
+		#tsne 高亮图
+		c_umap %>%dplyr::group_by(cluster) %>% summarize(x = median(x = UMAP_1), y = median(x = UMAP_2)) -> centers
+		p<-ggplot(c_umap,aes(x=c_umap$UMAP_1, y=c_umap$UMAP_2, colour=factor(c_umap$cluster,levels=legend)))+ geom_point(size=0.5)+scale_colour_manual(values=mycolo) +theme_bw(base_size = 20)+p_tmp+
+		labs(x='UMAP1', y= 'UMAP2')+guides(colour = guide_legend(override.aes = list(size=8)))+geom_text(data=centers[centers$cluster!='Not in',],aes(x=x,y=y,label=cluster),colour='black',size = 10)
+		lab <-paste("正在绘制",i,"高亮图。。。",sep=" ")
+		print(lab)
+		print(p)
+#		dev.off()
+		#tsne 高亮图
+		c_tsne<-merge(x_tsne,y_tsne,by='orig.ident')
+		c_tsne$cluster<-as.character(as.numeric(c_tsne$cluster))
+		#c_tsne$cluster <-as.character(c_tsne$cluster)
+		c_tsne[c_tsne$cluster!=i,]$cluster <- 'Not in'
+		c_tsne %>%dplyr::group_by(cluster) %>% summarize(x = median(x = tSNE_1), y = median(x = tSNE_2)) -> centers
+		p<-ggplot(c_tsne,aes(x=c_tsne$tSNE_1, y=c_tsne$tSNE_2, colour=factor(c_tsne$cluster,levels=legend)))+ geom_point(size=0.5)+scale_colour_manual(values=mycolo) +theme_bw(base_size = 20)+p_tmp+
+		labs(x='TSNE1', y= 'TSNE2')+guides(colour = guide_legend(override.aes = list(size=8)))+geom_text(data=centers[centers$cluster!='Not in',],aes(x=x,y=y,label=cluster),colour='black',size = 10)
+		print(lab)
+		print(p)
+		dev.off()
+		print("已完成全部cluster的高亮图绘制。")
+	}
+	return (immune.combined_tsne)
 }
 
-#1_QC  2_clusters  3_marker  4_conserved_markers  5_diff_gene  
 prefix<-opt$prefix
 outdir<-opt$outdir
 indir<-opt$indir
 ini<-opt$config
 ini.list <- read.config(file = ini)
-mkdirs(outdir,'1_QC')
-setwd(paste(outdir,'1_QC',sep='/'))
-#组合1	N	N2THY/N1THY/N3THY
-#组合2	H	H2THY/H3THY/H1THY
-#ini.list$sample$sample1  unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
+mkdirs(outdir,'1_Com_QC')
+setwd(paste(outdir,'1_Com_QC',sep='/'))
 sample_name<-unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
-object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_QC',sep='/'), sample_name)
-#immune.combined<-integration(object_list,cca_dims=as.numeric(ini.list$Para$integration_cca_dims),pca_dims=as.numeric(ini.list$Para$integration_pca_dims),RunPCA_npcs=as.numeric(ini.list$Para$integration_runpca_npcs))
+object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
 immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
-#immune.combined <- NormalizeData(immune.combined) %>% FindVariableFeatures()
-#immune.combined <- RunHarmony(immune.combined, group.by.vars = "stim")
 saveRDS(immune.combined, file = paste(prefix,'.rds',sep=''))
+immune.combined <- NormalizeData(object = immune.combined, normalization.method = ini.list$Para$object_list_normalization.method, scale.factor = as.numeric(ini.list$Para$object_list_scale.factor), verbose = FALSE)
+immune.combined <- FindVariableFeatures(object = immune.combined, selection.method = ini.list$Para$object_list_findvariablefeatures_method, nfeatures = as.numeric(ini.list$Para$object_list_nfeatures_findvariablefeatures))
+saveRDS(immune.combined, file = paste(prefix,'nor.rds',sep='_'))
+immune.combined <- ScaleData(immune.combined, verbose = FALSE)
+immune.combined <- RunPCA(immune.combined, npcs = as.numeric(ini.list$Para$integration_pca_dims), verbose = FALSE)
+qc_pca_plot(immune.combined,outdir=paste(outdir,'1_Com_QC',sep='/'),pref=prefix,w_h=c(as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[1]),as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[2])))
+
+#聚类
+mkdirs(outdir,'2_Com_clusters')
+setwd(paste(outdir,'2_Com_clusters',sep='/'))
+immune.combined$stim <- immune.combined$orig.ident
+immune.combined<-reduction(immune.combined,dims_num=as.numeric(ini.list$Para$reduction_dims_num),resolution=as.numeric(ini.list$Para$reduction_resolution),outdir=paste(outdir,'2_Com_clusters',sep='/'),pref=prefix)
+saveRDS(immune.combined, file = paste(prefix,'cluster.rds',sep='_'))
 
 

@@ -58,8 +58,8 @@ HELP:
 	@echo -e "\t" "rds: rds路径 【必选|路径】；"
 	@echo -e "\t" "combine: 比较组名称，示例A_VS_B 【必选|字符串】；"
 	@echo -e "\t" "integrating_dir：合并rds输出目录 【必选|路径】；"
+	@echo -e "\t" "all: 所有样本合并后的rds文件名称，一般是Combine 【必选|字符串】；"
 	@echo -e "\t" "config_file：比较组及相关参数配置文件 【必选|路径】。"
-
 
 rds=$(outdir)/Integrating/$(combine)/1_QC/$(combine).rds
 integrating_dir=$(outdir)/Integrating/$(combine)
@@ -74,6 +74,32 @@ Integrating:
 	@echo Integrating finish at `date`
 
 
+allrds=$(outdir)/Integrating/$(all)/2_Com_clusters/$(all)_cluster.rds
+.PHONY:Integrating_DE
+Integrating_DE:
+	@echo Integrating_DE start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	$(RSCRIPT) $(Bin)/DE_cluster.R -i $(allrds) -o $(integrating_dir) -c $(config_file) --prefix $(combine)
+	@echo Integrating_DE finish at `date`
+
+
+rds=$(outdir)/Integrating/$(combine)/2_Com_clusters/Combine_cluster.rds
+.PHONY:Integrating_single
+Integrating_single:
+	@echo Integrating_single start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	$(RSCRIPT) $(Bin)/cluster_single.R -i $(rds) -o $(integrating_dir) -c $(config_file) --prefix $(combine)
+	$(RSCRIPT) $(Bin)/AverageExpression.R -f $(cluster_rds) -o $(integrating_dir)/2_clusters -s yes
+	@echo Integrating_single finish at `date`
+
+cluster_rds=$(outdir)/Integrating/$(combine)/2_Com_clusters/$(combine)_immune_combined_marker.rds
+.PHONY:Integrating_multi
+Integrating_multi:
+	@echo Integrating_multi start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	$(RSCRIPT) $(Bin)/cluster_multi.R -i $(rds) -o $(integrating_dir) -c $(config_file) --prefix $(combine)
+	$(RSCRIPT) $(Bin)/AverageExpression.R -f $(cluster_rds) -o $(integrating_dir)/2_Com_clusters -s yes
+	@echo Integrating_single finish at `date`
 pval=0.05
 qval=0.05
 lgfc=0.25
@@ -107,6 +133,40 @@ celltype:
 		$(RSCRIPT) $(Bin)/marker_celltype.R -i $(cluster_rds) -o $(Integrating_dir) --pre $(combine) -c $(config_file) -t $(CellIdent_dir)/celltype_marker.xls ; \
 	fi
 	echo `date "+%Y%m%d %H:%M:%S"` "- Finished scibet - INFO - 成功"
+
+CellIdent_dir1=$(outdir)/Integrating/$(combine)/4_CellIdent
+Integrating_dir=$(outdir)/Integrating/$(combine)
+celltypepredict=$(CellIdent_dir)/$(combine)_celltype_predict.csv
+.PHONY:celltype_multi
+celltype_multi:
+	echo `date "+%Y%m%d %H:%M:%S"` "- scibet_multi - INFO - 开始"
+	if [ $(species_name) = NO ];then\
+		echo "No analysis for cell type !!!";\
+	else \
+		mkdir -p $(CellIdent_dir1) ;\
+		$(RSCRIPT) $(Bin)/scibet.r -r $(cluster_rds) -s $(species_name) -o $(CellIdent_dir1) --pre $(combine) $(para_ref) $(para_model) ;\
+		$(PYTHON3) $(Bin)/cell_type_stat.py -m $(CellIdent_dir1)/../3_marker/$(combine)_all.markers.csv -s $(celltypepredict) $(para_cellmarker_anno) -o $(CellIdent_dir1)/$(combine)_celltype_anno_stat.xls -r $(CellIdent_dir)/$(combine)_scibet_stat.xls ;\
+		awk -F'\t' '{print "$(combine)""\t"$$1"\t"$$2"\t"$$3 }' $(CellIdent_dir1)/$(combine)_celltype_anno_stat.xls > $(CellIdent_dir1)/celltype_marker.xls ; \
+		$(RSCRIPT) $(Bin)/marker_stat_multi.R -i $(cluster_rds) -o $(Integrating_dir) --pre $(combine) -c $(config_file) -t $(CellIdent_dir1)/celltype_marker.xls ;\
+	fi
+	echo `date "+%Y%m%d %H:%M:%S"` "- Finished scibet_multi - INFO - 成功"
+
+
+cluster_rds_all=$(outdir)/Integrating/$(all)/2_Com_clusters/$(all)_immune_combined_marker.rds
+CellIdent_dir=$(outdir)/Integrating/Combine/4_CellIdent
+Integrating_dir=$(outdir)/Integrating/$(combine)
+celltypepredict=$(CellIdent_dir)/$(combine)_celltype_predict.csv
+.PHONY:celltype_DE
+celltype_DE:
+	echo `date "+%Y%m%d %H:%M:%S"` "- celltype_DE - INFO - 开始"
+	if [ $(species_name) = NO ];then\
+		echo "No analysis for cell type !!!";\
+	else \
+		mkdir -p $(Integrating_dir) ;\
+		$(RSCRIPT) $(Bin)/marker_celltype_multi.R -i $(cluster_rds_all) -o $(Integrating_dir) --pre $(combine) -c $(config_file) -t $(CellIdent_dir)/celltype_marker.xls ; \
+	fi
+	echo `date "+%Y%m%d %H:%M:%S"` "- Finished celltype_DE - INFO - 成功"
+
 
 
 result_dir=$(outdir)/Integrating/$(combine)/

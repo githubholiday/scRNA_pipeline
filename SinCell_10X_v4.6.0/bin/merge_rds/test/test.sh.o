@@ -1,0 +1,27 @@
+Integrating start at 2023年 02月 09日 星期四 17:15:59 CST
+[ -d /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/output ] && echo /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/output dir exist || mkdir -p /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/output
+/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/output dir exist
+export LD_LIBRARY_PATH=/opt/glibc-2.14/lib:/annoroad/share/software/package/package/casava/bcl2fastq2-v2.19.0/gcc-4.8.5/lib64:$LD_LIBRARY_PATH && /annoroad/data1/bioinfo/PMO/yaomengcheng/bk_Anaconda3/envs/monocle3/bin/Rscript /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds//script/Integration_rds.R -i /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input -o /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/output -c /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/config.ini --prefix P_VS_H
+[1] "1_QC     Dir already exists!"
+[1] "start read"
+[1] "Start read rawdata, the sample is : P1"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/P1/P1_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : P1"
+[1] "Start read rawdata, the sample is : P2"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/P2/P2_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : P2"
+[1] "Start read rawdata, the sample is : P3"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/P3/P3_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : P3"
+[1] "Start read rawdata, the sample is : H1"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/H1/H1_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : H1"
+[1] "Start read rawdata, the sample is : H2"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/H2/H2_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : H2"
+[1] "Start read rawdata, the sample is : H3"
+[1] "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/10x/10X_SingleCell/bin/merge_rds/test/input/H3/H3_filter_cell.rds"
+[1] "Finished read rawdata, the sample is : H3"
+[1] 6
+[1] "end read"
+Integrating finish at 2023年 02月 09日 星期四 18:04:50 CST

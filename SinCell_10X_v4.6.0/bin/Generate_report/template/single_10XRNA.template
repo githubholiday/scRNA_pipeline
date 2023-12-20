@@ -72,7 +72,7 @@ Excel:upload/*Basic_QC/*expression/Cell_filter_stat.xls,,,Seurat分析后细胞�
 MainMenu: 聚类分析
 @@@@qc
 SubMenu: 细胞聚类分析
-P:#,;#本项目中选取PCA结果中解释方差最大的前20个主成分，采用graph-based聚类方法对细胞进行分类。使用该数据进行UMAP分析，然后将聚类结果在UMAP映射中展示。本展示的聚类分辨率（resolution）为0.8。数据集越大，细胞类群越复杂，需要更大的resolution，获得细胞的类群越多。
+P:#,;#本项目中选取PCA结果中解释方差最大的前20个主成分，采用graph-based聚类方法对细胞进行分类。使用该数据进行UMAP分析，然后将聚类结果在UMAP映射中展示。本展示的聚类分辨率（resolution）为0.6。数据集越大，细胞类群越复杂，需要更大的resolution，获得细胞的类群越多。
 P:#,;#聚类结果使用UMAP1和UMAP2进行展示，如下图：
 Image:upload/*_Integrating_analysis/*/*clusters/*_umap_cluster_samples-0.png,400,,,UMAP聚类结果图
 P:#,;#注：展示细胞在UMAP1和UMAP2上的映射，每个点代表一个细胞，不同颜色代表不同的cluster。

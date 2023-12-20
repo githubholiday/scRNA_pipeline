@@ -1,4 +1,5 @@
 #前言：本分析主要用于亚群细分，rpca,harmony,cca,pca四种方法可供选择。
+#根据config.ini文件的中的样本或者群的信息取subset，然后进行去批次效应，标准化等，最后进行QC，cluster和marker
 ##nfeatures<-2000;npc<-30;dims<-20 #默认一般参数。
 #===========================================================
 #!/annoroad/data1/bioinfo/PMO/yaomengcheng/bk_Anaconda3/envs/monocle3/bin/Rscript
@@ -57,6 +58,7 @@ prefix<-opt$prefix
 ident					 <-ini.list$Subclusters$ident
 sub_clusters			 <-ini.list$Subclusters$sub_clusters
 sub_samples			 	 <-ini.list$Subclusters$sub_samples
+sample                   <-ini.list$Subclusters$sample
 reclusters_method		 <-ini.list$Subclusters$reclusters_method
 nfeatures     			 <-as.numeric(ini.list$Subclusters$findvariablefeatures)
 npc     			 	 <-as.numeric(ini.list$Subclusters$reduction_npc_num)
@@ -85,7 +87,7 @@ library(RColorBrewer)
 library(reshape2)
 library(harmony)
 #library(SeuratData) #转h5
-library(ggpubr) #ggboxplot
+#library(ggpubr) #ggboxplot
 })
 
 
@@ -272,7 +274,7 @@ outdir_pre<-paste0(outdir,'/2_clusters/')
 setwd(outdir_pre)	
 #1_clusters #绘制分群结果
 p1 <- DimPlot(tmp, reduction = "umap", label = T,group.by = "seurat_clusters",label.size = 4,pt.size = 0)+ggtitle('')
-p2 <- DimPlot(tmp, reduction = "umap", label = F,group.by = "stim",label.size = 4,pt.size = 0)+ggtitle('')
+p2 <- DimPlot(tmp, reduction = "umap", label = F,group.by = "orig.ident",label.size = 4,pt.size = 0)+ggtitle('')
 p<-plot_grid(p1,p2,ncol = 2)
 pdf(paste0(prefix,'_clusters_sample_umap.pdf'),w=12,h=5)
 print(p)
@@ -292,7 +294,7 @@ dev.off()
 # dev.off()
 	
 #细胞占比分析
-tmp$celltype<-tmp$seurat_clusters;tmp$Sample<-tmp$stim
+tmp$celltype<-tmp$seurat_clusters;tmp$Sample<-tmp$orig.ident
 a<-table(tmp$Sample,tmp$celltype)
 write.csv(a,file=paste0(prefix,'_sample_cellnum.csv'),quote=F)
 
@@ -353,6 +355,8 @@ tmp <- ScaleData(tmp, features = genes, verbose = FALSE)
 pdf(paste0(prefix,'_top5_markers_genes_DotPlot.pdf'), w=10+n1,h=6+0.2*n1)
 DotPlot(tmp,group.by='seurat_clusters', features=unique(top5$gene),cols = c("lightgrey", "red"))+theme(axis.text.x = element_text(size=10,angle =60, hjust = 1),legend.text = element_text(face="plain", color="black",size=8),legend.title =element_text(face="plain", color="black",size=10))+xlab('')+ylab('')
 dev.off()
+
+saveRDS(tmp, paste0(prefix,'.marker.rds'))
 
 ##===========================================================
 print("###........................................")

@@ -1,0 +1,56 @@
+library(Seurat)
+library(dplyr)
+library(stringr)
+library(argparse)
+library(reshape2)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(cowplot)
+library(reticulate)
+use_python("/annoroad/data1/bioinfo/PMO/jinxuliu/software/Anaconda/Anaconda2022.10_2/envs/danxibao/bin/python")
+
+
+combined <- readRDS('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/THCA_New.rds')
+
+combined <- FindVariableFeatures(combined)
+
+combined <- ScaleData(combined, features = VariableFeatures(combined) , verbose = FALSE)
+combined <- RunPCA(combined, npcs = 50, verbose = FALSE)
+combined <- RunUMAP(combined, reduction = "pca", dims = 1:30,umap.method = "umap-learn",metric = "correlation")
+combined <- RunTSNE(combined, reduction = "pca", dims = 1:30)
+combined <- FindNeighbors(combined, reduction = "pca", dims = 1:30)
+combined <- FindClusters(combined, resolution = 0.6)
+
+
+tsneplot<-DimPlot(combined, reduction = "tsne",label = TRUE)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/cluster_tSNE.pdf'),tsneplot,height=5,width =6)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/cluster_tSNE.png'),tsneplot,type = 'cairo-png',height=5,width =6)
+
+umapplot<-DimPlot(combined, reduction = "umap",label = TRUE)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/cluster_UMAP.pdf'),umapplot,height=5,width =6)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/cluster_UMAP.png'),umapplot,type = 'cairo-png',height=5,width =6)
+
+
+##############################################################################################################################
+
+tsneplot1 <- DimPlot(combined, reduction = "tsne",label = TRUE,group.by='Majortype')
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/celltype_tSNE.pdf'),tsneplot1,height=5,width =6)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/celltype_tSNE.png'),tsneplot1,type = 'cairo-png',height=5,width =6)
+
+umapplot1 <- DimPlot(combined, reduction = "umap",label = TRUE,group.by='Majortype')
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/celltype_UMAP.pdf'),umapplot1,height=5,width =6)
+ggsave(paste0('/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/celltype_UMAP.png'),umapplot1,type = 'cairo-png',height=5,width =6)
+
+
+saveRDS(combined, file = '/annogene/cloud/fqdata/sci/NGS-Test/download_temp/jinxuliu/xiajie/adj.rds')
+
+
+
+
+
+
+
+
+
+

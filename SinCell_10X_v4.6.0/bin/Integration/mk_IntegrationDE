@@ -1,0 +1,89 @@
+DIR=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+Bin=$(DIR)/script
+ifeq ($(strip $(config)),)
+	Bconfig=$(DIR)/config/config.txt
+else
+	Bconfig=$(config)
+endif
+include $(Bconfig)
+
+include $(DIR)/../../species/$(species).txt
+
+#path
+
+
+#arguments
+model=no
+ifeq ($(model),no)
+	para_model=
+else
+	para_model= -m $(model)
+endif
+ref_data=no
+ifeq ($(ref_data),no)
+	para_ref=
+else
+	para_ref= -e $(ref_data)
+endif
+marker=no
+ifeq ($(marker),no)
+	para_marker=
+else
+	para_marker= -m $(marker)
+endif
+celltype=no
+ifeq ($(celltype),no)
+        para_celltype=
+else
+        para_celltype= -t $(celltype)
+endif
+ifeq ($(species_tag),10090)
+	species_name = mouse
+else ifeq ($(species_tag),9606)
+	species_name = human
+else
+	species_name = NO
+endif
+
+
+HELP:
+	@echo Description:
+	@echo -e "\t" 整合分析后，聚类，marker，注释
+	@echo USAGE:
+	@echo "Integrating: 聚类，marker"
+	@echo "celltype: 注释"
+	@echo "anno_plot: 注释后替换统计画图"
+	@echo -e "\t" make -f this_make rds_dir= combine= integrating_dir= config_file= Integrating
+	@echo -e "\t" make -f this_make outdir= combine= Integrating
+	@echo -e "\t" "rds: rds路径 【必选|路径】；"
+	@echo -e "\t" "group: 比较组名称，示例A_VS_B 【必选|字符串】；"
+	@echo -e "\t" "integrating_dir：合并rds输出目录 【必选|路径】；"
+	@echo -e "\t" "all: 所有样本合并后的rds文件名称，一般是Combine 【必选|字符串】；"
+	@echo -e "\t" "config_file：比较组及相关参数配置文件 【必选|路径】。"
+
+integrating_dir=$(outdir)/Integrating/$(group)
+config_file=$(integrating_dir)/config.ini
+allrds=$(outdir)/Integrating/$(all)/2_Com_clusters/$(all)_cluster.rds
+.PHONY:Integrating_DE
+Integrating_DE:
+	@echo Integrating_DE start at `date`
+	[ -d $(integrating_dir) ] && echo $(integrating_dir) dir exist || mkdir -p $(integrating_dir)
+	$(RSCRIPT) $(Bin)/DE_cluster.R -i $(allrds) -o $(integrating_dir) -c $(config_file) --prefix $(group)
+	@echo Integrating_DE finish at `date`
+
+
+CellIdent_dir=$(outdir)/Integrating/$(all)/4_CellIdent
+Integrating_dir=$(outdir)/Integrating/$(group)
+cluster_rds_all=$(outdir)/Integrating/$(all)/2_Com_clusters/$(all)_immune_combined_marker.rds
+.PHONY:celltype_DE
+celltype_DE:
+	echo `date "+%Y%m%d %H:%M:%S"` "- celltype_DE - INFO - 开始"
+	if [ $(species_name) = NO ];then\
+		echo "No analysis for cell type !!!";\
+	else \
+		mkdir -p $(Integrating_dir) ;\
+		$(RSCRIPT) $(Bin)/marker_celltype_multi.R -i $(cluster_rds_all) -o $(Integrating_dir) --pre $(group) -c $(config_file) -t $(CellIdent_dir)/celltype_marker.xls ; \
+	fi
+	echo `date "+%Y%m%d %H:%M:%S"` "- Finished celltype_DE - INFO - 成功"
+
+

@@ -1,0 +1,50 @@
+.
+├──  readme.doc
+├── 1_space
+│   ├── *_cluster_umap.p*
+├── 2_RNA
+│   ├── *_celltype_count.xls 
+│   ├── *_celltype_umap.p*
+├── 3_Integrate
+│   ├── *_celltype_count_space_cluster.xls 
+│   ├── *_heatmap_cluster.p*
+│   ├── *_predicted.id_umap1.p*
+│   ├── *_predictions_example.xls 
+│   ├── *_predictions.xls 
+│   ├── *_SpatialDimPlot_Pit1_eachcell.p*
+│   ├── *_SpatialDimPlot.p*
+│   └── *_Spot_cell_count.xls 
+
+文件解释说明：
+1：*_celltype_count_space_cluster.xls：细胞类型在不同cluster中的数量统计
+（1）celltype：细胞类型；
+（2）cluster：cluster编号；
+（3）count：细胞数量。
+2：*_heatmap_cluster.p*：空间数据集中的每个cluster中的不同细胞类型的占比统计图
+横轴为cluster，纵轴为细胞类型，数值为在cluster中的细胞类型占比。数值越大，颜色越接近黄色，表示该cluster中该细胞类型较多。
+
+3：*_heatmap_spot_metadata.xls：每个spot的metadata数据信息
+（1）spot：spot的编号；
+（2）seurat_clusters：spot的cluster编号；
+（3）predicted.id：该spot预测的细胞类型；
+（4）prediction.score.*：该spot在不同细胞类型中的预测分数；
+（5）prediction.score.max：最大的预测分数。
+
+4：*_predicted.id_umap1.p*：空间数据集整合RNA数据后的细胞类型的UMAP图
+不同的颜色代表不同的细胞类型。
+
+5：*_predictions.xls：每个spot的各个细胞类型score值
+（1）spot：spot的编号；
+（2）seurat_clusters：spot的cluster编号；
+（3）predicted.id：该spot预测的细胞类型；
+（4）prediction.score.*：该spot在不同细胞类型中的预测分数；
+（5）prediction.score.max：最大的预测分数。
+
+6：*_SpatialDimPlot.p*：所有的细胞类型在空间转录组中的切片图展示。
+每个点代表一个spot。不同的颜色代表不同的细胞类型。
+
+7：*_SpatialDimPlot_Pit1_eachcell.p*：每个细胞类型分别在空间转录组中的切片图展示。
+
+8：*_Spot_cell_count.xls：空间数据中细胞类型预测的数量
+（1）cell：细胞类型；
+（2）spot count：spot数量。

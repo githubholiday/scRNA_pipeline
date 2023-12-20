@@ -1,0 +1,17 @@
+clusters目录:比较组各个cluster的细胞统计
+文件说明：
+1. 比较组名_group.clusters_stats.p*
+	每个cluster中不同分组的细胞百分比堆积柱形图，横轴为不同的cluster,纵轴为同一cluster中不同分组来源的细胞百分比。不同颜色代表不同的分组。
+
+2. 比较组名_group.clusters.xls:
+	celltype：cluster编号
+	第二列-：不同的组名。数值代表某个组中属于特定cluster的细胞数量，括号中为该细胞数量在某个组的占比。
+
+3. 比较组名_tsne_cluster_groups.p*
+	降维聚类后的tsne结果图。不同的颜色代表不同的cluster，左图为对照组的tsne图，右图为处理组的tsne图。
+
+4. 比较组名_umap_cluster_groups.p*
+	降维聚类后不同分组的umap结果图, 左图为对照组的umap图，右图为处理组的umap图。不同颜色代表不同的cluster。
+
+
+

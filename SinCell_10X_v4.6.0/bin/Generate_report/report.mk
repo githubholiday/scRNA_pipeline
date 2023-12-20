@@ -6,9 +6,9 @@ else
 	Bconfig=$(config)
 endif
 include $(Bconfig)
-date = $(shell date +%Y%m%d)
+
 #Single_Report,Multi_Report
-report_dir=$(outdir)/Report
+report_dir=$(outdir)/report
 template_dir=$(tmpdir)/template
 version=v$(shell echo $(pipeline) | awk -F'_v' '{print $$2}' | awk -F'/' '{print $$1}')
 
@@ -35,17 +35,7 @@ Help:
 	@echo -e "\ttemplate_file：结题报告模板文件，可由template_dir/template_type.template组合成，template_dir为流程报告脚本路径，即该mk的路径，template_type为报告模板的前缀，一般为Single_10XRNA 或 Multi_10XRNA"
 	@echo -e "\tupload_conf：整理upload目录的config文件，默认为template_dir/upload.conf,template_dir为该mk所在目录"
 
-.PHONY:Convert
-Convert:
-	if [ -s $(CONVERT) ] ; \
-	then \
-		for i in `find $(indir) -name *.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
-	else \
-		echo "$(CONVERT) May not exist on the task running node " ; \
-		exit 1 ; \
-	fi
 
-.PHONY:Clean_Upload
 Clean_Upload:
 	for file in `find $(upload_dir) -type l` ;\
 	do \
@@ -65,24 +55,24 @@ Prepare:
 
 template_file=$(template_dir)/$(template_type).template
 upload_conf=$(template_dir)/$(template_type).upload.conf
-input_json=$(template_dir)/$(template_type).input.json
 no_tag=public-picture
-
-.PHONY:ReportUpload
-ReportUpload:
+lims_conf=$(tmpdir)/config/lims.ini
+.PHONY:Report
+Report:
 	echo generate web report start at `date`
-	$(PYTHON3) $(Bin)/get_upload.py -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
-	ln -sf $(report_dir)/report.template $(report_dir)/$(template_type).template.md
-	cp $(input_json) $(report_dir)/
-
-.PHONY:GenerateReport
-GenerateReport:
-	mkdir -p $(report_dir)
-	cd $(report_dir) && $(PYTHON3) $(generate_md_report_EB) -d ./ -pipeline $(template_type) -l -o html_raw.md 
-	perl -pe 's/^\<br\s+\/\>/\n/' $(report_dir)/html_raw.md > $(report_dir)/new.md
-	$(PANDOC) --standalone -c $(report_dir)/html/css/markdown.css $(report_dir)/new.md --metadata title="$(project_name)" -o $(report_dir)/$(project_name)_report.tmp.html
-	$(PYTHON3) $(Bin)/comm/modify_html.py -i $(report_dir)/$(project_name)_report.tmp.html -o $(report_dir)/$(project_name)_report.html
-	#make -f /software/md2typ/makefile all input=$(report_dir)/html_raw.md outpdf=$(report_dir)/$(project_name).pdf contract_number=$(contract_id) contract_title=$(project_name) report_date=$(date)
+	$(PYTHON3) $(get_upload) -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
+	ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud
+	echo ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud > $(report_dir)/report.sh
+	$(PYTHON3) $(pipline_stat) -p $(project_id) -d $(report_dir) -c $(lims_conf)
+	echo generate web report end at `date`
 
 
-
+.PHONY:Convert
+Convert:
+	if [ -s $(CONVERT) ] ; \
+	then \
+		for i in `find $(indir) -name *.pdf` ; do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ; \
+	else \
+		echo "$(CONVERT) May not exist on the task running node " ; \
+		exit 1 ; \
+	fi

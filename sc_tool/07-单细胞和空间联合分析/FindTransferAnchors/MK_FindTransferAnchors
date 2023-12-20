@@ -1,0 +1,47 @@
+makefile_dir=$(dir $(firstword $(MAKEFILE_LIST)))
+makefile_name=$(notdir $(firstword $(MAKEFILE_LIST)))
+script=$(makefile_dir)/script/
+
+ifdef config
+	include $(config)
+else
+	include $(makefile_dir)/config/config.txt
+endif
+
+HELP:
+	@echo Description: FindTransferAnchors function: integrating spatial data with scRNA-seq cell types
+	@echo Program: MK_FindTransferAnchors
+	@echo Version: v1.0.0
+	@echo Contactor: mengli@genome.cn
+	@echo Usage:
+	@echo -e "\t" "make -f MK_FindTransferAnchors config= outdir= rnards= spacerds= prefix= info= spot_cell report"
+	@echo 参数说明：
+	@echo -e "\t" "config: [文件|可选]  模块配置文件，和软件相关参数，默认为$(makefile_dir)/config/config.txt "
+	@echo -e "\t" "outdir: [路径|必需]  输出路径 "
+	@echo -e "\t" "rnards: [文件|必需]  带有细胞注释结果的scRNA-seq rds 文件 "
+	@echo -e "\t" "spacerds: [文件|必需]  空间转录组的 rds 文件 "
+	@echo -e "\t" "prefix: [字符|必需]  文件前缀名称 "
+	@echo -e "\t" "info: [文件|必需]  分析的参数配置文件 "
+
+	@echo target说明：
+	@echo -e "\t" "spot_cell：通过MK_FindTransferAnchors函数注释空间转录组spot"
+	@echo -e "\t" "report：整理目录并生成report"
+
+.PHONY:spot_cell
+spot_cell:
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-spot_cell-INFO- ### spot_cell Start"
+	[ -d $(outdir)/ ] || mkdir -p $(outdir)/
+	$(RSCRIPT) $(script)/seurat.R -r $(rnards) -s $(spacerds) -p $(prefix) -o $(outdir)/ -c $(info)
+	[ -f $(outdir)/$(prefix)/Rplots.pdf ] && rm -f $(outdir)/$(prefix)/Rplots.pdf || echo no Rplots.pdf
+	for i in `ls $(outdir)/$(prefix)/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name;done;
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-spot_cell-INFO- ### spot_cell finish"
+
+.PHONY:report
+report:
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-report start"
+	mkdir -p $(outdir)/report
+	$(python3_238) $(get_upload) -i $(outdir)/ -o $(outdir)/report -t $(makefile_dir)/report/template.md -c $(makefile_dir)/report/upload.config -d public-picture -b $(makefile_dir)/report/ -ot $(outdir)/report/report.template -n
+	echo -e "PROJECT_NAME:seurat-空间转录组和RNA转录组联合分析结题报告\nREPORT_DIR:$(outdir)/report/upload\n" > $(outdir)/report/report.conf
+	ssh 192.168.1.3 $(python3_202) $(reportpy) -i $(outdir)/report/report.template -c $(outdir)/report/report.conf -u admin -t cloud
+	for i in `find $(outdir)/report/upload/public-picture/ -name "*xls"`;do $(iconv) -c -f utf-8 -t gb2312 $$i >tmp && mv tmp $$i;done
+	cat $(script)/../report/readme.doc > $(outdir)/report/upload/readme.doc

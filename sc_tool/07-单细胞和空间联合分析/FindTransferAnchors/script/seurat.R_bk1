@@ -1,0 +1,101 @@
+#/annoroad/data1/bioinfo/PMO/yaomengcheng/bk_Anaconda3/envs/monocle3/bin/R
+#整合映射分析
+library(scibet)
+library(Seurat)
+suppressMessages(library(ggplot2))
+suppressMessages(library(tidyverse))
+suppressMessages(library(scibet))
+suppressMessages(library(viridis)) #scale_fill_viridis
+suppressMessages(library(ggsci))
+library(Seurat)
+library(readr)
+
+
+get_confusion_plot <- function(actual, predicted, align = 1){
+  require(reshape2)
+  require(ggplot2)
+
+  if (class(actual) == "factor"){ actual_levels <- levels(actual) }
+  else { actual_levels <- unique(actual) }
+  
+  if (class(predicted) == "factor"){ predicted_levels <- levels(predicted) }
+  else { predicted_levels <- unique(predicted) }
+  
+  get_confusion_prop_tbl <- function(actual, predicted, align = 1){
+    if (!(align %in% c(1,2))) {stop("align must be 1 or 2")}
+    conf <- table(actual, predicted)
+    if (align == 2) {
+      conf <- t(conf)
+      return (t(conf / rowSums(conf)))
+    }
+    return (conf / rowSums(conf))
+  }
+  
+  conf_prop <- get_confusion_prop_tbl(actual, predicted, align)
+  conf_prop_melt <- reshape2::melt(conf_prop, variable.name= predicted, id = actual)
+
+  conf_prop_melt[,"actual"] = factor(conf_prop_melt$actual, levels=actual_levels)
+  conf_prop_melt[,"predicted"] = factor(conf_prop_melt$predicted, levels=predicted_levels)
+  
+  p0<-theme(legend.text = element_text(face="plain", color="black",size=10),
+        axis.text.x = element_text(color="black",size=10,angle=90),
+        axis.text.y = element_text(color="black",size=10),
+        axis.title.x = element_text(face="plain", color="black",size=15),
+        axis.title.y = element_text(face="plain", color="black",size=15))
+  plt <- ggplot2::ggplot(data = conf_prop_melt, aes(x=predicted,y=actual)) +
+    geom_tile(aes(fill=value,colour='black')) +theme_bw()+p0+scale_fill_gradientn(colours=c('#46085B','#453480','#20918C','#5AC763','#DFE318'), guide=guide_colorbar(reverse=F))
+  
+  #print(plt)
+  return(plt)
+}
+#RNA
+tmp<-readRDS("/annoroad/data1/bioinfo/PROJECT/big_Commercial/Cooperation/B_TET/B_TET-085/advance/1.Integrating/normal_celltype_SCT.rds")
+#Space
+tmp1<-readRDS("/annoroad/data1/bioinfo/PROJECT/big_Commercial/Cooperation/B_TET/B_TET-085/advance/1.Integrating/NP183765_0.8.rds")
+anchors_ims<-20
+
+anchors <- FindTransferAnchors(reference = tmp, query = tmp1, normalization.method = "SCT",dims = 1:anchors_ims)        
+predictions <- TransferData(anchorset = anchors, refdata = tmp$celltype, dims = 1:anchors_ims)
+write.table(predictions,"/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/limeng/16_Space_RNA/seurat/FindTransferAnchors/predictions.xls",sep="\t",quote=F,row.names=T)
+#anchors <- FindTransferAnchors(reference = tmp, query = tmp1, dims = 1:anchors_ims)        
+#predictions <- TransferData(anchorset = anchors, refdata = tmp$Major, dims = 1:anchors_ims)
+        
+pancreas.query0 <- AddMetaData(tmp1, metadata = predictions)
+#对预测的结果进行展示，基本大部分细胞都是1群，证明确实是SSC细胞群
+#pancreas.query<-subset(pancreas.query0,clusters %in% c(3,8,9,12,13,14,19))
+pancreas.query<-pancreas.query0
+#统计spot每种细胞的数量
+table(pancreas.query$predicted.id)
+Idents(pancreas.query) <- pancreas.query$predicted.id
+#将所有细胞展示在切片上
+SpatialDimPlot(pancreas.query) + theme(legend.position = "right")
+ggsave(file="/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/limeng/16_Space_RNA/seurat/FindTransferAnchors/SpatialDimPlot.pdf",width=10, height=8)
+
+#将每种细胞单独展示
+SpatialDimPlot(pancreas.query,cells.highlight = CellsByIdentities(object = pancreas.query, idents = unique(Idents(pancreas.query))),facet.highlight = TRUE)
+ggsave(file="/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/limeng/16_Space_RNA/seurat/FindTransferAnchors/SpatialDimPlot_Pit1_eachcell.pdf",width=10, height=8)
+
+#统计每个cluster中不同细胞的数量
+table(pancreas.query$predicted.id,pancreas.query$seurat_clusters)
+
+#pancreas.query$clusters<-factor(pancreas.query$clusters,levels=c(3,8,9,12,13,14,19))
+library(scibet)
+p<-get_confusion_plot(pancreas.query$seurat_clusters, pancreas.query$predicted.id)+geom_text(aes(label = round(value,2)))+coord_flip()+ggtitle('')
+pdf('FindTransferAnchors_Confusion_heatmap_blood.pdf',w=10,h=4)
+print(p)
+dev.off()
+
+write.csv(pancreas.query0@meta.data,file='FindTransferAnchors_Confusion_heatmap_blood_meta.data.xls',quote=F,sep='\t')
+
+my36colors <-c('#53A85F','#D6E7A3','#57C3F3','#476D87','#E95C59','#E59CC4','#AB3282','#23452F','#BD956A','#8C549C','#585658','#9FA3A8','#E0D4CA','#5F3D69','#C5DEBA','#58A4C3', '#E4C755','#F7F398', '#AA9A59','#E63863','#E39A35','#C1E6F3', '#6778AE','#91D0BE','#B53E2B','#712820', '#DCC1DD', '#CCE0F5', '#CCC9E6','#625D9E','#68A180','#3A6963','#968175')
+prefix<-'blood'
+pdf(paste0(prefix,'_predicted.id_umap1.pdf'),w=7,h=5)
+p2 <- DimPlot(pancreas.query, reduction = "umap", label = F,group.by = "predicted.id",label.size = 4,pt.size = 0,raster=FALSE,cols=my36colors)+ggtitle('predicted.id in blood')
+print(p2)
+dev.off()
+
+#https://www.jianshu.com/p/7b75b109cfb5
+#https://www.jianshu.com/p/5335f7246c9a
+#https://www.jianshu.com/p/3a535af7cf8b
+#https://nbisweden.github.io/workshop-scRNAseq/labs/compiled/seurat/seurat_07_spatial.html
+#https://satijalab.org/seurat/articles/spatial_vignette.html

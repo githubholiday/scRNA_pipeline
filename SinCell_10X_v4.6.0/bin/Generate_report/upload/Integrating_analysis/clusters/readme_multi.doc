@@ -1,0 +1,59 @@
+1.组合(样本)名_umap_cluster_samples.p*
+降维聚类后的umap结果图，左图为map图中不同的颜色代表不同的样品，右图中不同颜色代表不同的亚群。
+
+2.组合(样本)名_tsne_cluster_samples.p*
+降维聚类后的tsne结果图，左图为tsne图中不同的颜色代表不同的样品，右图中不同颜色代表不同的亚群。
+
+3.亚群编号_grey.clusters-0.png
+单个亚群在umap图中的分布
+
+4.亚群编号_grey.clusters-1.png
+单个亚群在tsne图中的分布
+
+5.亚群编号_grey.clusters.pdf
+单个亚群在umap图和tsne图中的分布
+
+6.cell.tsne.xls
+	orig.ident	细胞barcode
+	tSNE_1	TSNE降维分析后的x轴坐标
+	tSNE_2	TSNE降维分析后的y轴坐标
+	sample	sample样品来源
+	cluster	细胞所属亚群编号
+降维后tsne图的坐标轴结果文件，可以用excel表格打开。
+
+7.cell.umap.xls
+降维后umap图的坐标轴结果文件，可以用excel表格打开。
+     orig.ident  细胞barcode
+     UMAP_1  UMAP降维分析后的x轴坐标
+     UMAP_2  UMAP降维分析后的y轴坐标
+     sample  sample样品来源
+     cluster 细胞所属亚群编号
+
+
+11.组合(样本)名_sample.clusters_stats.p*
+每个cluster中不同样本的细胞百分比堆积柱形图，横轴为不同的cluster,纵轴为同一cluster中不同样本来源的细胞百分比。不同颜色代表不同的样本。
+
+
+12.组合(样本)名_tsne_cluster_samples-0.png
+降维聚类后的tsne结果图。左图不同颜色代表不同的样本，右图不同颜色代表不同的cluster。
+
+13.组合(样本)名_tsne_cluster_samples-1.png
+降维聚类后不同样本的tsne结果图，不同颜色代表不同的cluster。
+
+14.组合(样本)名_tsne_cluster_samples.pdf
+降维聚类后的tsne结果图。第一张左图不同颜色代表不同的样本，右图不同颜色代表不同的cluster；第二张不同样本的tsne结果图，不同颜色代表不同的cluster。
+
+
+15.组合(样本)名_umap_cluster_samples-0.png
+降维聚类后的umap结果图。左图不同颜色代表不同的样本，右图不同颜色代表不同的cluster。
+
+16.组合(样本)名_umap_cluster_samples-1.png
+降维聚类后不同样本的umap结果图,不同颜色代表不同的cluster。
+
+17.组合(样本)名_umap_cluster_samples.pdf
+降维聚类后的umap结果图。第一张左图不同颜色代表不同的样本，右图不同颜色代表不同的cluster；第二张不同样本的umap结果图,不同颜色代表不同的cluster。
+
+18.组合(样本)名_AverageExpression.xls
+	亚群中基因平均表达量。
+	第一列：基因名称；
+	第二列-；不同cluster编号，对应基因的平均表达量。

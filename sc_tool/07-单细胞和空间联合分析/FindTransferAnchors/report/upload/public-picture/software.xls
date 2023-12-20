@@ -1,0 +1,2 @@
+Number	software	version	function	parmeters	official website
+1	R Seurat	v4.0.3	空间组数据与单细胞数据进行映射，实现空间数据集的细胞注释	dims：1:20；normalization.method：SCT；	https://satijalab.org/seurat/reference/findtransferanchors

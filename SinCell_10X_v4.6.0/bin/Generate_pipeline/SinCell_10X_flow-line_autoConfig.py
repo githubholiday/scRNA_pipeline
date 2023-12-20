@@ -110,13 +110,13 @@ class readinfo:
 		df = pd.read_excel(self.info_file, sheet_name=1)
 		sample_is, sample_ie = 0, 0
 		for i,row in df.iterrows():
+			print(row)
 			if row[0] == "样品名称": 
 				sample_is = i  
 				break
 
 		df = pd.read_excel(self.info_file, sheet_name=0,header=sample_is+1)
 		for i,row in df.iterrows():
-			#if row["样品名称"] == "差异比较组合" or pd.isnull(row["样品名称"]) or pd.isnull(row["样品编号"]) or pd.isnull(row["物种拉丁名"]) or pd.isnull(row["样品描述"]) or pd.isnull(row["结题报告中样品名称"]) or pd.isnull(row["分组"]):
 			if row["样品名称"] == "差异比较组合" or pd.isnull(row["样品名称"]) or pd.isnull(row["样品编号"]) or pd.isnull(row["物种拉丁名"]) or pd.isnull(row["结题报告中样品名称"]) or pd.isnull(row["分组"]):
 				break
 			sample_ie = i

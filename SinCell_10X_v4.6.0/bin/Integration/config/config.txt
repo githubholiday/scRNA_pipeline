@@ -1,5 +1,5 @@
-#GLIBC=/opt/glibc-2.14/lib
-#gcclib=/annoroad/share/software/package/package/casava/bcl2fastq2-v2.19.0/gcc-4.8.5/lib64
-RSCRIPT=Rscript
-PYTHON3=python3
-PERL=perl
+GLIBC=/opt/glibc-2.14/lib
+gcclib=/annoroad/share/software/package/package/casava/bcl2fastq2-v2.19.0/gcc-4.8.5/lib64
+RSCRIPT=/annoroad/data1/software/bin/miniconda/envs/Monocle/bin/Rscript
+PYTHON3=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
+PERL=/annoroad/data1/software/bin/miniconda/bin/perl

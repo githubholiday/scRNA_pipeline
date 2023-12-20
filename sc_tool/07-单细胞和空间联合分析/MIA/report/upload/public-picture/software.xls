@@ -1,0 +1,2 @@
+Number	software	version	function	parmeters	official website
+1	R Seurat	v4.0.3	寻找marker基因	logfc.threshold = 0.25, min.pct = 0.1, padj = 0.05	https://satijalab.org/seurat/reference/findallmarkers

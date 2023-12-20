@@ -1,0 +1,58 @@
+
+[Job Start]
+Name	QC
+Queue	"all.q"
+Memory	10G
+CPU	1
+Major	T
+Order	1
+Depend	
+Command	make -f /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/leiguo/SinCell_10X_Space_CysAssist/bin/Seurat_cluster/makefile count_dir=Para_space_dir outdir=Para_outdir/
+ species=Homo_sapiens.GRCh38.93.chr sample_id=${sample}[0] filter=no genome=9606 Seurat_basic
+[Job End]
+
+
+[Job Start]
+Name	FindTransferAnchors
+Queue	"all.q"
+Memory	10G
+CPU	1
+Major	T
+Order	1
+Depend	
+Command	make -f /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SingleCell_10X_RNA_Space/current/MK_FindTransferAnchors/MK_FindTransferAnchors rnards=Para_rna_rds spacerds=Para_space_rds/${sample}[0]/${sample}[0].rds info=Para_find_config prefix=${sample}[0] outdir=Para_outdir/Annotation/FindTransferAnchors spot_cell
+[Job End]
+
+[Job Start]
+Name	MIA
+Queue	"all.q"
+Memory	10G
+CPU	1
+Major	T
+Order	1
+Depend	
+Command	make -f /annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/yangzhang/module/st_sc_analysis/MIA/mk_MIA rnards=Para_rna_rds spacerds=Para_space_rds/${sample}[0]/${sample}[0].rds info=Para_mia_config prefix=${sample}[0] outdir=Para_outdir/Annotation/MIA MIA
+[Job End]
+
+[Job Start]
+Name	AddModuleScore
+Queue	"all.q"
+Memory	10G
+CPU	1
+Major	T
+Order	1
+Depend	
+Command	make -f /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SingleCell_10X_RNA_Space/current/MK_AddModuleScore/MK_AddModuleScore rnards=Para_rna_rds spacerds=Para_space_rds/${sample}[0]/${sample}[0].rds info=Para_add_config prefix=${sample}[0] outdir=Para_outdir/Annotation/AddModuleScore spot_cell
+[Job End]
+
+[Job Start]
+Name	SPOTlight
+Queue	"all.q"
+Memory	10G
+CPU	1
+Major	T
+Order	1
+Depend	
+Command	make -f /annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SingleCell_10X_RNA_Space/current/SPOTlight/mk_SPOTlight stdata=Para_rna_rds scdata=Para_space_rds/${sample}[0]/${sample}[0].rds configini=Para_spot_config prefix=${sample}[0] outdir=Para_outdir/Annotation/SPOTlight scriptdir=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SingleCell_10X_RNA_Space/current/SPOTlight/script SPOTlight
+[Job End]
+

@@ -1,0 +1,10 @@
+[Job Start]
+Name	MIA
+Memory	20G
+Queue	sci.q
+CPU	N
+Major	T
+Thread	8
+Order	1
+Command	make -f BIN/mia/mk_MIA outdir=OUTDIR rnards= spacerds= info=BIN/mia/config/config.ini prefix= MIA Report
+[Job End]
