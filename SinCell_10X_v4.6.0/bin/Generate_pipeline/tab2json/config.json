@@ -9,19 +9,14 @@
         "row" : 2 ,
         "col" : 1
     },
-    "analysis_type" : {
+    "cellranger_ref" : {
         "type": "string" , 
         "row" : 3 ,
         "col" : 1
     },
-    "cellranger_ref" : {
-        "type": "string" , 
-        "row" : 4 ,
-        "col" : 1
-    },
     "ref" : {
         "type": "string" , 
-        "row" : 5 ,
+        "row" : 4 ,
         "col" : 1
     },
     "samples": {
