@@ -1,0 +1,38 @@
+{
+    "sub_project_id" :  {
+        "type" : "string",
+        "row" : 1 ,
+        "col" : 1
+    },
+    "project_name" : {
+        "type": "string" , 
+        "row" : 2 ,
+        "col" : 1
+    },
+    "analysis_type" : {
+        "type": "string" , 
+        "row" : 3 ,
+        "col" : 1
+    },
+    "cellranger_ref" : {
+        "type": "string" , 
+        "row" : 4 ,
+        "col" : 1
+    },
+    "ref" : {
+        "type": "string" , 
+        "row" : 5 ,
+        "col" : 1
+    },
+    "samples": {
+        "type" : "maps",
+        "table": "样品信息表",
+        "key":"样品名称",
+        "value" : ["样本名称","样品编号","结题报告中样品名称","样品描述","分组","强制细胞数"]
+    },
+    "group_pair":{
+        "type" : "arrays",
+        "table" : "合并比较组合表",
+        "col": ["处理组" , "对照组"]
+    }
+}

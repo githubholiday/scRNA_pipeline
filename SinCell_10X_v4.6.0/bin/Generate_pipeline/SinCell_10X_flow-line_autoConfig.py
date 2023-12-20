@@ -20,6 +20,8 @@ import sys
 import re
 import pandas as pd
 import configparser
+import datetime
+import glob
 bin = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(bin + '/lib')
 from PipMethod import myconf,generateShell,mkdir
@@ -27,16 +29,78 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings("ignore")
 
+bindir = os.path.abspath(os.path.dirname(__file__))
+filename=os.path.basename(__file__)
 
-__author__='Yao Mengcheng'
-__mail__= 'mengchengyao@genome.cn'
-__modifier__= 'Yao Mengcheng'
+__author__='Tu chengfang'
+__mail__= 'hh@qq.com'
+__modifier__= 'Holiday T'
 __date__= '20191029'
 '''
 这个脚本之所以用之前流水线配置脚本的基础函数，主要是为了以后方便与流水线进行兼容，便有将之前的流水线差异分析升级到目前的差异分析类型。
 by 姚盟成 20191029
+import json
+infile = open("A",'r')
+json_dict = json.load(infile)
+subProjectID = json_dict["sub_project_id"] #调用某个值
+
 '''
+
+class Log():
+	def __init__( self, filename, funcname = '' ):
+		self.filename = filename 
+		self.funcname = funcname
+	def format( self, level, message ) :
+		date_now = datetime.datetime.now().strftime('%Y%m%d %H:%M:%S')
+		formatter = ''
+		if self.funcname == '' :
+			formatter = '\n{0} - {1} - {2} - {3} \n'.format( date_now, self.filename, level, message )
+		else :
+			
+			formatter = '\n{0} - {1} - {2} -  {3} - {4}\n'.format( date_now, self.filename, self.funcname, level, message )
+		return formatter
+	def info( self, message ):
+		formatter = self.format( 'INFO', message )
+		sys.stdout.write( formatter )
+	def debug( self, message ) :
+		formatter = self.format( 'DEBUG', message )
+		sys.stdout.write( formatter )
+	def warning( self, message ) :
+		formatter = self.format( 'WARNING', message )
+		sys.stdout.write( formatter )
+	def error( self, message ) :
+		formatter = self.format( 'ERROR', message )
+		sys.stderr.write( formatter )
+	def critical( self, message ) :
+		formatter = self.format( 'CRITICAL', message )
+		sys.stderr.write( formatter )
+		
 config_diff=configparser.ConfigParser(allow_no_value=True)
+def my_run(cmd):
+	if os.system( cmd) == 0 :
+		my_log.info("执行成功：{0}".format( cmd ))
+	else :
+		my_log.info("执行失败，退出:{0}".format( cmd ))
+		sys.exit(1)
+
+
+def read_info_file(info_file, info_json, info_conf, table2json_script ):
+	cmd = '{0} -c {1} -x {2} -j {3}'.format( table2json_script, info_conf, info_file, info_json)
+	my_run( cmd )
+	
+def get_info_file( info_dir ):
+	'''
+    获取信息收集表文件，如果无或者超过1个，都会报错退出
+    '''
+	info_file = glob.glob( info_dir+'/*')
+	if len(info_file) == 0 :
+		my_log.error("{0} 目录下没有信息收集表文件，退出".format( info_dir))
+		sys.exit(1)
+	elif len(info_file) > 1:
+		my_log.error("{0} 目录下有多个信息收集表文件，退出".format( info_dir))
+		sys.exit(1)
+	else:
+		return info_file[0]
 
 def raw_config(type):
 	'''
@@ -85,6 +149,9 @@ def raw_config(type):
 	config_diff.set("Para", "resolution", '1e-3')
 	config_diff.set("Para", "maxcellnum", '20000')
 
+
+
+	
 class readinfo:
 	Genome_version = None
 	ppi_species = None
@@ -387,7 +454,7 @@ def main():
 		sys.stderr.write("Your dir is not make!\n{0}\n".format(args.indir))
 		sys.exit(1)
 
-	outdir = os.path.join(args.indir,"Analysis-238")
+	outdir = os.path.join(args.indir,"Analysis")
 	config_file = os.path.join(outdir,"config.ini")
 	Path(config_file).touch()
 	Path(config_file).unlink()
@@ -416,26 +483,14 @@ def main():
 	else:
 		sys.stderr.write("Filter文件夹中无config.ini,请核实数据\n")
 		sys.exit(1)
-	
-	'''
-	if not os.path.isfile(feedback_file) or not os.path.isfile(filter_config_file):
-		sys.stderr.write("filter is not ok\n")
-		sys.exit(1)
-	'''
+
 
 	"设置从subproject_info.xls获得的参数"
-	subprojectID_info_file = os.path.join(args.indir,'info',"{0}_info.xls".format(filter_feedback.sub_project_id))
-	subprojectID_info_file2 = os.path.join(args.indir,'info',"{0}_info.xlsx".format(filter_feedback.sub_project_id))
+	info_dir = '{0}/info'.format( args.indir )
+	info_file = get_info_file(info_dir)
+	
 
-	if os.path.isfile(subprojectID_info_file):
-		pass
-	elif os.path.isfile(subprojectID_info_file2):
-		subprojectID_info_file = subprojectID_info_file2
-	else:
-		sys.stderr.write("信息搜集表还没准备好,请及时上传\n")
-		sys.exit(1)
-	print(subprojectID_info_file)
-	print(args.refer_dir)
+	
 	pipeclass=None
 	print(subprojectID_info_file)
 	info = readinfo(subprojectID_info_file,outdir,config,ppidf, args.refer_dir,pipeclass)
@@ -518,4 +573,5 @@ def main():
 	pip_qsub = generate_pipeline_qsub(args.python3, args.pipeline_generate,args.type,config_file,filter_feedback.sub_project_id,outdir,config_pipeline_file,args.pipelineDir,info.pipeclass)
 
 if __name__=="__main__": 
+	my_log = Log(filename)
 	main()
