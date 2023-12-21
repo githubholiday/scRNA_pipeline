@@ -17,15 +17,10 @@ rewrite based on Transcriptome_flow-line_autoConfig.py
 import argparse
 import os
 import sys
-import re
-import pandas as pd
 import configparser
 import datetime
 import glob
 import json
-bin = os.path.abspath(os.path.dirname(__file__))
-sys.path.append(bin + '/lib')
-
 bindir = os.path.abspath(os.path.dirname(__file__))
 filename=os.path.basename(__file__)
 
