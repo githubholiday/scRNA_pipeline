@@ -201,7 +201,7 @@ Thread	1
 Order	5
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
-Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total 
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id project_id=Para_project_id species=Para_species project_name=Para_project_name sample_list=Para_list Filter_Stat QC_Total 
 [Job End]
 
 [Job Start]
@@ -216,6 +216,6 @@ Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/liutao/sif/report/md_report_v0.0.4.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report indir=OUTDIR template_type=multi_10XRNA project_id=Para_project_id ReportUpload
-make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report  template_type=multi_10XRNA project_name=Para_projectName contract_id=Para_project_id GenerateReport
-make -f /software/md2typ/makefile input=OUTDIR/Report/html_raw.md outpdf=OUTDIR/Report/Para_projectName.pdf contract_number=Para_project_id contract_title=Para_projectName pdf_and_clean
+make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report  template_type=multi_10XRNA project_name=Para_project_name contract_id=Para_project_id GenerateReport
+make -f /software/md2typ/makefile input=OUTDIR/Report/html_raw.md outpdf=OUTDIR/Report/Para_project_name.pdf contract_number=Para_project_id contract_title=Para_project_name pdf_and_clean
 [Job End]
