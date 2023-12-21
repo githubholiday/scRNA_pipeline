@@ -222,6 +222,7 @@ class Pipe_Info():
 		self.config.set('Para','Para_lib','clean')
 		self.config.set('Para','Para_mt','20')
 		self.config.set('Para','Para_hb','5')
+		self.config.set('Para','Para_min_cells','3')
 		self.config.set('Para','Para_min_nFeature',"200")
 		self.config.set('Para','Para_max_nFeature',"10000")
 		self.config.set('Para','Para_all',"Combine")
