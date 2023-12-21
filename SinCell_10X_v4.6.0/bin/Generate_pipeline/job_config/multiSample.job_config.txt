@@ -8,7 +8,7 @@ Thread	12
 Order	1
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/cellranger_7.1.0.sif
-Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref  force_cell=Para_forcecell Count_Matrix
+Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[2] ref_dir=Para_ref  force_cell=$(sample)[5] Count_Matrix
 [Job End]
 
 [Job Start]
