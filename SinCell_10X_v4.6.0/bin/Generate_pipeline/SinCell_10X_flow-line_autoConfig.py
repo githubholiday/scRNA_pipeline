@@ -319,7 +319,7 @@ def main():
 	info_file = get_info_file(info_dir)
 	info_json = '{0}/info.json'.format( prepare_dir)
 	info_conf = '{0}/config.json'.format( bindir)
-	table2json_script = '{0}/tab2json/table2json'
+	table2json_script = '{0}/tab2json/table2json'.format(bindir)
 	read_info_file( info_file, info_json, info_conf, table2json_script )
 	
     #
