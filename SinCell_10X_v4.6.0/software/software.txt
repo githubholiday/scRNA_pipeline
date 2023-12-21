@@ -13,8 +13,6 @@ GO_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/
 
 #Function
 GO_Rscript=/opt/install/R-4.2.3/bin/Rscript
-PERL=perl
-PYTHON3=python3
 #GOKEGG qsub
 slurm_sge=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xahcnormal
