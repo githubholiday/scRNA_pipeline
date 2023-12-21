@@ -111,7 +111,7 @@ def my_mkdir( dir_list ):
 			os.makedirs( each_dir )
 
 class Pipe_Info():
-	def __init__( self, info_conf, analysis_dir, config_dic, filter_dir, ppi_species ):
+	def __init__( self, info_conf, analysis_dir, config_dic, filter_dir, ppi_species,pipe_config_file ):
 		self.info_conf = info_conf
 		self.analysis_dir = analysis_dir
 		self.config_dic = config_dic
@@ -122,6 +122,7 @@ class Pipe_Info():
 		self.config_file = '{0}/prepare/config.ini'.format( self.analysis_dir )
 		self.cmp_file = '{0}/prepare/combine.txt'.format( self.analysis_dir )
 		self.analysis_type = 'singleSample'
+		self.pipe_config_file = pipe_config_file
 		self.config = myconf()
 		self.load_json()
 		
@@ -230,6 +231,7 @@ class Pipe_Info():
 		self.get_ref_dir()
 		self.get_ref_type()
 		self.config.set('Para','Para_ppi_species',self.ppi)
+		self.config.set('Para','Para_config', self.pipe_config_file)
 		
 		
 	def config_write( self ):
@@ -309,7 +311,7 @@ def main():
 	read_info_file( info_file, info_json, info_conf, table2json_script )	
     #
 
-	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir, args.ppi)
+	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir, args.ppi, args.config)
 	my_pipe.config_write()
 	my_pipe.generate_work_shell( args.run)
 
