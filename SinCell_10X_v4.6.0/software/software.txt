@@ -4,28 +4,28 @@ PERL=perl
 PYTHON3=python3
 RSCRIPT=Rscript
 CONVERT=/usr/bin/convert
-cellranger_ref_dir=/work/share/acdgo9idhi/tuchengfang/docker/database/refdata-cellranger-
-species_category=/work/share/acdgo9idhi/tuchengfang/docker/database/species_category.ini
-generate_pipeline=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/pipeline_generate_sugon.py
+cellranger_ref_dir=/work/share/acuhtwkcu9/tuchengfang/docker/database/refdata-cellranger-
+species_category=/work/share/acuhtwkcu9/tuchengfang/docker/database/species_category.ini
+generate_pipeline=/work/share/acuhtwkcu9/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/pipeline_generate_sugon.py
 
 
 #Function
 GO_Rscript=/opt/install/R-4.2.3/bin/Rscript
 #database
-KEGG_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/
-GO_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/
-MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
-KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
-KEGG_MAP_DIR=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/KEGG
+KEGG_Base=/work/share/acuhtwkcu9/tuchengfang/docker/database/KEGG/20221108/
+GO_Base=/work/share/acuhtwkcu9/tuchengfang/docker/database/GO/20221108/
+MAP2NAME=/work/share/acuhtwkcu9/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
+KO2MAP=/work/share/acuhtwkcu9/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
+KEGG_MAP_DIR=/work/share/acuhtwkcu9/tuchengfang/docker/database/ClusterProfile/KEGG
 #GO_Clusterfiler
-GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
-ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
+GO2NAME=/work/share/acuhtwkcu9/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
+ORGDB=/work/share/acuhtwkcu9/tuchengfang/docker/database/ClusterProfile/OrgDb.list
 
 #GOKEGG qsub
-slurm_sge=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
+slurm_sge=/work/share/acuhtwkcu9/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xahcnormal
-mount=/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
+mount=/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+sif=/work/share/acuhtwkcu9/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
 
 
