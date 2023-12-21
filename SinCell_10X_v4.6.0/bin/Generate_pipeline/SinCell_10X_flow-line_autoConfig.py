@@ -297,7 +297,7 @@ def main():
 		epilog='author:\t{0}\nmail:\t{1}\ndate:\t{2}\n'.format(__author__,__mail__,__date__))
 	parser.add_argument('-in','--indir',help='which dir have Filter info Analysis concession',dest='indir',type=str,default=os.path.abspath(os.getcwd())) 
 	parser.add_argument('-o','--outdir',help='outdir of analysis',dest='outdir')
-	parser.add_argument('-c','--config',help='config',dest='outdir',default="{0}/../../software/software.txt".format(bindir))
+	parser.add_argument('-c','--config',help='config',dest='config',default="{0}/../../software/software.txt".format(bindir))
 	args=parser.parse_args()
 	
 	indir = args.indir
