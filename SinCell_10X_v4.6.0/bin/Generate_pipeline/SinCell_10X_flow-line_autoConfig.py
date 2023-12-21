@@ -233,7 +233,7 @@ class Pipe_Info():
 		self.config.set('Para','Para_outdir','{0}/Analysis'.format( self.analysis_dir))
 		self.config.set('Para','Para_list',self.sample_list)
 		self.config.set('Para','Para_info',self.info_file)
-		self.config.set('Para','Para_group_file',self.group_file)
+		self.config.set('Para','Para_cmbFile',self.cmp_file)
 		self.config.set('Para','Para_lib','clean')
 		self.config.set('Para','Para_mt','20')
 		self.config.set('Para','Para_hb','5')
