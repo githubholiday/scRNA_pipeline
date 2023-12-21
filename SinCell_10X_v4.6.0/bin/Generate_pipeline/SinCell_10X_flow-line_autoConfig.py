@@ -156,11 +156,11 @@ class Pipe_Info():
 		获取cellranger的参考基因组路径
 		'''
 		ref_dir = self.config_dic['cellranger_ref_dir']
-		cellranger_ref = '{0}/{1}'.format(ref_dir, self.cellranger_ref)
-		if os.path.exists( cellranger_ref):
-			self.config.set('Para','Para_ref',cellranger_ref)
+		cellranger_ref_dir = '{0}{1}'.format(ref_dir, self.cellranger_ref)
+		if os.path.exists( cellranger_ref_dir):
+			self.config.set('Para','Para_ref',cellranger_ref_dir)
 		else:
-			my_log.error("{0} 路径下无{1}".format( ref_dir, cellranger_ref))
+			my_log.error("{0} 路径下无 {1}".format( ref_dir, self.cellranger_ref ))
 			sys.exit(1)
 	def get_ref_type(self):
 		'''
