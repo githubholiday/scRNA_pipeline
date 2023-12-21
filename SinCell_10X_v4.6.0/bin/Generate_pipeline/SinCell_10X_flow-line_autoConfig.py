@@ -231,6 +231,7 @@ class Pipe_Info():
 		self.config.set('Para','Para_project_id',self.sub_project_id)
 		self.config.set('Para','Para_project_name',self.project_name)
 		self.config.set('Para','Para_outdir','{0}/Analysis'.format( self.analysis_dir))
+		self.config.set('Para','Para_clean',self.filter_dir)
 		self.config.set('Para','Para_list',self.sample_list)
 		self.config.set('Para','Para_info',self.info_file)
 		self.config.set('Para','Para_cmbFile',self.cmp_file)
