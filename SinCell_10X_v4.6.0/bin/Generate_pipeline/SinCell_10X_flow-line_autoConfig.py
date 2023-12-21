@@ -1,17 +1,11 @@
-# !/annoroad/data1/software/bin/miniconda/envs/Transcriptome_pipeline_2023_Python3.5.5/bin/python
+#! python3
 """
-For SinCell_10X Flow-line Automatic configuration 
 rewrite based on Transcriptome_flow-line_autoConfig.py
--in, --indir, 输入目录，需要包含Filter info Analysis-test子目录, 必须参数
--t, --type, 流程类型，配置流水线用，默认10XGenomics
--c, --category, 物种类型配置文件，跟据参考基因组获取物种类型，animal，plant等类型，默认/annoroad/data1/bioinfo/PMO/Public/database/RNA/database/species_category.ini
--ref, --refer_dir, cellranger参考基因组路径及前缀，默认/nas/data1/bioinfo/PROJECT/Commercial/Cooperation/Database/RNA/SinCell_10X/CellRanger_reference/refdata-cellranger-
--cf, --pipeline_config, 流程配置文件，包含job_config路径，默认脚本同级目录config_pipeline.ini
--py, --python3, python软件路径，用于投递脚本生成，默认 python3
--pg, --pipeline_generate, 生成流程的脚本路径，默认 /annoroad/data1/software/bin/pipeline_generate/bin/current/pipeline_generate.py
--pipd, --pipelineDir, 流程bin路径，默认为当前脚本所在目录
--fc， --forcecell, cellranger强制细胞数，默认为空
--pub, --publicDir, 10x单细胞转录组流程路径，用于识别模块，默认/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/RNA/SinCell_10X/current/bin
+-in, --indir, 输入目录，需要包含Filter info Analysis，info子目录, 必须参数
+-o,--outdir, 输出路径，如果不给定的，默认为indir
+-c,--config, 流程配置文件，默认为 ../../software/software.txt
+--ppi, 物种的taxid号，主要用于流程中去除线粒体等特殊处理
+-r,--run 是否投递，给定该参数则投递，不给定则不投递。
 
 """
 import argparse
@@ -27,16 +21,7 @@ filename=os.path.basename(__file__)
 __author__='Tu chengfang'
 __mail__= 'hh@qq.com'
 __modifier__= 'Holiday T'
-__date__= '20191029'
-'''
-这个脚本之所以用之前流水线配置脚本的基础函数，主要是为了以后方便与流水线进行兼容，便有将之前的流水线差异分析升级到目前的差异分析类型。
-by 姚盟成 20191029
-import json
-infile = open("A",'r')
-json_dict = json.load(infile)
-subProjectID = json_dict["sub_project_id"] #调用某个值
-
-'''
+__date__= '20231221'
 
 class Log():
 	def __init__( self, filename, funcname = '' ):
@@ -126,11 +111,12 @@ def my_mkdir( dir_list ):
 			os.makedirs( each_dir )
 
 class Pipe_Info():
-	def __init__( self, info_conf, analysis_dir, config_dic, filter_dir ):
+	def __init__( self, info_conf, analysis_dir, config_dic, filter_dir, ppi_species ):
 		self.info_conf = info_conf
 		self.analysis_dir = analysis_dir
 		self.config_dic = config_dic
 		self.filter_dir = filter_dir
+		self.ppi = ppi_species
 		self.info_file = '{0}/prepare/info.txt'.format( self.analysis_dir )
 		self.sample_list = '{0}/prepare/sample.list'.format( self.analysis_dir )
 		self.config_file = '{0}/prepare/config.ini'.format( self.analysis_dir )
@@ -242,6 +228,7 @@ class Pipe_Info():
 		self.config.set('Para','Para_ProjectType',self.analysis_type)
 		self.get_ref_dir()
 		self.get_ref_type()
+		self.config.set('Para','Para_ppi_species',self.ppi)
 		
 		
 	def config_write( self ):
@@ -289,6 +276,7 @@ def main():
 	parser.add_argument('-in','--indir',help='which dir have Filter info Analysis concession',dest='indir',type=str,required=True) 
 	parser.add_argument('-o','--outdir',help='outdir of analysis',dest='outdir')
 	parser.add_argument('-c','--config',help='config',dest='config',default="{0}/../../software/software.txt".format(bindir))
+	parser.add_argument('--ppi',help='ppi code 9606-human, 10090-mm',required=True)
 	parser.add_argument('-r','--run',help='run or not',action='store_true')
 	args=parser.parse_args()
 	
@@ -320,7 +308,7 @@ def main():
 	read_info_file( info_file, info_json, info_conf, table2json_script )	
     #
 
-	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir)
+	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir, args.ppi)
 	my_pipe.config_write()
 	my_pipe.generate_work_shell( args.run)
 
