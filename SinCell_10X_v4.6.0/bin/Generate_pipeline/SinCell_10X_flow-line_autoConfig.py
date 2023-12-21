@@ -186,7 +186,7 @@ class Pipe_Info():
 		for sample in sample_info_dict :
 			sample_info = sample_info_dict[sample][0]#[0]
 			sample_list_file.write(sample+'\n')
-			if sample_info[4] == '0':sample_info[4] = ''
+			if sample_info[3] == '0':sample_info[3] = ''
 			config_sample_info = [sample]+sample_info
 			info_file.write( '\t'.join(config_sample_info)+'\n')
 			config_sample_str = '\t'.join(config_sample_info)
