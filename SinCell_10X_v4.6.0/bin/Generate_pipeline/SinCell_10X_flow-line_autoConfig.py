@@ -290,6 +290,7 @@ def main():
 	parser.add_argument('-in','--indir',help='which dir have Filter info Analysis concession',dest='indir',type=str,required=True) 
 	parser.add_argument('-o','--outdir',help='outdir of analysis',dest='outdir')
 	parser.add_argument('-c','--config',help='config',dest='config',default="{0}/../../software/software.txt".format(bindir))
+	parser.add_argument('-r','--run',help='run or not',action='store_true')
 	args=parser.parse_args()
 	
 	indir = args.indir
