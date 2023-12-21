@@ -216,8 +216,7 @@ class Pipe_Info():
 		for group in group_list :
 			sample_list = []
 			if group in group_info:
-				sample = group_info[group]
-				sample_list.append((i[0] for i in sample))
+				sample_list = group_info[group]
 				print(group)
 				print(sample_list)
 				value = group+"\t"+"\\".join(sample_list)
