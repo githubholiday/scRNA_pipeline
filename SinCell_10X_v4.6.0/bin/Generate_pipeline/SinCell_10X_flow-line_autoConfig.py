@@ -186,9 +186,10 @@ class Pipe_Info():
 		for sample in sample_info_dict :
 			sample_info = sample_info_dict[sample][0]#[0]
 			sample_list_file.write(sample+'\n')
-			if sample_info[5] == '0':sample_info[5] = ''
-			info_file.write( '\t'.join(sample_info)+'\n')
-			config_sample_str = '\t'.join(sample_info)
+			if sample_info[4] == '0':sample_info[4] = ''
+			config_sample_info = [sample]+sample_info
+			info_file.write( '\t'.join(config_sample_info)+'\n')
+			config_sample_str = '\t'.join(config_sample_info)
 			self.config.set('sample',config_sample_str)
 			sample_list.append(sample)
 		combine_value = "Combine\t"+'/'.join(sample_list)
