@@ -294,7 +294,7 @@ def main():
 	if args.outdir :
 		outdir = args.outdir
 	else:
-		outdir = args.indir+"Analysis"
+		outdir = args.indir
 
 	
 	analysis_dir = '{0}/Analysis/'.format( outdir )
