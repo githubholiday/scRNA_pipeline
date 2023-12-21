@@ -138,9 +138,7 @@ class Pipe_Info():
 		self.analysis_type = 'singleSample'
 		self.config = myconf()
 		self.load_json()
-		self.get_group_file()
-		self.sample_num = self.generate_pb_conf()
-	
+		
 	def load_json( self ):
 		json_file = open( self.info_conf, 'r')
 		self.json_dic = json.load( json_file )
@@ -177,9 +175,6 @@ class Pipe_Info():
 		self.config.set('Para','Para_species',self.ref)
 		self.config.set('Para','Para_category',ref_type)
 		
-			
-		
-
 	def config_sample( self ):
 		'''
         获取config.ini文件中的sample（样本）信息，同时将样本信息输出到sample.list文件中，便于后期报告生成
@@ -320,11 +315,9 @@ def main():
 	info_json = '{0}/info.json'.format( prepare_dir)
 	info_conf = '{0}/tab2json/config.json'.format( bindir)
 	table2json_script = '{0}/tab2json/table2json'.format(bindir)
-	read_info_file( info_file, info_json, info_conf, table2json_script )
-	
+	read_info_file( info_file, info_json, info_conf, table2json_script )	
     #
-	
-	
+
 	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir)
 	my_pipe.config_write()
 	my_pipe.generate_work_shell( args.run)
