@@ -14,20 +14,18 @@ GO_Rscript=/opt/install/R-4.2.3/bin/Rscript
 #database
 KEGG_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/
 GO_Base=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/
+MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
+KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
+KEGG_MAP_DIR=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/KEGG
+#GO_Clusterfiler
+GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
+ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
+
 #GOKEGG qsub
 slurm_sge=/work/share/acdgo9idhi/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xahcnormal
 mount=/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
-GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
-MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
-KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
 
-ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
-KEGG_MAP_DIR=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/KEGG
-
-#GO_Clusterfiler
-GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
-ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
 
