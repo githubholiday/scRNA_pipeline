@@ -217,9 +217,7 @@ class Pipe_Info():
 			sample_list = []
 			if group in group_info:
 				sample_list = group_info[group]
-				print(group)
-				print(sample_list)
-				value = group+"\t"+"\\".join(sample_list)
+				value = cmp_str+"\t"+"\\".join(sample_list)
 				self.config.set('group',value)
 			
 
