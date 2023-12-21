@@ -29,5 +29,11 @@
         "type" : "arrays",
         "table" : "合并比较组合表",
         "col": ["处理组" , "对照组"]
+    },
+    "group_sample":{
+        "type" : "map",
+        "table" : "样品信息表",
+        "key":"分组",
+        "value": "结题报告中样品名称"
     }
 }
