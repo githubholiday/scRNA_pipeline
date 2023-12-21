@@ -257,7 +257,7 @@ class Pipe_Info():
 		'''
 		根据分析类型获取job_config文件
 	    '''
-		self.job_config = '{0}/job_config/{1}_job_config.txt'.format(bindir, self.analysis_type)
+		self.job_config = '{0}/job_config/{1}.job_config.txt'.format(bindir, self.analysis_type)
 		if not os.path.exists( self.job_config ):
 			my_log.error("文件不存在:{0},请确认分析类型是否正确：[16s,18s,ITs]，退出".format(  self.job_config  ))
 			sys.exit(1)
