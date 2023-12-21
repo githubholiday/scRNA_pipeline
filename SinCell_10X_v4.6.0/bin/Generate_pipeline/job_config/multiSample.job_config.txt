@@ -120,7 +120,7 @@ Order	4
 Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 Sif	/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
 Depend	DE
-Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[3] species=Para_species Annotation_diff
+Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[0] species=Para_species Annotation_diff
 [Job End]
 
 [Job Start]
