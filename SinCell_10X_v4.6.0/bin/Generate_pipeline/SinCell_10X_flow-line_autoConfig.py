@@ -15,6 +15,7 @@ import configparser
 import datetime
 import glob
 import json
+import time
 bindir = os.path.abspath(os.path.dirname(__file__))
 filename=os.path.basename(__file__)
 
@@ -109,11 +110,13 @@ def my_mkdir( dir_list ):
 	for each_dir in dir_list :
 		if not os.path.exists(each_dir) :
 			os.makedirs( each_dir )
+			time.sleep(0.5)
 
 class Pipe_Info():
 	def __init__( self, info_conf, analysis_dir, config_dic, filter_dir, ppi_species,pipe_config_file ):
 		self.info_conf = info_conf
 		self.analysis_dir = analysis_dir
+		self.result_dir = '{0}/Analysis'.format( self.analysis_dir)
 		self.config_dic = config_dic
 		self.filter_dir = filter_dir
 		self.ppi = ppi_species
@@ -165,22 +168,36 @@ class Pipe_Info():
 	def config_sample( self ):
 		'''
         获取config.ini文件中的sample（样本）信息，同时将样本信息输出到sample.list文件中，便于后期报告生成
+		sample信息为："样品名称","样品编号","结题报告中样品名称","分组","强制细胞数","样品描述","组织部位/细胞类型","有何特殊处理"
+		
+		获取所有样本的列表
         '''
 		sample_info_dict = self.json_dic['samples']
 		sample_list_file = open( self.sample_list, 'w')
 		info_file = open( self.info_file, 'w')
-		sample_list = []
+		self.all_sample_list = []
 		for sample in sample_info_dict :
 			sample_info = sample_info_dict[sample][0]#[0]
+			#将样本信息写入到sample.list中
 			sample_list_file.write(sample+'\n')
-			if sample_info[5] == '0':sample_info[5] = ''
+			#如果强制细胞数写成0，则默认为空
+			group = sample_info[2]
+			force_cell = sample_info[5]
+			if force_cell == '0':
+				sample_info[5] = ''
+			#将样本和组的对应关系存下来
+			#sample信息中奖样本名称加上
 			config_sample_info = [sample]+sample_info
-			info_file.write( '\t'.join(config_sample_info)+'\n')
+			#写入到info.txt文件中
 			config_sample_str = '\t'.join(config_sample_info)
+			info_file.write( config_sample_str +'\n')
+			#配置到config文件中农
 			self.config.set('sample',config_sample_str)
-			sample_list.append(sample)
-		combine_value = "Combine\t"+'/'.join(sample_list)
+			self.all_sample_list.append(sample)
+		combine_value = "Combine\t"+'/'.join(self.all_sample_list)
 		self.config.set('Combine',combine_value)
+		#获取Combine目录下的config.ini文件
+		self.combine_config(self.all_sample_list )
 	###ok					
 	def config_cmp( self) :
 		'''
@@ -195,18 +212,29 @@ class Pipe_Info():
 			cmp_file.write(cmp_str+'\n')
 			self.config.set('cmp',cmp_str)
 			self.config_group(each_cmp, cmp_str)
-			
-			
+				
 	def config_group( self, group_list, cmp_str ):
 		#比较组中的样本,组名\t组中样本(sample1/sample2)
+		'''
+		功能：获取config文件中group的信息
+		group_list:[A,B]
+		cmp_str:A_VS_B
+		'''
+		#group_sample ：group:[A,A,A]
 		group_info = self.json_dic['group_sample']
+		cmp_sample_list = []
+		cmp_group_list = []
 		for group in group_list :
 			sample_list = []
 			if group in group_info:
 				sample_list = group_info[group]
+				for sample in sample_list :
+					cmp_sample_list.append(sample)
+					cmp_group_list.append(group)
 				value = cmp_str+"\t"+"\\".join(sample_list)
 				self.config.set('group',value)
-			
+		#获取每个比较组目录下的config.ini文件
+		self.cmp_config(cmp_str, cmp_sample_list, cmp_group_list, group_list)
 
 	def config_para( self ):
 		'''
@@ -233,8 +261,72 @@ class Pipe_Info():
 		self.config.set('Para','Para_ppi_species',self.ppi)
 		self.config.set('Para','Para_config', self.pipe_config_file)
 		
+	
+	def integrating_config(self, config):
+		'''
+		合并比较分析目录下的config文件,其公共部分
+		'''
+		config.set('Para','object_list_mitoname','MT')
+		config.set('Para','object_list_hb','human_hb')
+		config.set('Para','object_list_normalization.method','LogNormalize')
+		config.set('Para','object_list_scale.factor.method','10000')
+		config.set('Para','object_list_nfeatures_findvariablefeatures','2000')
+		config.set('Para','object_list_findvariablefeatures_method','vst')
+		config.set('Para','qc_pca_plot_w_h','12,8')
+		config.set('Para','sct','no')
+		config.set('Para','integration_cca_dims','20')
+		config.set('Para','integration_pca_dims','20')
+		config.set('Para','integration_runpca_npcs','30')
+		config.set('Para','reduction_dims_num','20')
+		config.set('Para','reduction_resolution','0.6')
+		config.set('Para','reduction_w_h','24,8')
+		config.set('Para','marker_gene_min.pct','0.1')
+		config.set('Para','marker_gene_logfc.threshold','0.25')
+		config.set('Para','marker_gene_test.use','wilcox')
+		config.set('Para','de_gene_logfc.threshold','wilcox')
+		config.set('Para','de_gene_min.pct','0.1')
+		config.set('Para','seurat_clusters','seurat_clusters')
+		config.set('Para','seurat_title.pct','clusters')
+		config.set('Para','cores','6')
+		config.set('Para','resolution','1e-3')
+		config.set('Para','maxcellnum','20000')
 		
-	def config_write( self ):
+	def combine_config(self , all_sample_list ):
+		'''
+		获取Combine目录下的config配置文件
+		'''
+		combine_dir = '{0}/Integrating/Combine'.format( self.result_dir )
+		my_mkdir([combine_dir])
+		config_file = '{0}/config.ini'.format(combine_dir)
+		combine_config = myconf()
+		label_list = ['sample','Para']
+		[combine_config.add_section(i) for i in label_list]
+		combine_config.set('sample','sample1',all_sample_list)
+		self.integrating_config()
+		combine_config.write( open(config_file, 'w'))
+		pass
+	
+	def cmp_config( self, cmp_str, sample_list, group_list, cmp_list ):
+		'''
+		cmp_str:A_VS_B
+		sample_list:该比较组中所有样本的列表
+		group_list:该比较组中所有样本对应的组名列表
+		cmp_list:[A,B]
+		'''
+		cmp_dir = '{0}/Integrating/{1}'.format( self.result_dir,cmp_str )
+		my_mkdir([cmp_dir])
+		config_file = '{0}/config.ini'.format(combine_dir)
+		cmp_config = myconf()
+		label_list = ['sample', 'cmp', 'Para']
+		[cmp_config.add_section(i) for i in label_list]
+		cmp_config.set('sample','sample1','/'.join(sample_list))
+		cmp_config.set('sample','sample2','/'.join(group_list))
+		cmp_config.set('cmp','cmp1','/'.join(cmp_list))
+
+	def pipe_config_write( self ):
+		'''
+		流程运行配置config文件生成
+		'''
 		self.default_para()
 		self.config_sample()
 		self.config_cmp()
