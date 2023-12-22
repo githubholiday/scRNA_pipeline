@@ -301,7 +301,7 @@ class Pipe_Info():
 		combine_config = myconf()
 		label_list = ['sample','Para']
 		[combine_config.add_section(i) for i in label_list]
-		combine_config.set('sample','sample1',all_sample_list)
+		combine_config.set('sample','sample1','/'.join(all_sample_list))
 		self.integrating_config()
 		combine_config.write( open(config_file, 'w'))
 		pass
