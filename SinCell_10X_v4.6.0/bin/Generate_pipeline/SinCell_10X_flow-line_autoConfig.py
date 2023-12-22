@@ -302,9 +302,8 @@ class Pipe_Info():
 		label_list = ['sample','Para']
 		[combine_config.add_section(i) for i in label_list]
 		combine_config.set('sample','sample1','/'.join(all_sample_list))
-		self.integrating_config()
+		self.integrating_config(combine_config)
 		combine_config.write( open(config_file, 'w'))
-		pass
 	
 	def cmp_config( self, cmp_str, sample_list, group_list, cmp_list ):
 		'''
@@ -315,13 +314,15 @@ class Pipe_Info():
 		'''
 		cmp_dir = '{0}/Integrating/{1}'.format( self.result_dir,cmp_str )
 		my_mkdir([cmp_dir])
-		config_file = '{0}/config.ini'.format(combine_dir)
+		config_file = '{0}/config.ini'.format(cmp_dir)
 		cmp_config = myconf()
 		label_list = ['sample', 'cmp', 'Para']
 		[cmp_config.add_section(i) for i in label_list]
 		cmp_config.set('sample','sample1','/'.join(sample_list))
 		cmp_config.set('sample','sample2','/'.join(group_list))
 		cmp_config.set('cmp','cmp1','/'.join(cmp_list))
+		self.integrating_config(cmp_config)
+		cmp_config.write( open(config_file, 'w'))
 
 	def pipe_config_write( self ):
 		'''
