@@ -231,7 +231,7 @@ class Pipe_Info():
 				for sample in sample_list :
 					cmp_sample_list.append(sample)
 					cmp_group_list.append(group)
-				value = cmp_str+"\t"+"\\".join(sample_list)
+				value = cmp_str+"\t"+"/".join(sample_list)
 				self.config.set('group',value)
 		#获取每个比较组目录下的config.ini文件
 		self.cmp_config(cmp_str, cmp_sample_list, cmp_group_list, group_list)
