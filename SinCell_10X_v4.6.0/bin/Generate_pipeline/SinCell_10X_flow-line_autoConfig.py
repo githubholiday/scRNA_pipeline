@@ -404,7 +404,7 @@ def main():
     #
 
 	my_pipe = Pipe_Info(info_json, analysis_dir, config_dic, filter_dir, args.ppi, args.config)
-	my_pipe.config_write()
+	my_pipe.pipe_config_write()
 	my_pipe.generate_work_shell( args.run)
 
 if __name__=="__main__": 
