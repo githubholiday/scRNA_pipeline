@@ -1,26 +1,26 @@
 [Job Start]
 Name	Count_Matrix
 Memory	30G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	N
 Major	T
 Thread	10
 Order	1
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/cellranger_7.1.0.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/cellranger_7.1.0.sif
 Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref  force_cell=Para_forcecell Count_Matrix
 [Job End]
 
 [Job Start]
 Name	Stat_Matrix
 Memory	30G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	10
 Major	T
 Thread	10
 Order	1
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	Count_Matrix
 Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[4] ref_dir=Para_ref species=Para_ppi_species Stat
 [Job End]
@@ -28,26 +28,26 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job Start]
 Name	FilterCell
 Memory	25G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	N
 Major	T
 Thread	10
 Order	2
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[4] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
 [Job End]
 
 [Job Start]
 Name	Integrating
 Memory	30G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	10
 Major	T
 Thread	10
 Order	3
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	FilterCell
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4] rds=OUTDIR/Seurat_Filter/$(sample)[4]/$(sample)[4]_filter_cell.rds species_tag=Para_ppi_species species=Para_species Integrating celltype Annotation
 [Job End]
@@ -55,13 +55,13 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(sample)[4
 [Job Start]
 Name	Monocle3
 Memory	100G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	N
 Major	T
 Thread	30
 Order	4
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	Integrating
 Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(sample)[4]/Pseudotime prefix=$(sample)[4] difffile=OUTDIR/Integrating/$(sample)[4]/2_clusters/$(sample)[4]_immune_combined.rds configini=OUTDIR/Integrating/$(sample)[4]/config.ini Monocle3
 [Job End]
@@ -69,13 +69,13 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job Start]
 Name	Convert
 Memory	1G
-Queue	xahcnormal
+Queue	xhacnormalb
 CPU	1
 Major	F
 Thread	1
 Order	5
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/Integrating Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
@@ -89,8 +89,8 @@ CPU	2
 Major	T
 Thread	2
 Order	6
-Mount	/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
-Sif	/work/share/acdgo9idhi/tuchengfang/pipeline/scRNA_pipeline/SinCell_10X_v4.6.0/software/seurat_py.sif
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR seq=Para_seq project_name=Para_projectName project_id=Para_project platform=Para_platform pipeline=BIN Prepare
 make -f BIN/Generate_report/report.mk log_file=LOGFILE outdir=OUTDIR indir=OUTDIR template_type=single_10XRNA project_id=Para_project Report
