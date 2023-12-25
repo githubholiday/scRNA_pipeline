@@ -47,6 +47,7 @@ library(magrittr)
 prefix <- paste(opt$outdir,opt$sample,sep='/')
 ## creat object
 
+print(opt$type)
 if (opt$type == 'matrix'){
 	expression_matrix <- Read10X(data.dir = opt$datadir, gene.column = 2, unique.features = TRUE) ## 数据读入路径
 } else if ( opt$type == 'h5') {
