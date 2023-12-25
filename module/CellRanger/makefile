@@ -57,7 +57,7 @@ Help:
 Count_Matrix:
 	[ -d $(count_dir)/$(sample_id) ] && rm -rf $(count_dir)/$(sample_id) || echo fresh analysis
 	mkdir -p $(count_dir)
-	if [ $(data_type) = "fastq" ] &&  [ -d $(fq_dir) ] ;\
+	if [ "$(data_type)" = "fastq" ] &&  [ -d $(fq_dir) ] ;\
 	then \
 		cd $(count_dir) && $(CellRanger) count $(count_para) ;\
 		[ -d $(outs)/filtered_feature_bc_matrix/ ] && mv $(outs)/filtered_feature_bc_matrix/ $(outs)/filtered_gene_bc_matrices && mkdir -p $(outs)/filtered_gene_bc_matrices/ref/ &&  mv $(outs)/filtered_gene_bc_matrices/*gz  $(outs)/filtered_gene_bc_matrices/ref/  ;\
@@ -66,17 +66,19 @@ Count_Matrix:
 		echo ${fq_dir} is not found ;\
 	fi
 
-	if [ $(data_type) = "matrix" ] &&  [ -d $(input_matrix_dir) ] ;\
+	if [ "$(data_type)" = "matrix" ] &&  [ -d $(input_matrix_dir) ] ;\
 	then \
 		[ -d $(outs)/raw_feature_bc_matrix/ ] && rm -rf $(outs)/raw_feature_bc_matrix/ ;\
+		mkdir -p $(outs) ;\
 		ln -snf $(input_matrix_dir) $(outs)/raw_feature_bc_matrix ;\
 	else \
 		echo ${input_matrix_dir} is not found ;\
 	fi
 
-	if [ $(data_type) = "h5" ] &&  [ -f $(input_h5_matrix) ] ;\
+	if [ "$(data_type)" = "h5" ] &&  [ -f $(input_h5_matrix) ] ;\
 	then \
 		[ -d $(outs)/raw_feature_bc_matrix/ ] && rm -rf $(outs)/raw_feature_bc_matrix/ ;\
+		mkdir -p $(outs)/raw_feature_bc_matrix/ ;\
 		ln -snf $(input_h5_matrix) $(outs)/raw_feature_bc_matrix ;\
 	else \
 		echo ${input_h5_matrix} is not found ;\
