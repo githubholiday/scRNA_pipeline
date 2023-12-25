@@ -94,7 +94,7 @@ Count_Matrix:
 # It also converts the generated PDF files to PNG format.
 Stat:
 	mkdir -p $(count_dir)/$(sample_id)/stat
-	if [ $(data_type) = "fastq" ] ;\
+	if [ "$(data_type)" = "fastq" ] ;\
 	then \
 		$(RSCRIPT) $(Bin)/seurat_stat.R -d $(dataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat  ;\
 		$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species) ;\
@@ -103,7 +103,7 @@ Stat:
 		echo ${fq_dir} is not found ;\
 	fi
 
-	if [ $(data_type) = "matrix" ] ;\
+	if [ "$(data_type)" = "matrix" ] ;\
 	then \
 		$(RSCRIPT) $(Bin)/seurat_stat.R -d $(input_matrix_dir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat ;\
 		$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species) ;\
@@ -112,7 +112,7 @@ Stat:
 		echo ${input_matrix_dir} is not found ;\
 	fi
 
-	if [ $(data_type) = "h5" ] ;\
+	if [ "$(data_type)" = "h5" ] ;\
 	then \
 		$(RSCRIPT) $(Bin)/seurat_stat.R -d $(input_h5_matrix) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat -t h5 ;\
 		$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species) ;\
