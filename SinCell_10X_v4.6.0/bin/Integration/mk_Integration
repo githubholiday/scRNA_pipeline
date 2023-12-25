@@ -7,7 +7,7 @@ else
 endif
 include $(Bconfig)
 
-include $(DIR)/../../species/$(species).txt
+include $(ref_index)/$(species).txt
 
 #path
 
