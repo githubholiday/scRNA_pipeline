@@ -117,7 +117,7 @@ Stat:
 	if [ "$(data_type)" = "h5" ] ;\
 	then \
 		mkdir -p $(count_dir)/$(sample_id)/stat ;\
-		$(RSCRIPT) $(Bin)/seurat_stat.R -d $(input_h5_matrix) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat -t h5 ;\
+		$(RSCRIPT) $(Bin)/seurat_stat.R -d $(input_h5_matrix) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat --datatype h5 ;\
 		$(RSCRIPT) $(Bin)/seurat_analysis_statcell.R -d $(rawdataDir) --sample $(sample_id) -o $(count_dir)/$(sample_id)/stat --species $(species) ;\
 		for i in `ls $(count_dir)/$(sample_id)/stat/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done ;\
 	else \

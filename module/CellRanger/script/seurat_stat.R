@@ -4,7 +4,7 @@ para<-matrix(c(
 	'datadir',	'd',	1,	"character",
 	'outdir',	'o',	1,	"character",
 	'sample',	's',	1,	"character",
-	'datatype', 'dt',	2,	"character",
+	'datatype', '',	2,	"character",
 	'mincell',	'mc',	2,	"character",
 	'mingene',	'mg',	2,	"character",
 	'mt',	'mt',	2,	"character",
