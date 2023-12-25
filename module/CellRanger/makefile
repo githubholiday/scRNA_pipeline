@@ -14,7 +14,7 @@ endif
 
 fq_dir=$(indir)/Analysis/$(fq_id)/filter/$(lib)
 input_matrix_dir = $(indir)/$(sample_id)/
-input_h5_matrix = $(input_matrix_dir)/$(sample_id)/*h5 
+input_h5_matrix = $(indir)/$(sample_id)/*h5 
 
 
 count_dir=$(outdir)/CellRanger_Count
