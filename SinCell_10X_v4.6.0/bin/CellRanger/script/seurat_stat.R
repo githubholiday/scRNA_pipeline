@@ -4,6 +4,7 @@ para<-matrix(c(
 	'datadir',	'd',	1,	"character",
 	'outdir',	'o',	1,	"character",
 	'sample',	's',	1,	"character",
+	'type' ,	't',	2,	"character",
 	'mincell',	'mc',	2,	"character",
 	'mingene',	'mg',	2,	"character",
 	'mt',	'mt',	2,	"character",
@@ -20,6 +21,7 @@ print_usage <- function(para=NULL){
 	--help		h	NULL		get this help
 	--datadir	d	character	the cellRanger output datadir [forced]
 	--sample	s	character	SampleName[forced]
+	--type		t	character	10X or 10XV2 [default: matrix]
 	--outdir	o	character	output file dir [forced]
 	--mincell	mc	character	Filter minium cell numbers [default: 3]
 	--mingene	mg	character	Filter minium gene numbers [default: 200]
@@ -31,6 +33,8 @@ print_usage <- function(para=NULL){
 if ( is.null(opt$datadir) || is.null(opt$sample) || is.null(opt$outdir)){ print_usage } 
 if ( is.null(opt$mincell))	{ opt$mincell <- c("0") }
 if ( is.null(opt$mingene))	{ opt$mingene <- c("0") }
+if ( is.null(opt$testmethod))	{ opt$testmethod <- c("negbinom") }
+if ( is.null(opt$type))	{ opt$type <- c("matrix") }
 if ( is.null(opt$mt))	{ opt$mt <- c("^MT-") }
 
 #======================
@@ -41,7 +45,12 @@ library(magrittr)
 
 prefix <- paste(opt$outdir,opt$sample,sep='/')
 ## creat object
-expression_matrix <- Read10X(data.dir = opt$datadir, gene.column = 2, unique.features = TRUE) ## 数据读入路径
+
+if (opt$type == 'matrix'){
+	expression_matrix <- Read10X(data.dir = opt$datadir, gene.column = 2, unique.features = TRUE) ## 数据读入路径
+} else if (condition) {
+   input_matrix_dir <- Read10X_h5(filename = opt$datadir,use.names = TRUE, unique.features = TRUE) ## 数据读入路径
+}
 object <- CreateSeuratObject(counts = expression_matrix, min.cells = opt$mincell, min.features = opt$mingene, project = opt$sample) ### 设置最小细胞中表达的基因和最小基因表达数的细胞默认不进行过滤
 
 nGene <- nrow(object@meta.data)
