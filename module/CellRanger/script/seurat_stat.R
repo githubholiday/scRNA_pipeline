@@ -37,6 +37,7 @@ if ( is.null(opt$testmethod))	{ opt$testmethod <- c("negbinom") }
 if ( is.null(opt$type))	{ opt$type <- c("matrix") }
 if ( is.null(opt$mt))	{ opt$mt <- c("^MT-") }
 
+
 #======================
 library(Seurat)
 library(dplyr)
@@ -48,8 +49,10 @@ prefix <- paste(opt$outdir,opt$sample,sep='/')
 
 if (opt$type == 'matrix'){
 	expression_matrix <- Read10X(data.dir = opt$datadir, gene.column = 2, unique.features = TRUE) ## 数据读入路径
-} else if (condition) {
+} else if ( opt$type == 'h5') {
    input_matrix_dir <- Read10X_h5(filename = opt$datadir,use.names = TRUE, unique.features = TRUE) ## 数据读入路径
+}else{
+	print_usage
 }
 object <- CreateSeuratObject(counts = expression_matrix, min.cells = opt$mincell, min.features = opt$mingene, project = opt$sample) ### 设置最小细胞中表达的基因和最小基因表达数的细胞默认不进行过滤
 
