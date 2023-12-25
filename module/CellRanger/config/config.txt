@@ -1,0 +1,3 @@
+CellRanger=cellranger
+RSCRIPT=Rscript
+CONVERT=/usr/bin/convert

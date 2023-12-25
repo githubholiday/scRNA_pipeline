@@ -1,0 +1,22 @@
+[Job Start]
+Name	Count_Matrix
+Memory	20G
+Queue	sci.q
+CPU	N
+Major	T
+Thread	6
+Order	1
+Command	make -f BIN/CellRanger/makefile indir=Para_indir outdir=OUTDIR log_file=LOGFILE lib=$(sample)[0] fq_id=$(sample)[1] sample_id=$(sample)[3] expect=$(sample)[2] Count_Matrix
+[Job End]
+
+[Job Start]
+Name	Count_Cluster
+Memory	20G
+Queue	sci.q
+CPU	N
+Major	T
+Thread	6
+Order	1
+Depend	Count_Matrix
+Command	make -f BIN/CellRanger/makefile outdir=OUTDIR log_file=LOGFILE lib=$(sample)[0] sample_id=$(sample)[3] Gene_Cluster
+[Job End]

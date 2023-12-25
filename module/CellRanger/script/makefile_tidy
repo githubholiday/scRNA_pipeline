@@ -1,0 +1,69 @@
+tmpdir = $(dir  $(abspath $(firstword $(MAKEFILE_LIST))))
+BIN = $(tmpdir)/..
+include $(BIN)/../software/software.txt
+
+$(outdir)=
+count_dir=$(outdir)/CellRanger_Count
+QC_dir=$(outdir)/QC
+report_dir=$(outdir)/report
+order=1
+result_dir=$(report_dir)/upload/$(order)_CellRanger_analysis
+tmp_dir=$(report_dir)/tmp
+matrix=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices_h5.h5
+barcodes=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/*/barcodes.tsv
+genes=$(count_dir)/$(sample_id)/outs/filtered_gene_bc_matrices/*/genes.tsv
+
+re_matrix=$(cluster_dir)/info/$(sample_id).filtered_gene_bc_matrices_h5.h5
+
+Test:
+	
+Readme:
+	echo copy readme to upload
+	[ -d $(result_dir) ] && rm -rf $(result_dir) || echo result_dir clear
+	mkdir -p $(result_dir)
+	cp -r $(tmpdir)/readme/* $(result_dir)
+
+Template:
+	echo copy upload and template
+	mkdir -p $(tmp_dir)
+	cp -r $(tmpdir)/template/CellRanger. $(outdir)/report/
+	cat $(tmpdir)/../Web_Report/template_split/$(project_types).filter.template $(tmpdir)/../Web_Report/template_split/$(project_types).analysis.template > $(outdir)/report/template.raw
+	cp -rL $(BIN)/Web_Report/template_split/$(project_types).template.config $(outdir)/report/template.config
+	cp -rL $(tmpdir)/../Web_Report/upload_$(project_type)/* $(outdir)/report/upload/
+
+Arrange:
+	mkdir -p $(result_dir)
+	#summary
+	#for sample in `cat $(sample_list)` ; do 
+		ln -snf $(QC_dir)/Basic/*metrics_summary.csv $(result_dir)/1_summary ;\
+		ln -snf $(count_dir)/*/rename/*/*cloupe.cloupe $(result_dir)/1_summary ;\
+		ln -snf $(count_dir)/*/rename/*/*web_summary.html $(result_dir)/1_summary ;\
+		ln -snf $(QC_dir)/Basic/*analysis_summary_short.xls $(result_dir)/1_summary ;\
+	#done
+	$(PYTHON3) $(tmpdir)/merge.metrics_summary.py -i $(result_dir)/1_summary/*metrics_summary.csv -o $(result_dir)/1_summary/analysis_summary.xls && rm -rf $(result_dir)/1_summary/*metrics_summary.csv
+	#expression
+	#for sample in `cat $(sample_list)` ; do 
+		ln -snf $(count_dir)/*/rename/*/*barcodes.tsv $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/rename/*/*genes.tsv $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/rename/*/*matrix.mtx $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/stat/*_all_cell.csv $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/stat/*_all_UMI.csv $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/stat/*_Gene_UMI_Scatter.p* $(result_dir)/2_expression ;\
+		ln -snf $(count_dir)/*/stat/*_Gene_UMI_Vln.p* $(result_dir)/2_expression ;\
+	#done
+	#pca #各组分中的基因组成#各组分能解释的比例#各细胞中的组分情况#各基因的归一化离散程度
+	#for sample in `cat $(sample_list)` ; do 
+		ln -snf $(count_dir)/*/rename/*components/*components.csv $(result_dir)/3_pca ;\
+		ln -snf $(count_dir)/*/rename/*components/*variance.csv $(result_dir)/3_pca ;\
+		ln -snf $(count_dir)/*/rename/*components/*projection.csv $(result_dir)/3_pca ;\
+		ln -snf $(count_dir)/*/rename/*components/*dispersion.csv $(result_dir)/3_pca ; \
+	#done
+	#cluster
+	#for sample in `cat $(sample_list)` ; do 
+		ln -snf $(count_dir)/*/rename/tsne/*projection.csv $(result_dir)/4_cluster ;\
+		ln -snf $(count_dir)/*/rename/clustering/*clusters.csv $(result_dir)/4_cluster ;\
+	#done
+	#diffexpr
+	#for sample in `cat $(sample_list)` ; do 
+		ln -snf $(count_dir)/*/rename/diffexp/*differential_expression.csv $(result_dir)/5_diffexpr ;\
+	#done

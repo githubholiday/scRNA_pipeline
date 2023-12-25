@@ -1,0 +1,10 @@
+1. 样品.2_components.projection.csv
+t-SNE分析结果
+2. 样品.graphclust.clusters.csv
+graph-based cluster方法的聚类结果，
+第一列，cell barcode；
+第二列，cell barcode 对应的cluster id。
+3. 样品.kmeans_K值_clusters.csv
+k-means聚类方法得到的聚类结果，文件名中的K值代表k-means的k值。
+第一列，cell barcode；
+第二列，cell barcode 对应的cluster id。
