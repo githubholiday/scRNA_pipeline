@@ -1,0 +1,34 @@
+1.将所有样本中的mEpi和vEpi数据subset出来
+epi_subset <-subset(x=rds, subset=(term=="mEpi"|term=="vEpi"))
+epi_subset@meta.data$orig.ident <- opt$sample #将rds中的样本信息加上
+2.将所有样本的subset合并到一起
+combine <- merge(s1, y=c(s2,s3,s4,s5,s6,s7,s8))
+
+3. 对合并后的数据进行处理
+st_file <- "/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/tuchengfang/Work/12_Project/03_Spatial_tr/03_Epi_Analysis/result/merge.rds"
+st_rds <- readRDS(st_file)
+library(Seurat)
+st_rds<- SCTransform(st_rds,assay="SCT",verbose=FALSE)#, clip.range = c(-10, 10)
+st_rds <- FindVariableFeatures(object = st_rds, mean.function = "FastExpMean", dispersion.function = "FastLogVMR", x.low.cutoff = 0.0125, x.high.cutoff =3, y.cutoff= 0.5, do.contour = FALSE)
+st_rds <- RunPCA(st_rds, npcs = 30, features = VariableFeatures(object = st_rds))
+st_rds <- RunHarmony(st_rds, c("orig.ident"))
+st_rds <- FindNeighbors(st_rds, reduction = "pca", dims = 1:20)
+st_rds <- FindClusters(st_rds, resolution = 0.3)
+st_rds <- RunUMAP(st_rds, dims = 1:30)
+st_rds <- RunUMAP(st_rds, dims = 1:30, reduction="harmony")
+#st_rds<- RunUMAP(st_rds , umap.method = "umap-learn", dims = 1:20,metric="correlation")
+
+pdf("/annoroad/data1/bioinfo/PROJECT/RD/Cooperation/RD_Group/tuchengfang/Work/12_Project/03_Spatial_tr/03_Epi_Analysis/result/dimplot3_harmony.pdf",w=40,h=20)
+p1 <- DimPlot(st_rds, reduction = "umap")
+p2 <- DimPlot(st_rds, reduction = "umap", group.by="term")
+p3 <- DimPlot(st_rds, reduction = "umap", group.by="orig.ident")
+p <- p1 + p2 + p3
+print(p)
+dev.off()
+
+DimPlot(vizgen.obj, reduction = "umap")
+ImageDimPlot(vizgen.obj, fov = "s2r1", cols = "polychrome", axes = TRUE)
+
+p1 <- ImageDimPlot(vizgen.obj, fov = "s2r1", cols = "red", cells = WhichCells(vizgen.obj, idents = 1))
+p2 <- ImageDimPlot(vizgen.obj, fov = "s2r1", cols = "red", cells = WhichCells(vizgen.obj, idents = 15))
+p1 + p2

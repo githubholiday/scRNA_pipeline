@@ -1,0 +1,46 @@
+makefile_dir=$(dir $(firstword $(MAKEFILE_LIST)))
+makefile_name=$(notdir $(firstword $(MAKEFILE_LIST)))
+script=$(makefile_dir)/script/
+report=$(makefile_dir)/report/
+
+ifdef config
+	include $(config)
+else
+	include $(makefile_dir)/config/config.txt
+endif
+
+HELP:
+	@echo Description: MIA analysis
+	@echo Program: mk_MIA
+	@echo Version: v1.0.0
+	@echo Contactor: leiguo@genome.cn
+	@echo Usage:
+	@echo -e "\t" "make -f config= outdir= rnards= spacerds= prefix= info= MIA"
+	@echo 参数说明：
+	@echo -e "\t" "config: [文件|可选]  模块配置文件，和软件相关参数，默认为$(makefile_dir)/config/config.txt "
+	@echo -e "\t" "outdir: [路径|必需]  输出路径 "
+	@echo -e "\t" "rnards: [文件|必需]  带有细胞注释结果的scRNA-seq rds 文件 "
+	@echo -e "\t" "spacerds: [文件|必需]  空间转录组的 rds 文件 "
+	@echo -e "\t" "prefix: [字符|必需]  文件前缀名称 "
+	@echo -e "\t" "info: [文件|必需]  分析的参数配置文件 "
+
+	@echo target说明：
+	@echo -e "\t" "MIA：MIA分析"
+	@echo -e "\t" "report：整理目录并生成report"
+
+
+.PHONY:MIA
+MIA:
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-INFO- ### MIA Start"
+	mkdir -p $(outdir)
+	$(RSCRIPT) $(script)/mia_analysis.r -r $(rnards) -s $(spacerds) -p $(prefix) -o $(outdir)/ -c $(info)
+	for i in `ls $(outdir)/$(prefix)/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	$(python3_238) $(script)/anno.py -i $(outdir)/$(prefix)/$(prefix)_mia_result.xls -o $(outdir)/$(prefix)/example_mia_result.xls
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-INFO- ### MIA End"
+
+.PHONY:Report
+Report:
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-INFO- ### report Start"
+	make -f $(script)/Generate_report/report.mk report_dir=$(outdir)/report/ project_name=$(project_name) indir=$(outdir) template_file=$(report)/template.md upload_conf=$(report)/upload.config bindir=$(report) Prepare Report
+	cat $(script)/../report/readme.doc > $(outdir)/report/upload/readme.doc
+	@echo `date "+%Y-%m-%d %H:%M:%S"` "-INFO- ### report End"

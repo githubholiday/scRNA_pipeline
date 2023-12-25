@@ -1,0 +1,12 @@
+{
+    "KEGG_clusterProfiler": {
+        "table_kegg_report": "upload/KEGG/kegg.example.report.xls",
+        "download_kegg_report": "upload/KEGG/*/*kegg.report.xls"
+    },
+	"clusterProfiler":{},
+	"KEGG_enrich":{
+		"table_kegg_enrich":"upload/KEGG/*/*enrichment.xls",
+		"image_kegg_bar": "upload/KEGG/*/*barplot*png", 
+        "image_kegg_dot": "upload/KEGG/*/*dotplot*png" 
+	}
+}

@@ -63,8 +63,23 @@ Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	FilterCell
-Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(group)[0] Merge
+Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] Merge
 [Job End]
+
+[Job Start]
+Name	AllRDS
+Memory	30G
+Queue	xhacnormalb
+CPU	N
+Major	T
+Thread	10
+Order	2
+Depend  MergeRDS
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species Integrating_multi Annotation celltype_multi
+[Job End]
+
 
 [Job Start]
 Name	Integrating
@@ -77,7 +92,7 @@ Order	3
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	MergeRDS
-Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(group)[0] Integrating celltype
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR group=$(group)[0] species_tag=Para_ppi_species species=Para_species all=Para_all Integrating_DE celltype_DE
 [Job End]
 
 [Job Start]

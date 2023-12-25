@@ -1,0 +1,34 @@
+输出目录解释说明：
+upload
+.
+├── 1_space 
+│   └── *_cluster_umap.p*
+├── 2_RNA
+│   ├── *_celltype_count.xls 
+│   ├── *_celltype_umap.p*
+├── 3_Integrate
+│   ├── *_celltype_AddModuleScore_example.xls 
+│   ├── *_celltype_AddModuleScore.xls
+│   ├── *_celltype_count_space_cluster.p*
+│   ├── *_celltype_count_space_cluster.xls 
+│   ├── *_celltype_count_space.xls
+│   ├── *_celltype_FeaturePlot.p*
+│   ├── *_celltype_space_umap.p*
+│   ├── *_celltype_Vlnplot.p*
+│   ├── *_SpatialDimPlot_Pit1_eachcell.p*
+│   └── *_SpatialDimPlot.p*
+
+文件解释说明：
+*_all_markers.xls：RNA数据集中每种细胞的P< 0.05 的marker基因信息。
+*_celltype_AddModuleScore.xls：每个spot的AddModuleScore打分值统计。
+*_celltype_count_space_cluster.p*：空间数据集中每个cluster中的各个细胞类型的占比图。横轴为空间数据集的cluster，纵轴为各个细胞类型的占比，不同颜色代表不同的细胞类型。
+*_celltype_count_space_cluster.xls：各个细胞类型在空间数据集不同cluster中的数量。
+*_celltype_count_space.xls：各个细胞类型在空间数据集中的数量。
+*_celltype_count.xls：RNA数据集中的各个细胞类型的数量。
+*_celltype_FeaturePlot.p*：每种细胞类型在spot中的score值用Featureplot图展示。Score值越大，颜色越深。
+*_celltype_space_umap.p*：空间数据集中不同细胞类型的umap 图，不同颜色代表不同的细胞。
+*_celltype_umap.p*：RNA数据集中不同细胞类型的umap 图，不同颜色代表不同的细胞。
+*_SpatialDimPlot.p*：空间数据集的细胞类型结果的切片图。
+*_SpatialDimPlot_Pit1_eachcell.p*：空间数据集的每种细胞类型结果的切片图。
+*_spot_cell.rds：加入细胞类型信息的空间数据集的rds文件。
+
