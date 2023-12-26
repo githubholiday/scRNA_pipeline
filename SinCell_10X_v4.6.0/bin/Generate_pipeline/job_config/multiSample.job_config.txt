@@ -63,7 +63,7 @@ Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Depend	FilterCell
-Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] Merge
+Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] config=Para_config Merge
 [Job End]
 
 [Job Start]

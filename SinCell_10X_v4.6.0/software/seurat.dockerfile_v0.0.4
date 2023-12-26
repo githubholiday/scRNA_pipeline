@@ -16,5 +16,6 @@ RUN mamba install -y -c bioconda -c conda-forge -c anaconda  scrublet
 RUN Rscript -e "devtools::install_github('eddelbuettel/harmony',force = TRUE)"
 RUN mamba install -y -c conda-forge r-matrix=1.6.1.1
 RUN mamba install -y -c conda-forge r-getopt
+RUN mamba install -y -c bu_cnio r-seuratwrappers
 USER test_user ## 固定语句，必须放在最后，以降低权限风险
 #docker build -f seurat.dockerfile -t seurat_py:v0.0.1 .
