@@ -208,9 +208,6 @@ def Vlnplot_Ks(Andata, Vlnkeys, sample, outdir):
     plt.tight_layout()
     plt.savefig(os.path.join(outdir, '{0}_QC.pdf'.format(sample)))
     
-    
-    
-    
 def main():
     parser=argparse.ArgumentParser(description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
