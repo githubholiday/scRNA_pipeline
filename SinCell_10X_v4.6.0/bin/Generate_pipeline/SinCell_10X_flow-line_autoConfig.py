@@ -178,7 +178,7 @@ class Pipe_Info():
 		self.all_sample_list = []
 		for sample in sample_info_dict :
 			sample_info = sample_info_dict[sample][0]#[0]
-			sample_report_name = sample_info[2]
+			sample_report_name = sample_info[1]
 			#将样本信息写入到sample.list中
 			sample_list_file.write(sample+'\n')
 			#如果强制细胞数写成0，则默认为空
