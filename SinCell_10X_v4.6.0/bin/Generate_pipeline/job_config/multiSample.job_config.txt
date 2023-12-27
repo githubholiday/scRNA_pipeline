@@ -77,7 +77,7 @@ Order	2
 Depend  MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
-Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Integrating_multi Annotation celltype_multi
+Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Integrating_multi celltype_multi
 [Job End]
 
 
