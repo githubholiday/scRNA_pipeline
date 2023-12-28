@@ -6,7 +6,7 @@ ifdef config
 else
 	include $(tmpdir)/config/config.txt
 endif
-include $(BIN)/../species/$(species).txt
+include $(ref_index)/$(species).txt
 
 de_dir=$(indir)/Integrating/$(compare)/5_diff_gene_condition
  
