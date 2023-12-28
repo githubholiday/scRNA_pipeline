@@ -38,7 +38,7 @@ GO:
 
 GOShellSubmit:
 	echo "############# GOShellSubmit  start at "`date`
-	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 5 --jobprefix GO --queue $(queue) -mount "$(mount)" -s $(sif) $(go_shell) && echo GO anaysis finished
+	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 1 --jobprefix GO --queue $(queue) -mount "$(mount)" -s $(sif) $(go_shell) && echo GO anaysis finished
 	echo "############# GOShellSubmit  end at "`date`
 
 KEGG:
@@ -49,7 +49,7 @@ KEGG:
 
 KEGGShellSubmit:
 	echo "############# KEGGShellSubmit  start at "`date`
-	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 5 --jobprefix KEGG --queue $(queue) -mount "$(mount)" -s $(sif) $(kegg_shell) && echo KEGG anaysis finished
+	$(slurm_sge) --resource "p=2,vf=5G" -P none --maxjob 2  --lines 1 --jobprefix KEGG --queue $(queue) -mount "$(mount)" -s $(sif) $(kegg_shell) && echo KEGG anaysis finished
 	echo "############# KEGGShellSubmit  end at "`date`
 
 
