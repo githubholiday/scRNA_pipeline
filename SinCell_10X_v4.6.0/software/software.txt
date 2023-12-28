@@ -22,7 +22,7 @@ GO2NAME=/work/share/acuhtwkcu9/tuchengfang/database/GO/20221108/data/go.class.cl
 ORGDB=/work/share/acuhtwkcu9/tuchengfang/database/ClusterProfile/OrgDb.list
 
 #GOKEGG qsub
-slurm_sge=/work/share/acuhtwkcu9/liutao/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
+slurm_sge=/work/share/acuhtwkcu9/liutao/seqwisdom/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xhacnormalb
 mount=/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 sif=/work/share/acuhtwkcu9/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
