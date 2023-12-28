@@ -267,8 +267,15 @@ class Pipe_Info():
 		'''
 		合并比较分析目录下的config文件,其公共部分
 		'''
-		config.set('Para','object_list_mitoname','MT')
-		config.set('Para','object_list_hb','human_hb')
+		if self.ppi == '9606':
+			config.set('Para','object_list_mitoname','MT')
+			config.set('Para','object_list_hb','human_hb')
+		elif self.ppi == '10090':
+			config.set('Para','object_list_mitoname','mt')
+			config.set('Para','object_list_hb','mouse_hb')
+		else:
+			config.set('Para','object_list_mitoname','mt')
+			config.set('Para','object_list_hb','')
 		config.set('Para','object_list_normalization.method','LogNormalize')
 		config.set('Para','object_list_scale.factor.method','10000')
 		config.set('Para','object_list_nfeatures_findvariablefeatures','2000')
