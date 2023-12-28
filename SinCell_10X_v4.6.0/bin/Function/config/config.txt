@@ -8,10 +8,10 @@ mount=/work/share/acdgo9idhi/:/work/share/acdgo9idhi/
 sif=/work/share/acdgo9idhi/tuchengfang/02_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
 
 RSCRIPT=/opt/install/R-4.2.3/bin/Rscript
-GO2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/GO/20221108/data/go.class.clusterprofile
-MAP2NAME=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/pathway_$(category).list
-KO2MAP=/work/share/acdgo9idhi/tuchengfang/docker/database/KEGG/20221108/data/ko2map/ko2map.xls
+GO2NAME=/work/share/acuhtwkcu9/database/GO/20221108/data/go.class.clusterprofile
+MAP2NAME=/work/share/acuhtwkcu9/databasee/KEGG/20221108/data/pathway_$(category).list
+KO2MAP=/work/share/acuhtwkcu9/database/KEGG/20221108/data/ko2map/ko2map.xls
 
-ORGDB=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/OrgDb.list
-KEGG_MAP_DIR=/work/share/acdgo9idhi/tuchengfang/docker/database/ClusterProfile/KEGG
+ORGDB=/work/share/acuhtwkcu9/database/ClusterProfile/OrgDb.list
+KEGG_MAP_DIR=/work/share/acuhtwkcu9/database/ClusterProfile/KEGG
 
