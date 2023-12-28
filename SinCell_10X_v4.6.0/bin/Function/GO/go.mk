@@ -1,7 +1,7 @@
 #species=hg19
 tmpdir=$(dir  $(abspath $(firstword $(MAKEFILE_LIST))))
 include $(tmpdir)/../../../software/software.txt
-include $(tmpdir)/../../../species/$(species).txt
+include $(ref_index)/$(species).txt
 
 
 BIN=$(tmpdir)..

@@ -3,7 +3,7 @@ tmpdir=$(dir  $(abspath $(firstword $(MAKEFILE_LIST))))
 BIN=$(tmpdir)../
 bin=$(tmpdir)
 include $(tmpdir)/../../../software/software.txt
-include $(tmpdir)/../../../species/$(species).txt
+include $(ref_index)/$(species).txt
 
 comma:=,
 name=$(subst $(comma), ,$(compare))
