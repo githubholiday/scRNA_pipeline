@@ -295,6 +295,7 @@ class Pipe_Info():
 		config.set('Para','de_gene_test.use','wilcox')
 		config.set('Para','de_gene_min.pct','0.1')
 		config.set('Para','seurat_clusters','seurat_clusters')
+		config.set('Para','seurat_title','clusters')
 		config.set('Para','cores','6')
 		config.set('Para','resolution','1e-3')
 		config.set('Para','maxcellnum','20000')
