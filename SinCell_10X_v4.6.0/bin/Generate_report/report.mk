@@ -58,7 +58,7 @@ ReportUpload:
 .PHONY:GenerateReport
 GenerateReport:
 	echo generate web report end at `date`
-	cp $(upload_json) $(report_dir)
+	cp $(upload_json) $(report_dir)/$(template_type).input.json
 	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md
 	echo generate web report end at `date`
 
