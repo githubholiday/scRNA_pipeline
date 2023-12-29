@@ -48,15 +48,17 @@ Clean_Upload:
 
 template_file=$(template_dir)/$(template_type).template.md
 upload_conf=$(template_dir)/$(template_type).upload.conf
+upload_json=$(template_dir)/$(template_type).template.json
 no_tag=public-picture
 .PHONY:ReportUpload
 ReportUpload:
 	echo generate web report start at `date`
-	$(PYTHON3) $(Bin)/get_upload.py  -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
+	$(PYTHON3) $(Bin)/get_upload.py  -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/$(template_file).template.md -n
 
 .PHONY:GenerateReport
 GenerateReport:
 	echo generate web report end at `date`
+	cp $(upload_json) $(report_dir)
 	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md
 	echo generate web report end at `date`
 
