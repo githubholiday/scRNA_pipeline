@@ -9,7 +9,7 @@
 ### 文库制备
 首先获得单细胞悬浮液，并对其进行活性检测，细胞活性>85%且单分散性好杂质含量低为宜，随后进行微流控通道油包水液滴文库的制备及上机操作。为保证单个细胞的有效捕获效率，一般要求细胞浓度尽量控制在700-1200cell/uL范围内。文库制备过程中，单个Gel Bead与单个细胞被单独的油包水液滴包裹形成GEM，每个Gel Bead上有独特的Barcode和UMI序列以及用于起始逆转录反应的Poly-dT引物序列;随后，在该GEM反应体系中，细胞发生破碎裂解，释放出mRNA并与Poly-dT引物序列在逆转录酶作用下起始逆转录反应，生成Full cDNA。接着cDNA进行扩增并构建文库，单细胞分选和逆转录过程示意图如下：
 
-![文库制备流程图]{{image_count_0}}
+![文库制备流程图]{{image_count_1}}
 ### 上机测序
 文库构建完成后，先使用Qubit3.0进行初步定量，稀释文库至1ng/uL，随后使用Agilent 2100对文库的insert size进行检测，insert size符合预期后，使用StepOnePlus Real-Time PCR System 荧光定量PCR仪进行Q-PCR，对文库的有效浓度进行准确定量（文库有效浓度指标为不低于10nM），以保证文库质量。
 
@@ -27,7 +27,7 @@
 
 信息分析技术路线如下：
 
-![信息分析流程图]{{image_count_1}}
+![信息分析流程图]{{image_count_2}}
 注：分析结果以实际产出为准，其中细胞类型注释分析仅对样本为人或者小鼠的进行。
 
 @@@@basci_QC
@@ -35,7 +35,7 @@
 ## Rawdata统计
 本项目中样本经CellRanger分析过程中的主要统计指标，如下表所示：
 
-![CellRanger分析统计表]{{table_count_0}}
+![CellRanger分析统计表]{{table_count_1}}
 （1）Sample：样本名称；
 （2）Estimated_Number_of_Cells：有效细胞数，有效细胞的判断，见下文附录；
 （3）Mean_Reads_per_Cell：每个细胞的平均reads数；
@@ -49,10 +49,10 @@
 
 CellRanger分析统计表下载链接：
 
-![CellRanger分析统计结果下载]{{download_count_0}}
+![CellRanger分析统计结果下载]{{download_count_1}}
 CellRanger分析报告下载链接：
 
-![CellRanger分析报告下载]{{download_count_1}}
+![CellRanger分析报告下载]{{download_count_2}}
 ## Filterdata统计
 CellRanger分析后，Seurat选用目前普遍设定的阈值：
 
@@ -64,15 +64,15 @@ CellRanger分析后，Seurat选用目前普遍设定的阈值：
 
 统计过滤细胞后样品中每个细胞中的nCount_RNA（number of UMI），nFeature_RNA（number of Gene）和线粒体基因占nFeature_RNA的比例，结果如下图所示：
 
-![表达量统计图]{{image_count_2}}
+![表达量统计图]{{image_count_3}}
 注：图中小提琴图的每个点代表一个细胞，从左至右分别为基因表达数目nFeature_RNA、unique UMI总数nCount_RNA和线粒体基因所占比例percent.mt，没有线粒体注释信息的物种则线粒体基因占比为0。
 
 过滤细胞后样品中基因表达量统计结果下载链接：
 
-![过滤细胞后样品中基因表达量统计结果下载链接]{{download_count_2}}
+![过滤细胞后样品中基因表达量统计结果下载链接]{{download_count_3}}
 Seurat过滤细胞数量统计表如下所示：
 
-![Seurat过滤细胞数量统计表]{{table_count_1}}
+![Seurat过滤细胞数量统计表]{{table_count_2}}
 （1）sample：样本名称；
 （2）total_cell：总的有效细胞数；
 （3）high_quality_cell：过滤后保留的有效高质量细胞数（过滤掉以下类型的细胞：表达基因数量过高过低的细胞，线粒体基因比例大于20%的细胞，红细胞基因比例大于5%的细胞）；
@@ -84,7 +84,7 @@ Seurat过滤细胞数量统计表如下所示：
 
 Seurat过滤细胞数量统计表下载：
 
-![Seurat分析后细胞数量统计结果下载]{{download_count_3}}
+![Seurat分析后细胞数量统计结果下载]{{download_count_4}}
 ####
 
 @@@@integrated_analysis
@@ -95,12 +95,12 @@ Seurat过滤细胞数量统计表下载：
 
 聚类结果使用UMAP1和UMAP2进行展示，如下图：
 
-![UMAP聚类结果图]{{image_count_3}}
+![UMAP聚类结果图]{{image_count_4}}
 注：左边图展示了不同样本分布情况，不同的颜色表示不同的样本；右边图展示了样本合并后聚类的情况，不同颜色表示不同的cluster。
 
 UMAP聚类结果图下载链接：
 
-![UMAP聚类结果图下载链接]{{download_count_4}}
+![UMAP聚类结果图下载链接]{{download_count_5}}
 ####
 
 ####
@@ -111,21 +111,21 @@ UMAP聚类结果图下载链接：
 
 样本在不同聚类中的细胞占比统计表如下：
 
-![样本在不同聚类中的细胞占比统计表]{{table_count_2}}
+![样本在不同聚类中的细胞占比统计表]{{table_count_3}}
 （1）Cluster：细胞聚类号；
 （2）第2列-最后：样本名，每个单元格表示样本在不同细胞类型中的细胞数（细胞占比）。
 
 样本在不同聚类中的细胞占比统计表下载链接：
 
-![样本在不同聚类中的细胞占比统计表下载链接]{{download_count_5}}
+![样本在不同聚类中的细胞占比统计表下载链接]{{download_count_6}}
 样本在不同聚类中的细胞占比堆叠柱形图如下：
 
-![样本在聚类中细胞占比柱形图]{{image_count_4}}
+![样本在聚类中细胞占比柱形图]{{image_count_5}}
 横轴为聚类，纵轴为每个聚类中各样本的细胞占有的比例。
 
 样本的细胞占比堆叠柱形图下载链接：
 
-![样本的细胞占比柱形图下载链接]{{download_count_6}}
+![样本的细胞占比柱形图下载链接]{{download_count_7}}
 @@@@marker_gene
 ## Marker基因分析
 聚类分析得到了不同的聚类，为了进一步研究每个聚类的特征，鉴定出每个聚类所特有的基因，即显著差异的基因或者称之为marker基因。
@@ -148,7 +148,7 @@ marker基因鉴定的阈值为：
 
 统计每个细胞cluster中的marker基因，并进行功能注释，结果示例如下：
 
-![marker基因功能注释示例表]{{table_count_3}}
+![marker基因功能注释示例表]{{table_count_4}}
 （1）Gene_ID：基因ID；
 （2）gene_name：基因名；
 （3）p_val：差异表达分析的p-value；
@@ -186,33 +186,33 @@ marker基因鉴定的阈值为：
 
 marker基因功能注释表下载链接：
 
-![marker基因功能注释下载链接]{{download_count_7}}
+![marker基因功能注释下载链接]{{download_count_8}}
 选择各cluster的前10的marker基因绘制表达量热图，如下：
 
-![marker基因表达量热图]{{image_count_5}}
+![marker基因表达量热图]{{image_count_6}}
 注：横轴为不同的细胞聚类，纵轴为每个细胞聚类的前10个marker基因。黄色表示高表达，紫色表示低表达。
 
 marker基因表达量热图下载链接：
 
-![marker基因在不同细胞表达的分布图]{{download_count_8}}
+![marker基因在不同细胞表达的分布图]{{download_count_9}}
 为了更为清晰的展示marker基因在各个聚类的表达情况，选取每个cluster的top1的marker基因绘制小提琴图和气泡图进行展示。
 
 marker基因表达量小提琴图如下：
 
-![marker基因的小提琴图]{{image_count_6}}
+![marker基因的小提琴图]{{image_count_7}}
 注：横轴为不同的聚类，纵轴为marker基因的表达量。通过此图，可以直观的比较marker基因在不同cluster中的表达量变化情况。
 
 marker基因的小提琴图下载链接：
 
-![marker基因的小提琴图下载链接]{{download_count_9}}
+![marker基因的小提琴图下载链接]{{download_count_10}}
 marker基因表达量气泡图如下：
 
-![marker基因气泡图]{{image_count_7}}
+![marker基因气泡图]{{image_count_8}}
 注：横轴为不同的cluster，纵轴为marker基因的表达量。点的颜色表示表达量高低，从蓝到红表示表达量从低到高，即越红表示表达量越高。点的大小表示某cluster中有该基因表达的细胞占比，点越大，说明该基因表达的细胞占比越高。
 
 marker基因气泡图下载链接：
 
-![marker基因气泡图下载链接]{{download_count_10}}
+![marker基因气泡图下载链接]{{download_count_11}}
 @@@@celltype
 # 细胞类型注释
 @@@@heatmap
@@ -221,57 +221,57 @@ marker基因气泡图下载链接：
 
 细胞亚群预测结果热图如下：
 
-![细胞亚群预测结果热图]{{image_count_8}}
+![细胞亚群预测结果热图]{{image_count_9}}
 注：横轴为聚类号，纵轴为预测的细胞类型名。颜色从紫色到黄色，表示属于该聚类预测为该细胞类型的可能性逐渐增大。
 
 细胞亚群预测结果热图下载链接：
 
-![细胞亚群预测结果热图下载链接]{{download_count_11}}
+![细胞亚群预测结果热图下载链接]{{download_count_12}}
 @@@@celltype_stat
 ## 亚群注释结果统计
 基于Seurat聚类的准确性和scibet的亚群自动注释，再结合积累的marker基因的信息，将Seurat的聚类结果、scibet的注释结果以及给定的细胞对应marker信息整合成一个表格，整合的方法是选取scibet中每个cluster注释上细胞数最多的celltype作为该cluster的细胞类型。如果其中细胞类型与给定的markerlist类型一致，则判断该marker列表与cluster covered marker的个数及具体的基因名称，并在表格中展示；如果celltype不一致，则展示对应cluster的top10的marker基因。
 
 scibet亚群统计表:
 
-![scibet亚群统计表]{{table_count_4}}
+![scibet亚群统计表]{{table_count_5}}
 （1）CLUSTER：聚类号；
 （2）CellTypeN：细胞数量最多的前三种细胞类型；
 （3）CellTypeN_Count：细胞类型对应的细胞数量（括号中为该类细胞数占该cluster细胞数的比例）。
 
 scibet亚群统计表下载链接：
 
-![scibet亚群统计表下载链接]{{download_count_12}}
+![scibet亚群统计表下载链接]{{download_count_13}}
 @@@@umap
 ## 亚群注释UMAP图谱
 基于以上亚群注释统计的CellType1类绘制细胞UMAP图谱:
 
-![注释后的细胞UMAP图谱]{{image_count_9}}
+![注释后的细胞UMAP图谱]{{image_count_10}}
 注：细胞亚群注释后UMAP的图谱,左边为各细胞在样本中的分布展示，右边为各细胞在细胞类群上的分布。
 
 细胞亚群注释后图谱下载链接：
 
-![细胞亚群注释后图谱下载链接]{{download_count_13}}
+![细胞亚群注释后图谱下载链接]{{download_count_14}}
 @@@@celltype_cluster_stat
 ## 聚类细胞占比统计
 为了进一步研究样本在不同细胞类型中的差异，故绘制占比堆叠图，清晰地展示样本在不同细胞类型中的的细胞占比情况。
 
 样本在不同细胞类型中的细胞占比统计表如下：
 
-![样本在不同细胞类型中的细胞占比统计表]{{table_count_5}}
+![样本在不同细胞类型中的细胞占比统计表]{{table_count_6}}
 （1）celltype：细胞类型名；
 （2）第2列-最后：样本名，每个单元格表示样本在不同细胞类型中的细胞数（细胞占比）。
 
 样本在不同细胞类型中的细胞占比统计表下载链接：
 
-![样本在不同细胞类型中的细胞占比统计表下载链接]{{download_count_14}}
+![样本在不同细胞类型中的细胞占比统计表下载链接]{{download_count_15}}
 样本在不同细胞类型中的细胞占比柱形图如下：
 
-![样本在细胞类型中的细胞占比柱形图]{{image_count_10}}
+![样本在细胞类型中的细胞占比柱形图]{{image_count_11}}
 横轴为细胞类型，纵轴为每个细胞类型中各样本的细胞占有的比例。
 
 样本在细胞类型中的细胞占比柱形图下载链接：
 
-![样本在细胞类型中的细胞占比柱形图下载链接]{{download_count_15}}
+![样本在细胞类型中的细胞占比柱形图下载链接]{{download_count_16}}
 @@@@de_analysis
 # 差异分析
 @@@@de_cluster
@@ -280,48 +280,48 @@ scibet亚群统计表下载链接：
 
 各比较组的UMAP聚类结果，如下图：
 
-![各比较组UMAP聚类结果图]{{image_count_11}}
+![各比较组UMAP聚类结果图]{{image_count_12}}
 各比较组UMAP聚类结果图下载链接：
 
-![合并组UMAP聚类结果图下载链接]{{download_count_16}}
+![合并组UMAP聚类结果图下载链接]{{download_count_17}}
 各比较组在不同聚类中的细胞占比统计表如下：
 
-![比较组在不同聚类中的细胞占比统计表]{{table_count_6}}
+![比较组在不同聚类中的细胞占比统计表]{{table_count_7}}
 （1）Cluster：细胞聚类号；
 （2）第2列-最后：样本名，每个单元格表示不同比较组在不同细胞类型中的细胞数（细胞占比）
 
 比较组在不同聚类中的细胞占比统计表下载链接：
 
-![合并组在不同聚类中的细胞占比统计表下载链接]{{download_count_17}}
+![合并组在不同聚类中的细胞占比统计表下载链接]{{download_count_18}}
 比较组在不同聚类中的细胞占比堆叠柱形图如下：
 
-![合并组在聚类中细胞占比柱形图]{{image_count_12}}
+![合并组在聚类中细胞占比柱形图]{{image_count_13}}
 横轴为聚类，纵轴为每个聚类中各比较组的细胞占有的比例。
 
 比较组的细胞占比堆叠柱形图下载链接：
 
-![合并组的细胞占比柱形图下载链接]{{download_count_18}}
+![合并组的细胞占比柱形图下载链接]{{download_count_19}}
 @@@@de_celltype
 ## 亚群注释比较组统计
 为了研究各比较组在不同细胞类型中的差异，统计不同细胞类型中的的各比较组的细胞占比。
 
 比较组在不同细胞类型中的细胞占比统计表如下：
 
-![比较组在不同细胞类型中的细胞占比统计表]{{table_count_7}}
+![比较组在不同细胞类型中的细胞占比统计表]{{table_count_8}}
 （1）celltype：细胞类型名；
 （2）第2列-最后：样本名，每个单元格表示比较组在不同细胞类型中的细胞数（细胞占比）。
 
 比较组在不同细胞类型中的细胞占比统计表下载链接：
 
-![不同比较组组中的细胞占比统计表下载链接]{{download_count_19}}
+![不同比较组组中的细胞占比统计表下载链接]{{download_count_20}}
 比较组在不同细胞类型中的细胞占比堆叠柱形图如下：
 
-![比较组在细胞类型中的细胞占比柱形图]{{image_count_13}}
+![比较组在细胞类型中的细胞占比柱形图]{{image_count_14}}
 横轴为细胞类型，纵轴为每个类型中各比较组的细胞占有的比例。
 
 比较组在不同细胞类型中的细胞占比堆叠柱形图下载链接：
 
-![合并组的细胞占比柱形图下载链接]{{download_count_20}}
+![合并组的细胞占比柱形图下载链接]{{download_count_21}}
 @@@@de_gene
 ## 差异基因分析
 对同一聚类中的不同比较组进行差异分析，但是由于某些特异性的聚类可能只有一个样品的细胞，因此并不是所有的聚类都有结果。
@@ -338,7 +338,7 @@ scibet亚群统计表下载链接：
 
 不同比较组在各聚类中的差异基因数量统计表，文件名为比较组名，统计表示例如下：
 
-![各聚类中不同比较组的差异基因数量统计表]{{table_count_8}}
+![各聚类中不同比较组的差异基因数量统计表]{{table_count_9}}
 （1）Cluster：聚类；
 （2）Up_gene：比较组在该聚类中上调差异基因数；
 （3）Down_gene：比较组在该聚类中下调差异基因数；
@@ -346,10 +346,10 @@ scibet亚群统计表下载链接：
 
 不同比较组在各聚类中的差异基因数量统计表下载链接：
 
-![各聚类中差异基因统计结果下载]{{download_count_21}}
+![各聚类中差异基因统计结果下载]{{download_count_22}}
 对不同比较组在各聚类中的差异基因进行功能注释。结果示例如下：
 
-![差异基因功能注释示例表]{{table_count_9}}
+![差异基因功能注释示例表]{{table_count_10}}
 （1）Gene_ID：基因ID；
 （2）gene_name：基因名；
 （3）p_val：差异表达分析的p-value；
@@ -386,34 +386,34 @@ scibet亚群统计表下载链接：
 
 不同比较组在各聚类中的差异基因功能注释表下载链接：
 
-![同一聚类中不同样品的差异分析注释的结果下载链接]{{download_count_22}}
+![同一聚类中不同样品的差异分析注释的结果下载链接]{{download_count_23}}
 不同比较组在各聚类中的差异基因表达量进行展示，跟据avg_log2FC绝对值从大到小排序，取每个比较组在各聚类中的top10的差异基因表达量绘制小提琴图、箱线图。
 
 差异基因表达量小提琴图，如下：
 
-![比较组的差异基因表达量小提琴图]{{image_count_14}}
+![比较组的差异基因表达量小提琴图]{{image_count_15}}
 注：每个比较组有单独的小提琴图，不同的颜色代表不同的组。横轴为聚类，纵轴为基因表达量。
 
 不同比较组的差异基因表达量小提琴图结果下载链接：
 
-![同比较组的小提琴图结果下载链接]{{download_count_23}}
+![同比较组的小提琴图结果下载链接]{{download_count_24}}
 利用箱线图来展示两比较组之间的差异基因是否存在显著性差异，结果展示如下：
 
-![两组样本差异显著性箱线图]{{image_count_15}}
+![两组样本差异显著性箱线图]{{image_count_16}}
 注：每个小图表示一个基因，横轴为不同比较组，纵轴为该基因的表达量，p值为两组差异显著性评分，一般认为小于0.05为具有显著性差异。
 
 注：这里的p值可能与文件的p值不一致，因为这个差异分析的p值是通过第三方R包signif单独分析的。
 
 不同比较组差异基因箱线图下载链接：
 
-![不同比较组差异基因箱线图下载链接]{{download_count_24}}
+![不同比较组差异基因箱线图下载链接]{{download_count_25}}
 @@@@GO_clusterProfiler
 ## GO富集分析
 基因本体（Gene Ontology，GO）是一个在生物信息学领域中广泛使用的本体，是基因功能国际标准分类体系，提供了一套动态更新的标准词汇表来描述生物体中基因和基因产物的属性，可以挖掘出所研究的生物学问题相关的生物学过程。GO分为三个Ontology，分别是：分子功能（Molecular Function，MF）、细胞组分（Cellular Component，CC）和生物过程（Biological Process，BP）。可以通过GO富集分析， 确认候选基因中是否有显著富集到特定GO条目上的基因组合，进一步研究候选基因在不同的GO层面与性状，疾病的关系，深入探索生物学分子机制。
 
 采用ClusterProfiler（T Wu et.al, 2021）计算目标基因中显著富集的GO条目。通过GO功能显著性富集分析能确定候选基因行使的主要生物学功能。 设定padjust<0.05 为显著性阈值。
 
-![差异基因GO统计结果示例表]{{table_count_10}}
+![差异基因GO统计结果示例表]{{table_count_11}}
 （1）ID：GO Term的ID；
 （2）Ontology：该Term 所属分类；
 （3）Description：GO Term的描述；
@@ -431,22 +431,22 @@ scibet亚群统计表下载链接：
 
 差异基因GO统计结果表下载链接：
 
-![差异基因GO统计结果表下载链接]{{download_count_25}}
+![差异基因GO统计结果表下载链接]{{download_count_26}}
 @@@@GO_enrich
 选取每个类别最显著的10个GO条目（如果不足10则用该类别全部条目）用条形图展示GO富集分析结果如下：
 
-![GO富集分析条形图]{{image_count_16}}
+![GO富集分析条形图]{{image_count_17}}
 GO富集分析条形图下载链接
 
-![GO富集分析条形图下载链接：]{{download_count_26}}
+![GO富集分析条形图下载链接：]{{download_count_27}}
 纵轴为GO条目，横轴为富集到该条目的基因数量，颜色表示padjust，颜色越红表示越显著。
 
 选取每个类别最显著的10个GO条目（如果不足10则用该类别全部条目）用气泡图展示GO富集分析结果如下：
 
-![GO富集分析气泡图]{{image_count_17}}
+![GO富集分析气泡图]{{image_count_18}}
 GO富集分析气泡图下载链接：
 
-![GO富集分析气泡图下载链接：]{{download_count_27}}
+![GO富集分析气泡图下载链接：]{{download_count_28}}
 纵轴为GO条目，横轴为富集到该条目的基因数量占总基因的比例，颜色表示padjust，颜色越红表示越显著；气泡大小表示富集到该条目的基因数量，气泡越大表示基因数量越多。
 
 @@@@KEGG_clusterProfiler
@@ -459,7 +459,7 @@ KEGG（Kyoto Encyclopedia of Genes and Genomes，京都基因与基因组百科�
 
 差异基因KEGG通路富集分析结果示例如下表：
 
-![差异基因KEGG统计结果示例表]{{table_count_11}}
+![差异基因KEGG统计结果示例表]{{table_count_12}}
 （1）Map：kegg通路编号；
 （2）Name：kegg通路名称；
 （3）Count1：富集到该通路的基因数目；
@@ -476,41 +476,41 @@ KEGG（Kyoto Encyclopedia of Genes and Genomes，京都基因与基因组百科�
 
 差异基因KEGG统计结果下载链接：
 
-![差异基因KEGG统计结果下载链接：]{{download_count_28}}
+![差异基因KEGG统计结果下载链接：]{{download_count_29}}
 @@@@KEGG_enrich
 选取最显著的30个pathway通路（如果不足30则用全部通路）用条形图展示KEGG富集分析结果如下：
 
-![KEGG富集分析条形图]{{image_count_18}}
+![KEGG富集分析条形图]{{image_count_19}}
 纵轴为通路名称，横轴为富集到该通路的基因数量，颜色表示padjust，颜色越红表示越显著。
 
 KEGG富集分析条形图下载链接：
 
-![KEGG富集分析条形图下载链接：]{{download_count_29}}
+![KEGG富集分析条形图下载链接：]{{download_count_30}}
 选取最显著的30个pathway通路（如果不足30则用全部通路）用气泡图展示KEGG富集分析结果如下：
 
-![KEGG富集分析气泡图]{{image_count_19}}
+![KEGG富集分析气泡图]{{image_count_20}}
 纵轴为通路名称，横轴为富集到该通路的基因数量，颜色表示padjust，颜色越红表示越显著。
 
 KEGG富集分析气泡图下载链接：
 
-![KEGG富集分析气泡图下载链接：]{{download_count_30}}
+![KEGG富集分析气泡图下载链接：]{{download_count_31}}
 @@@@wikipathway
 ## WikiPathway富集分析
 wikiPathway数据库是由科学家维护的生物学通路数据库，包含脊椎动物、无脊椎动物、植物和微生物，且更新速度非常快。本项目利用基于R语言的clusterprofiler包进行wikiPathway富集和GSEA分析。默认仅对人和小鼠进行该部分的分析。这里取富集分析top10生物学通路进行展示。
 
 wikiPathway富集分析柱形图：
 
-![wikiPathway富集分析柱形图]{{image_count_20}}
+![wikiPathway富集分析柱形图]{{image_count_21}}
 注：富集分析柱形图。横轴为富集到该term上基因个数，纵轴为富集的term，图例为富集显著性打分值校正的P值。
 
 wikiPathway富集分析气泡图：
 
-![wikiPathway富集分析气泡图]{{image_count_21}}
+![wikiPathway富集分析气泡图]{{image_count_22}}
 注：富集分析气泡图。横轴为富集到该term上的基因比例，纵轴为富集的term，图例为基因count和p.adjust值。
 
 wikiPathway富集分析基因网络图：
 
-![wikiPathway富集分析网络图]{{image_count_22}}
+![wikiPathway富集分析网络图]{{image_count_23}}
 注：富集分析基因网络图，中间节点为富集的term，周围节点为基因，节点大小由相关的基因个数决定。
 
 Gene Set Enrichment Analysis（GSEA）使用预定义的基因集（通常来自功能注释或先前实验的结果），将基因按照在两类样本中的差异表达定的基因集合是否在这个排序表的顶端或者底端富集。基因集富集分析检测基因集合而不是单个基因的表达变化，因此可以包含这些细微的表达变化。
@@ -519,12 +519,12 @@ Gene Set Enrichment Analysis（GSEA）使用预定义的基因集（通常来自
 
 GSEA分析结果图：
 
-![GSEA分析结果图]{{image_count_23}}
+![GSEA分析结果图]{{image_count_24}}
 注：GSEA分析结果图展示了差异基因在基因集（本项目指wikiPathway）上的富集情况。结果图分为如下三部分，第一部分为基因Enrichment Score的折线图，横轴为该基因集下的每个基因，纵轴为对应的Running ES，折线的峰值就是这个基因集的Enrichemnt score。第二部分为hit，用线条标记位于该基因集下的基因。第三部分为所有基因的rank值分布图, 默认采用Signal2Noise算法。
 
 GSEA分析结果图下载链接：
 
-![GSEA分析结果图下载链接]{{download_count_31}}
+![GSEA分析结果图下载链接]{{download_count_32}}
 @@@@monocle3
 # 拟时间分析
 ## 拟时间分析图谱
@@ -532,56 +532,56 @@ GSEA分析结果图下载链接：
 
 下图展示不同细胞类型分群结果和 monocle3 的分群结果图:
 
-![拟时间分布图]{{image_count_24}}
+![拟时间分布图]{{image_count_25}}
 注：左图代表不同细胞类型的聚类结果，右图代表 monocle3 的轨迹分群结果，其中每个点代表一个细胞，每个颜色代表不同的类群。
 
 拟时间分群图下载链接：
 
-![拟时间分群图下载链接：]{{download_count_32}}
+![拟时间分群图下载链接：]{{download_count_33}}
 轨迹学习时可以选择使用分区（Partition）与否，使用 learn_graph()函数。分区指是否将所有的细胞亚群连成一个轨迹还是根据上步中分群结果，每个亚群单独生成轨迹图，以下展示两种情况下的轨迹图。
 
 下图为不进行分区（partition）分群时的轨迹图，不同的颜色表示monocle3分群和细胞分群情况：
 
-![分群轨迹图]{{image_count_25}}
+![分群轨迹图]{{image_count_26}}
 图中每个点代表一个细胞，不同的颜色代表不同的分群，左图代表 monocle3 的聚类轨迹图，右图代表 Seurat 的不同细胞类型的聚类轨迹图。
 
 不使用partition模式轨迹图下载链接：
 
-![分群轨迹图下载链接：]{{download_count_33}}
+![分群轨迹图下载链接：]{{download_count_34}}
 下图为进行分区（partition）时的轨迹图，不同的颜色表示 monocle3 分群和 Seurat 的细胞分群情况：
 
-![分群轨迹图]{{image_count_26}}
+![分群轨迹图]{{image_count_27}}
 图中每个点代表一个细胞，不同的颜色代表不同的分群，左图代表 monocle3 的聚类轨迹图，右图代表 Seurat 的细胞分群聚类轨迹图。
 
 进行分区（partition）模式轨迹图下载链接：
 
-![分群轨迹图下载链接：]{{download_count_34}}
+![分群轨迹图下载链接：]{{download_count_35}}
 如果之前没有明显的发育关系，在构建发育轨迹的时候，就尽量不要构建一个发育轨迹，建议使用分区（partition），如果是细胞有发育关系，就可以构建一个发育轨迹，就可以不使用分区（partition）。
 
 为了展示分析，默认选择了一个群作为起始位置，可尽量根据细胞亚群的发育关系，后期再确定真实的发育起始位置。
 
 下图展示了细胞轨迹从起始到终止的时间图：
 
-![分群轨迹图]{{image_count_27}}
+![分群轨迹图]{{image_count_28}}
 图中每个点代表一个细胞，不同的颜色代表不同的分群，左图代表分区的轨迹时间图，右图代表不分区的轨迹时间图。
 
 轨迹时间图下载链接：
 
-![轨迹时间图下载链接：]{{download_count_35}}
+![轨迹时间图下载链接：]{{download_count_36}}
 ## 共表达基因模块热图
 Monocle3同时可以进行寻找基因共表达关系分析，有些模块高度特定于其他分区，而其他模块则可能跨多个分区共享。
 
 下图为细胞共表达基因模块热图
 
-![基因共表达模块热图]{{image_count_28}}
+![基因共表达模块热图]{{image_count_29}}
 图中横轴为Seurat聚类，纵轴为模块名称。
 
 基因共表达模块热图下载链接：
 
-![基因共表达模块热图：]{{download_count_36}}
+![基因共表达模块热图：]{{download_count_37}}
 基因共表达模块表格下载链接：
 
-![基因共表达模块表格下载]{{download_count_37}}
+![基因共表达模块表格下载]{{download_count_38}}
 ###################
 
 @@@@advanced_analysis
@@ -597,10 +597,10 @@ Monocle3同时可以进行寻找基因共表达关系分析，有些模块高度
 
 GPU在其他大数据分析中得到了广泛的应用，能够极大的提高数据分析的效率，有的几乎能到一百倍的效率。因此安诺优达基于GPU平台，结合英伟达的RAPIDS 和Scanpy工具开发了加速单细胞数据分析的工具pyANNOSC，可基于GPU或CPU进行分析，使得百万规模以上的单细胞数据分析变得‘So Easy’。pyANNOSC数据处理过程如下:
 
-![pyANNOSC数据处理过程]{{image_count_29}}
+![pyANNOSC数据处理过程]{{image_count_30}}
 质控后，下游有的分析包括PCA、批次校正、UMAP降维、聚类等过程。这里的批次校正主要采用的是harmony进行批次校正，然后使用louvain进行聚类，UMAP进行降维可视化。具体结果如下:
 
-![UMAP图]{{image_count_30}}
+![UMAP图]{{image_count_31}}
 输出文件仍可进行后续的各种高级分析的处理。
 
 ## RNAvelocyto速率分析
@@ -608,22 +608,22 @@ RNA丰度是单个细胞状态的一个强有力的指标。单细胞RNA测序�
 
 示例结果如下：
 
-![RNAvelocyto速率]{{image_count_31}}
+![RNAvelocyto速率]{{image_count_32}}
 ## CNV基因组拷贝数推断
 ### CopyKAT基因组拷贝数推断
 CopyKAT 通过结合贝叶斯方法与层次聚类来计算单个细胞的基因组拷贝数分布，并定义出亚克隆结构。能够有效的区分肿瘤微环境中正常细胞和恶性细胞，以探究肿瘤内部的亚克隆结构。首先根据基因组坐标对基因进行排序，利用Freeman Tukey变换来稳定方差，采用多项式动态线性建模来对UMI计数中的异常值做平滑矫正。接着使用高斯混合模型估计每个细胞群的方差，具有最小估计方差的细胞群被定义为"高置信的二倍体细胞"。通过分层聚类，以识别非整倍体肿瘤细胞和正常基质细胞。
 
 示例结果正常细胞和肿瘤细胞的聚类热图展示：
 
-![正常细胞和肿瘤细胞的聚类热图]{{image_count_32}}
+![正常细胞和肿瘤细胞的聚类热图]{{image_count_33}}
 注每一行代表一个细胞，横轴为基因组上不同的染色体上的CNV情况。
 
 示例结果肿瘤细胞的再聚类热图展示：
 
-![细胞的再聚类热图]{{image_count_33}}
+![细胞的再聚类热图]{{image_count_34}}
 示例结果预测细胞图谱展示：
 
-![copykat预测细胞图谱]{{image_count_34}}
+![copykat预测细胞图谱]{{image_count_35}}
 注:左边为原始的Seurat聚类图，右边为copykat聚类后图谱。
 
 ### inferCNV基因组拷贝数推断
@@ -631,34 +631,34 @@ CNV (Copy number variation，拷贝数变异)是基因结构变异 (StructuralVa
 
 分析示例如下：
 
-![inferCNV结果]{{image_count_35}}
+![inferCNV结果]{{image_count_36}}
 ## 细胞通讯分析
 细胞通讯分析即受体配体分析。生物细胞配体-受体介导的细胞相互作用，调节着发育、分化和炎症等各类生信学过程。细胞之间的相互交流，组成了细胞调节网络，影响着各种生理学过程的进展。组织生态系统(微环境)，特别是肿瘤微环境由多种类型的细胞组成，包括免疫细胞、基质细胞、造血细胞等。这些不同类型的细胞可以通过配体与受体之间的相互作用(例如，与免疫检查点抑制剂)，在肿瘤发生发展、耐药性、免疫浸润和炎症等方面发挥重要的功能。而这些配体可以通过分泌并以可溶性形式与受体结合，也可以通过膜结合的形式诱导不同类型的细胞相互接近并发挥作用。
 
 ### SingleCellSignalR分析
 SingleCellSignalR做细胞通讯分析，不同与Cellphonedb、iTALK仅支持人做细胞通讯，其可以支持人和小鼠两个物种进行，(Shao elt, Briefings in Bioinformatics, 2020)文献表明人和小鼠细胞通讯作用的结果有较大差异。
 
-![不同物种作用对数目]{{image_count_36}}
+![不同物种作用对数目]{{image_count_37}}
 SingleCellSignalR针对细胞通讯，计算了一个LRscore，LRscore越高，其作用关系越强，LRscore的计算方式如下：
 
-![LRscore的计算]{{image_count_37}}
+![LRscore的计算]{{image_count_38}}
 μ= mean(C)，这里的C是标准化后的read count表达量矩阵，在这个经验分数中，均值 μ 作为一个比例因子，平方根是为了使 lr 乘积和μ保持在相同的比例上。在输出结果的时候，一般默认值为LRscore =0.5，软件任务大于0.5的才是有意义的结果，如果老师输出结果太少，可以根据具体研究情况进行调整。
 
 根据SingleCellSignalR结果，展示不同亚群之间基因与基因直接的关系强弱，可以通过此结果找到一些关键的基因之间的相关关系，这里图展示了仅仅top30的作用对圈图。
 
-![不同亚群之间基因的作用关系图]{{image_count_38}}
+![不同亚群之间基因的作用关系图]{{image_count_39}}
 注：颜色越红，代表其作用越强，一般上半圆代表一个亚群，下半圆代表另外一个亚群，这里反应了具体作用基因的情况。
 
 ### iTALK分析
 利用单细胞转录组数据分析的细胞通讯，仅限于蛋白质配体-受体复合物介导的细胞间通讯。其分析的基础是基因表达数据和配体-受体数据库信息，例如转录组数据表明A、B细胞分别表达了基因α和β，通过数据库查询α和β是配体-受体关系，则认为A-B通过α-β途径进行了通讯。根据受体配体的关系和作用，将受体配体之间的关系分成了四类，分别为： cytokine、checkpoint、growth factor、other，后续分析结果的时候，会根据具体的不同类型分别进行分析。
 
-![受体配体关系图。]{{image_count_39}}
+![受体配体关系图。]{{image_count_40}}
 受体配体之间的关系分成了四类，分别为： cytokine、checkpoint、growth factor、other，后续分析结果的时候，会根据具体的不同类型分别进行分析。箭头为受体，没有箭头的配体。下图颜色仅为展示颜色，可能与结果颜色不一致。
 
-![受体配体圈图。]{{image_count_40}}
+![受体配体圈图。]{{image_count_41}}
 圈图说明，最外面的圈不同的颜色代表不同细胞亚群，内圈不同的颜色代表不同的基因类型，联线之间代表两个基因直接有受体配体之间的关系。线的粗细代表 Ligand 表达量的高低或者 pct 的高低，箭头的粗细代表 Receptor 表达的高低或者 pct 的高低。下图颜色仅为展示颜色，可能与结果颜色不一致。
 
-![iTALK平均表达筛选基因筛选结果。]{{image_count_41}}
+![iTALK平均表达筛选基因筛选结果。]{{image_count_42}}
 箭头为受体，没有箭头的配体。最外面的圈不同的颜色代表不同细胞亚群，内圈不同的颜色代表不同的基因类型,联线之间代表两个基因直接有受体配体之间的关系。线的粗细代表Ligand表达量的高低或者 pct 的高低，箭头的粗细代表Receptor表达的高低或者pct的高低。
 
 ## SCENIC转录因子调控网络
@@ -672,13 +672,13 @@ RcisTarget：上一步的推断结果中可能存在假阳性，使用基于DNA-
 
 AUCell：分析每个细胞的regulons活性并基于基因的表达量进行打分。对于regulon来说，比较细胞间的AUCell得分可以鉴定出哪种细胞具有显著更高的regulon活性。打分值可以进一步转化为二进制，最大化细胞类型的差异，从而确定regulo在哪些细胞中处于开放状态。
 
-![scenic工作流]{{image_count_42}}
+![scenic工作流]{{image_count_43}}
 ## 辅助细胞定义
 目前除了有标准分析中scibet进行细胞注释，还可以通过SingleR进行细胞注释。SingleR是一个用于对单细胞RNA-seq测序（scRNA-seq）数据进行细胞类型自动注释的R包（Aran et al.2019）。它通过给定的具有已知类型标签的细胞样本作为参考数据集，对测试数据集中与参考集相似的细胞进行标记注释。具体来说，对于每个测试细胞：首先，计算每个细胞的表达谱与参考样品的表达谱之间的Spearman相关性。这是通过在所有标记对之间识别的marker基因的并集完成的。接着，将每个标签的分数定义为相关分布的固定分位数（默认为0.8）。最后，对所有的标签重复此操作，然后将得分最高的标签作为此细胞的注释。
 
 结果示例如下：
 
-![singleR细胞鉴定示例。]{{image_count_43}}
+![singleR细胞鉴定示例。]{{image_count_44}}
 ## 其他个性化分析
 如果涉及其他个性化分析，老师可提供对应文献及资料，经评估通过后可进行定制化的个性化分析。
 
@@ -700,7 +700,7 @@ AUCell：分析每个细胞的regulons活性并基于基因的表达量进行打
 ### 软件版本说明
 本次分析所使用的软件见下表：
 
-![软件列表]{{table_count_12}}
+![软件列表]{{table_count_13}}
 （1）No：序号；
 （2）software：软件名称或包名称；
 （3）version：软件版本或包版本；
@@ -714,13 +714,13 @@ The datasets were integrated based on ‘anchors’ identified between datasets 
 
 英文版详细method下载链接：
 
-![Method文档下载。]{{download_count_38}}
+![Method文档下载。]{{download_count_39}}
 ###
 
 ## 常见售后问题解答
 FAQ文档下载链接：
 
-![FAQ文档下载]{{download_count_39}}
+![FAQ文档下载]{{download_count_40}}
 ## 参考文献
 Abdi H, Williams L J. Principal component analysis[J]. Wiley interdisciplinary reviews: computational statistics, 2010, 2(4): 433-459.
 
