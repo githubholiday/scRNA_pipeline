@@ -67,7 +67,7 @@ PRE:
 PRE
 P:#,;#Seurat过滤细胞数量统计表下载：
 Excel:upload/*Basic_QC/*expression/Cell_filter_stat.xls,,,Seurat分析后细胞数量统计结果下载
-####
+
 @@@@integrated_analysis
 MainMenu: 聚类分析
 @@@@qc
@@ -79,9 +79,6 @@ P:#,;#注：左边图展示了不同样本分布情况，不同的颜色表示�
 P:#,;#UMAP聚类结果图下载链接：
 Excel:upload/*_Integrating_analysis/*/*clusters/*_umap_cluster_samples*.p*,,,UMAP聚类结果图下载链接
 
-
-####
-####
 @@@@cluster_stat
 SubMenu: 聚类细胞占比统计
 P:#,;#为了进一步研究样本在不同聚类中的细胞的差异，故绘制占比堆叠图，清晰地展示样本在不同聚类中的细胞占比情况。
@@ -101,7 +98,6 @@ P:#,;#样本的细胞占比堆叠柱形图下载链接：
 Excel:upload/*_Integrating_analysis/*/*clusters/*sample.clusters_stats.p*,,,样本的细胞占比柱形图下载链接
 
 
-##MainMenu: Marker基因
 @@@@marker_gene
 SubMenu: Marker基因分析
 P:#,;#聚类分析得到了不同的聚类，为了进一步研究每个聚类的特征，鉴定出每个聚类所特有的基因，即显著差异的基因或者称之为marker基因。
@@ -417,8 +413,7 @@ P:#,;#KEGG富集分析气泡图下载链接：
 Excel:upload/*_Integrating_analysis/*/*Diff_gene/*/*/KEGG/*.kegg.dotplot.png,400,,KEGG富集分析气泡图下载链接：
 @@@@wikipathway
 SubMenu: WikiPathway富集分析
-P:#,;#wikiPathway数据库是由科学家维护的生物学通路数据库，包含脊椎动物、无脊椎动物、植物和微生物，且更新速度非常快。本项目利用基于R语言的clusterprofiler包进行wikiPathway富集和GSEA分析。默认仅对人和小鼠进行该部分的分析。这里取富集分析top10生物学通路进行。
-展示。
+P:#,;#wikiPathway数据库是由科学家维护的生物学通路数据库，包含脊椎动物、无脊椎动物、植物和微生物，且更新速度非常快。本项目利用基于R语言的clusterprofiler包进行wikiPathway富集和GSEA分析。默认仅对人和小鼠进行该部分的分析。这里取富集分析top10生物学通路进行展示。
 P:#,;#wikiPathway富集分析柱形图：
 Image:upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_bar.png,400,,wikiPathway富集分析柱形图
 P:#,;#注：富集分析柱形图。横轴为富集到该term上基因个数，纵轴为富集的term，图例为富集显著性打分值校正的P值。
@@ -428,13 +423,8 @@ P:#,;#注：富集分析气泡图。横轴为富集到该term上的基因比例�
 P:#,;#wikiPathway富集分析基因网络图：
 Image:upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_net.png,400,,wikiPathway富集分析网络图
 P:#,;#注：富集分析基因网络图，中间节点为富集的term，周围节点为基因，节点大小由相关的基因个数决定。
-#P:#,;#wikiPathway富集分析基因表达热图：
-#Image:upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_heatmap.png,400,,wikiPathway富集分析基因表达热图
-#P:#,;#注：富集分析基因表达热图，横轴为基因名称，纵轴为富集的term，颜色由foldchange值决定。
-#P:#,;#富集分析下载链接：
-#Excel:upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway*.p*,,,富集分析下载链接
-P:#,;#Gene Set Enrichment Analysis（GSEA）使用预定义的基因集（通常来自功能注释或先前实验的结果），将基因按照在两类样本中的差异表达定的基因集合是否在这个排序表的顶端或者底端富集。基因集富集分析检测基因集合而不是单个基因的表达变化，因此可以包含这些细微的
-表达变化。
+
+P:#,;#Gene Set Enrichment Analysis（GSEA）使用预定义的基因集（通常来自功能注释或先前实验的结果），将基因按照在两类样本中的差异表达定的基因集合是否在这个排序表的顶端或者底端富集。基因集富集分析检测基因集合而不是单个基因的表达变化，因此可以包含这些细微的表达变化。
 P:#,;#对两组样本间差异基因进行wikiPathway生物学通路GSEA分析，同样取top10个生物学通路进行展示。
 P:#,;#GSEA分析结果图：
 Image:upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*GSEAPathway*.png,400,,GSEA分析结果图
@@ -479,7 +469,6 @@ Excel:upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_
 P:#,;#基因共表达模块表格下载链接：
 Excel:upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_Module.xls,,,基因共表达模块表格下载
 
-###################
 @@@@advanced_analysis
 MainMenu: 个性化高级分析推荐
 SubMenu: 简介
@@ -545,7 +534,7 @@ P:#,;#结果示例如下：
 Image:upload/*/singleR_cellident_example.png,300,1,singleR细胞鉴定示例。
 SubMenu: 其他个性化分析
 P:#,;#如果涉及其他个性化分析，老师可提供对应文献及资料，经评估通过后可进行定制化的个性化分析。
-###################
+
 P:#,;#注：报告结果仅对本次接收到的样本所产生的数据负责。
 MainMenu: 附录
 SubMenu: 软件与方法说明
