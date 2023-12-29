@@ -17,6 +17,14 @@
     "table_count_9": "upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls",
     "download_count_22": "upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls"
   },
+  "heatmap": {
+    "download_count_12": "upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.p*",
+    "image_count_9": "upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png"
+  },
+  "celltype_stat": {
+    "download_count_13": "upload/*_Integrating_analysis/*/*CellIdent/*scibet_stat.xls",
+    "table_count_5": "upload/*Integrating_analysis/*/*CellIdent/*scibet_stat.xls"
+  },
   "de_cluster": {
     "image_count_13": "upload/*_Integrating_analysis/*Diff/*clusters/*group.clusters_stats.png",
     "image_count_12": "upload/*_Integrating_analysis/*Diff/*clusters/*umap_cluster_groups.png",
@@ -24,6 +32,12 @@
     "table_count_7": "upload/*_Integrating_analysis/*Diff/*clusters/*group.clusters.xls",
     "download_count_18": "upload/*_Integrating_analysis/*Diff/*clusters/*group.clusters.xls",
     "download_count_19": "upload/*_Integrating_analysis/*Diff/*clusters/*group.clusters_stats.p*"
+  },
+  "de_celltype": {
+    "table_count_8": "upload/*_Integrating_analysis/Diff/*CellIdent/*group.celltype.xls",
+    "image_count_14": "upload/*_Integrating_analysis/Diff/*CellIdent/*_cellType.group_stats.png",
+    "download_count_20": "upload/*_Integrating_analysis/Diff/*CellIdent/*group.celltype.xls",
+    "download_count_21": "upload/*_Integrating_analysis/Diff/*CellIdent/*_cellType.group_stats.p*"
   },
   "marker_gene": {
     "download_count_8": "upload/*_Integrating_analysis/*/*marker/*all_marker.anno.xls",
@@ -98,6 +112,10 @@
   "GO_clusterProfiler": {
     "table_count_11": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/go.example.report.xls",
     "download_count_26": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/*go.report.xls"
+  },
+  "umap": {
+    "image_count_10": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.png",
+    "download_count_14": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.p*"
   },
   "monocle3": {
     "download_count_35": "upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_learn_graph_cells.p*",
