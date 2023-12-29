@@ -11,7 +11,6 @@
 ### 上机测序
 文库构建完成后，先使用Qubit3.0进行初步定量，稀释文库至1ng/uL，随后使用Agilent 2100对文库的insert size进行检测，insert size符合预期后，使用StepOnePlus Real-Time PCR System 荧光定量PCR仪进行Q-PCR，对文库的有效浓度进行准确定量（文库有效浓度指标为不低于10nM），以保证文库质量。
 
-质量合格的文库用$(PLATFROM)平台进行测序。测序策略为$(SEQ)。
 
 ## 信息分析流程
 测序所得原始下机序列（Raw reads），首先我们根据10x转录组文库结构进行数据的截取，获得包含barcode和UMI序列信息的Read1和目标序列Read2；然后利用10x官方软件CellRanger 进行数据的分析处理。

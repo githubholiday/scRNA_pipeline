@@ -53,13 +53,14 @@ no_tag=public-picture
 .PHONY:ReportUpload
 ReportUpload:
 	echo generate web report start at `date`
-	$(PYTHON3) $(Bin)/get_upload.py  -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/$(template_type).template.md -n
+	$(PYTHON3) $(Bin)/get_upload.py  -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/$(template_type).template.md -n -tj $(upload_json)
 
 .PHONY:GenerateReport
 GenerateReport:
 	echo generate web report end at `date`
-	cp $(upload_json) $(report_dir)/$(template_type).input.json
-	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md
+	cp $(report_dir)/template.new.json $(report_dir)/$(template_type).input.json
+	mkdir -p $(report_dir)/upload/download
+	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md -l
 	echo generate web report end at `date`
 
 
