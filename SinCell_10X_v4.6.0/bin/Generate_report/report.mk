@@ -46,7 +46,7 @@ Clean_Upload:
 		fi; \
 	done
 
-template_file=$(template_dir)/$(template_type).template
+template_file=$(template_dir)/$(template_type).template.md
 upload_conf=$(template_dir)/$(template_type).upload.conf
 no_tag=public-picture
 .PHONY:ReportUpload
@@ -71,3 +71,4 @@ Convert:
 		echo "$(CONVERT) May not exist on the task running node " ; \
 		exit 1 ; \
 	fi
+
