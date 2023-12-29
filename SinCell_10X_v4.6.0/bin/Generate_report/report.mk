@@ -46,22 +46,17 @@ Clean_Upload:
 		fi; \
 	done
 
-
-.PHONY:Prepare
-Prepare:
-	[ -d $(report_dir) ] && echo $(report_dir) dir exist || mkdir -p $(report_dir)
-	echo -e "SEQ:$(seq)\nPROJECT_ID:$(project_id)\nPROJECT_NAME:$(project_name)\nREPORT_DIR:$(report_dir)/upload\nVERSION:$(version)\nPLATFROM:$(platform)" > $(report_dir)/report.conf
-
-
 template_file=$(template_dir)/$(template_type).template
 upload_conf=$(template_dir)/$(template_type).upload.conf
 no_tag=public-picture
-lims_conf=$(tmpdir)/config/lims.ini
-.PHONY:Report
-Report:
+.PHONY:ReportUpload
+ReportUpload:
 	echo generate web report start at `date`
-	$(PYTHON3) $(get_upload) -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
-	ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud
+	$(PYTHON3) $(Bin)/get_upload.py  -i $(indir) -o $(report_dir) -t $(template_file) -c $(upload_conf) -d $(no_tag) -b $(tmpdir) -ot $(report_dir)/report.template -n
+
+.PHONY:GenerateReport
+GenerateReport:
+	$(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud
 	echo ssh 192.168.1.3 $(PYTHON3) $(Report) -i $(report_dir)/report.template -c $(report_dir)/report.conf -u admin -t cloud > $(report_dir)/report.sh
 	$(PYTHON3) $(pipline_stat) -p $(project_id) -d $(report_dir) -c $(lims_conf)
 	echo generate web report end at `date`

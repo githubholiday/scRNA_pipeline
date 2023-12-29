@@ -11,7 +11,6 @@ include $(ref_index)/$(species).txt
 
 #path
 
-
 #arguments
 model=no
 ifeq ($(model),no)
