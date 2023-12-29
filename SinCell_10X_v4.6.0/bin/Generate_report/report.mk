@@ -48,7 +48,7 @@ Clean_Upload:
 
 template_file=$(template_dir)/$(template_type).template.md
 upload_conf=$(template_dir)/$(template_type).upload.conf
-upload_json=$(template_dir)/$(template_type).input.json
+upload_json=$(template_dir)/$(template_type).template.json
 no_tag=public-picture
 .PHONY:ReportUpload
 ReportUpload:
