@@ -191,6 +191,20 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job End]
 
 [Job Start]
+Name	QC_Summary
+Memory	1G
+Queue	xhacnormalb
+CPU	N
+Major	T
+Thread	1
+Order	5
+Depend  Function-GO;Function-KEGG
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project project_id=Para_project_id species=Para_species project_name=Para_projectName sample_list=Para_list Filter_Stat QC_Total QC_Check QC_path_release
+[Job End]
+
+[Job Start]
 Name	Convert
 Memory	1G
 Queue	xhacnormalb
