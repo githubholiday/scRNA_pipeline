@@ -104,13 +104,5 @@
     "download_count_6": "upload/*_Integrating_analysis/*/*clusters/*sample.clusters.xls",
     "image_count_5": "upload/*_Integrating_analysis/*/*clusters/*sample.clusters_stats.png",
     "download_count_7": "upload/*_Integrating_analysis/*/*clusters/*sample.clusters_stats.p*"
-  },
-
-  "wikipathway": {
-    "image_count_21": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_bar.png",
-    "image_count_22": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_dot.png",
-    "image_count_24": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*GSEAPathway*.png",
-    "image_count_23": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_net.png",
-    "download_count_32": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*GSEAPathway*.p*"
   }
 }
