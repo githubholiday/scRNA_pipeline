@@ -106,11 +106,5 @@
     "image_count_27": "upload/*_Integrating_analysis/*/Pseudotime_analysis/*_trajectory/*_learn_graph_cells.png",
     "image_count_29": "upload/*_Integrating_analysis/*/Pseudotime_analysis/*cogene_model/*_Genes_Module.png"
   },
-  "integrated_analysis": {},
-  "celltype_cluster_stat": {
-    "download_count_15": "upload/*_Integrating_analysis/*Combine/*CellIdent/*sample.celltype.xls",
-    "table_count_6": "upload/*_Integrating_analysis/*Combine/*CellIdent/*sample.celltype.xls",
-    "download_count_16": "upload/*_Integrating_analysis/*Combine/*CellIdent/*_cellType.sample_stats.p*",
-    "image_count_11": "upload/*_Integrating_analysis/*Combine/*CellIdent/*_cellType.sample_stats.png"
-  }
+  "integrated_analysis": {}
 }
