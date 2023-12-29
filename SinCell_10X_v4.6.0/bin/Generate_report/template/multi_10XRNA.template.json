@@ -1,8 +1,4 @@
 {
-  "umap": {
-    "image_count_10": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.png",
-    "download_count_14": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.p*"
-  },
   "de_gene": {
     "download_count_25": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_signif_Plot.p*",
     "image_count_15": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*_VlnPlot.png",
