@@ -27,12 +27,6 @@
         "image_marker_vlnplot":"upload/*_Integrating_analysis/*/*marker/*marker.vlnplot.png",
         "image_marker_dotplot":"upload/*_Integrating_analysis/*/*marker/*marker.dotplot.png"
     },
-    "celltype_cluster_stat":{
-        "image_sample_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.sample_stats.png",
-        "table_group_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*group.celltype.xls",
-        "table_sample_celltype_stat":"upload/*_Integrating_analysis/*/*CellIdent/*sample.celltype.xls",
-        "image_group_celltype_stat_png":"upload/*_Integrating_analysis/*/*CellIdent/*_cellType.group_stats.png"
-    },
     "de_analysis":{
         "table_de_stat":"upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls",
         "table_de_anno":"upload/*Integrating_analysis/*/Diff_gene/*/example_diff_gene.anno.xls",
