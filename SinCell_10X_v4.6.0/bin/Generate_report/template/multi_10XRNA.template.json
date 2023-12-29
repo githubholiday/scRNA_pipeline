@@ -88,13 +88,6 @@
     "download_count_31": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/KEGG/*.kegg.dotplot.png"
   },
   "celltype": {},
-  "wikipathway": {
-    "image_count_24": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*GSEAPathway*.png",
-    "image_count_23": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_net.png",
-    "image_count_21": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_bar.png",
-    "image_count_22": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*enrichPathway_dot.png",
-    "download_count_32": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/*Pathway/*GSEAPathway*.p*"
-  },
   "GO_clusterProfiler": {
     "table_count_11": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/go.example.report.xls",
     "download_count_26": "upload/*_Integrating_analysis/*/*Diff_gene/*/*/GO/*go.report.xls"
