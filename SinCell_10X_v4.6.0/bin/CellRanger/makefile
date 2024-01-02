@@ -54,6 +54,10 @@ Count_Matrix:
 	[ -f $(outs)/filtered_feature_bc_matrix.h5 ] && mv  $(outs)/filtered_feature_bc_matrix.h5 $(outs)/filtered_gene_bc_matrices.h5
 
 
+# Stat target creates a directory for storing statistics related to the sample.
+# It runs two R scripts, seurat_stat.R and seurat_analysis_statcell.R, to generate the statistics.
+# The output files are saved in the $(count_dir)/$(sample_id)/stat directory.
+# Additionally, it converts any PDF files in the directory to PNG format using the $(CONVERT) command.
 Stat:
 	mkdir -p $(count_dir)/$(sample_id)/stat
 	$(RSCRIPT) $(Bin)/seurat_stat.R -d $(dataDir) -s $(sample_id) -o $(count_dir)/$(sample_id)/stat

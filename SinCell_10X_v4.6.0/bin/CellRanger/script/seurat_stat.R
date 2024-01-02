@@ -1,3 +1,111 @@
+# This script performs statistical analysis using the Seurat package on single-cell RNA sequencing data.
+# It takes command-line arguments to specify input and output directories, sample name, and various filtering parameters.
+
+library('getopt')
+
+# Define the command-line options and their properties
+para <- matrix(c(
+	'help', 'h', 0, "logical",
+	'datadir', 'd', 1, "character",
+	'outdir', 'o', 1, "character",
+	'sample', 's', 1, "character",
+	'mincell', 'mc', 2, "character",
+	'mingene', 'mg', 2, "character",
+	'mt', 'mt', 2, "character",
+	'testmethod', 'tm', 2, "character"
+), byrow = TRUE, ncol = 4)
+
+# Parse the command-line options
+opt <- getopt(para, debug = FALSE)
+
+# Function to print the usage information
+print_usage <- function(para = NULL) {
+	cat(getopt(para, usage = TRUE))
+	cat("
+	Usage example:
+	Rscript securat_parameter.R -d hg19/ -p ANproject -o outdir/
+	Options:
+	--help    h    NULL    get this help
+	--datadir d    character    the cellRanger output datadir [forced]
+	--sample  s    character    SampleName[forced]
+	--outdir  o    character    output file dir [forced]
+	--mincell mc    character    Filter minimum cell numbers [default: 3]
+	--mingene mg    character    Filter minimum gene numbers [default: 200]
+	--mt      mt    character    mitochondria Gene symbol [default : MT]
+	--testmethod tm    character    test method for findMakers [default: negbinom]
+	\n")
+	q(status = 1)
+}
+
+# Check if required options are provided
+if (is.null(opt$datadir) || is.null(opt$sample) || is.null(opt$outdir)) {
+	print_usage
+}
+
+# Set default values for optional parameters if not provided
+if (is.null(opt$mincell)) {
+	opt$mincell <- c("0")
+}
+if (is.null(opt$mingene)) {
+	opt$mingene <- c("0")
+}
+if (is.null(opt$mt)) {
+	opt$mt <- c("^MT-")
+}
+
+# Load required libraries
+library(Seurat)
+library(dplyr)
+library(Matrix)
+library(magrittr)
+
+# Set the output directory and sample name
+prefix <- paste(opt$outdir, opt$sample, sep = '/')
+
+# Read the expression matrix from the specified data directory
+expression_matrix <- Read10X(data.dir = opt$datadir, gene.column = 2, unique.features = TRUE)
+
+# Create a Seurat object with the expression matrix and specified filtering parameters
+object <- CreateSeuratObject(counts = expression_matrix, min.cells = opt$mincell, min.features = opt$mingene, project = opt$sample)
+
+# Get the number of genes in the dataset
+nGene <- nrow(object@meta.data)
+print(nGene)
+
+# Save the metadata to a CSV file
+file <- paste(prefix, 'all_cell.csv', sep = '_')
+cell_data <- data.frame(data.frame(Gene = rownames(object@meta.data)), object@meta.data)
+data.table::fwrite(data.table::data.table(cell_data), file, quote = FALSE)
+
+# Save the raw data to a CSV file
+file <- paste(prefix, 'all_UMI.csv', sep = '_')
+raw_data <- as_matrix(object@assays$RNA@data)
+raw_data <- data.frame(data.frame(Gene = rownames(raw_data)), raw_data)
+data.table::fwrite(data.table::data.table(raw_data), file, quote = FALSE, sep = ",", col.names = TRUE, row.names = FALSE)
+
+# Perform QC analysis
+# mito.genes <- grep(pattern = opt$mt, ignore.case = TRUE, x = rownames(x = object@data), value = TRUE)
+# percent.mito <- Matrix::colSums(object@raw.data[mito.genes, ]) / Matrix::colSums(object@raw.data)
+# object <- AddMetaData(object = object, metadata = percent.mito, col.name = "percent.mito")
+
+# Generate expression violin plots
+graph <- paste(prefix, 'Gene_UMI_Vln.pdf', sep = '_')
+unlink('Rplots.pdf')
+pdf(graph, width = 12, height = 8)
+par(mfrow = c(1, 2))
+plot1 <- VlnPlot(object = object, features = "nFeature_RNA", ncol = 1, combine = "False")
+plot2 <- VlnPlot(object = object, features = "nCount_RNA", ncol = 1, combine = "False")
+CombinePlots(plots = c(plot1, plot2), ncol = 2)
+print(graph)
+dev.off()
+
+# Generate UMI correlation scatter plot
+graph <- paste(prefix, 'Gene_UMI_Scatter.pdf', sep = '_')
+pdf(graph, width = 12, height = 8)
+par(mfrow = c(1, 1))
+FeatureScatter(object = object, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+print(graph)
+dev.off()
 library('getopt')
 para<-matrix(c(
 	'help',	'h',	0,	"logical",
