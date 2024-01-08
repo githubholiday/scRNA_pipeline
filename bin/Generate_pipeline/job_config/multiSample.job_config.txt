@@ -74,7 +74,7 @@ CPU	N
 Major	T
 Thread	10
 Order	2
-Depend  MergeRDS
+Depend	MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Integrating_multi
@@ -88,7 +88,7 @@ CPU	N
 Major	T
 Thread	10
 Order	2
-Depend  MergeRDS
+Depend	MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/scrna_base_v0.1.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config celltype_multi
@@ -102,7 +102,7 @@ CPU	N
 Major	T
 Thread	10
 Order	2
-Depend  AllRDS
+Depend	AllRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Annotation
@@ -212,7 +212,7 @@ CPU	N
 Major	T
 Thread	1
 Order	5
-Depend  Function-GO;Function-KEGG
+Depend	Function-GO;Function-KEGG
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
 Command	
