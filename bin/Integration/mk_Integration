@@ -6,8 +6,9 @@ else
 	Bconfig=$(config)
 endif
 include $(Bconfig)
-
-include $(ref_index)/$(species).txt
+ifneq ($(species),)
+	include $(ref_index)/$(species).txt
+endif
 
 #path
 
