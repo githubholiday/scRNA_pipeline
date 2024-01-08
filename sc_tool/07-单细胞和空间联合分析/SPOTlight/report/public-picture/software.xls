@@ -1,2 +1,0 @@
-Number	software	version	function	parmeters	official website
-1	SPOTlight	2020-6-6发布版本	空间组数据与单细胞数据进行映射，实现空间数据集的细胞注释	高可变基因3000，每种细胞类型选择100个，打分选择mean.AUC>0.8	https://github.com/MarcElosua/SPOTlight

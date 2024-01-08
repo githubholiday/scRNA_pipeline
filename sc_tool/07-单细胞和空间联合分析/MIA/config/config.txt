@@ -1,8 +1,0 @@
-project_name=MIA-空间转录组和RNA转录组联合分析结题报告
-iconv=/usr/bin/iconv
-CONVERT=/usr/local/bin/convert
-RSCRIPT=/annoroad/data1/software/bin/miniconda/envs/Space_RNA/bin/Rscript
-python3_202=/annoroad/share/software/install/Python-3.3.2/bin/python3
-python3_238=/annoroad/data1/software/bin/miniconda/envs/python3_base/bin/python3
-get_upload=/annoroad/data1/software/install/tools/generate_upload/get_upload.py
-reportpy=/annoroad/data1/bioinfo/PROJECT/Commercial/Cooperation/Public/Pipeline/Stable/Public/Report/Report_local/current/Public_webreport//Report.py
