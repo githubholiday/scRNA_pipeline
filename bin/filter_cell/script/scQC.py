@@ -265,12 +265,9 @@ def main():
     vlnkeys.append('doublet_scores')
     
     adata.write(outdir + "/{0}.QC.h5ad".format(sample))
-    Vlnplot_Ks(adata, vlnkeys, sample, outdir)
+    #Vlnplot_Ks(adata, vlnkeys, sample, outdir)
 
 
 
 if __name__ == '__main__':
     main()
-
-
-    

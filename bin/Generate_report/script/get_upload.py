@@ -51,8 +51,8 @@ class get_upload_from_config:
 	
 	def open_file(self):
 		##模块中must文件有存在的，也有不存在的， 导致模块去除：模块\t文件
-		#self.warn_file=open("{0}/warning_moudle.info".format(self.outdir),"w")
-		#self.warn_file.write("#有部分文件存在但被删除的模块\t导致模块被删除的文件\n")
+		self.warn_file=open("{0}/warning_moudle.info".format(self.outdir),"w")
+		self.warn_file.write("#有部分文件存在但被删除的模块\t导致模块被删除的文件\n")
 		##去除的模块名称\t提示
 		self.rmodule = open("{0}/remove_moudle.info".format(self.outdir),"w")
 		self.rmodule.write("#被删除的模块\t删除原因\n")
@@ -64,7 +64,7 @@ class get_upload_from_config:
 		self.log.write("#文件原路径\t输出路径\t是否存在\t执行退出码\n")
 
 	def close_file(self):
-		#self.warn_file.close()
+		self.warn_file.close()
 		self.rmodule.close()
 		self.not_exist.close()
 		self.log.close()
@@ -73,7 +73,6 @@ class get_upload_from_config:
 		self.open_file()
 		module_dict,module_list =self.read_config()
 		self.out_module={}
-		print(module_list)
 		for m in module_list:
 			if not module_dict[m]:flag="YES"
 			else:
@@ -81,7 +80,6 @@ class get_upload_from_config:
 			if flag=="YES":
 				self.out_module[m]=1
 				self.deal_module(m,module_dict[m])
-				print("【doing】处理{0}模块结束".format(m))
 		self.close_file()
 				
 	def get_maindir(self,dir):
@@ -121,10 +119,7 @@ class get_upload_from_config:
 		all_files=[]
 		for i in dict:
 			info = dict[i]
-			if len(info) < 4 :
-				print("config file is wrong, the wrong info maybe this:")
-				print(info)
-				sys.exit(1)
+			print(info)
 			infile=self.replace_stable_path(info[0])
 			if  info[3]=="-1":continue
 			all_files.append(info[0])
@@ -154,8 +149,7 @@ class get_upload_from_config:
 			if "NO" in type1_info:
 				for n in range(len(type1_info)):
 					if type1_info[n]=="NO":
-						#self.warn_file.write("{0}\t{1}\n".format(name,type1[n]))
-						self.rmodule.write("{0}\t关键文件不存在：{1}\n".format(name,type1[n]))
+						self.warn_file.write("{0}\t{1}\n".format(name,type1[n]))
 				flag="NO"
 		return flag
 
@@ -171,6 +165,7 @@ class get_upload_from_config:
 			infile=self.replace_stable_path(info[0])
 			outdir=self.replace_stable_path(info[1])
 			files=glob.glob(infile)
+			## 处理*
 			num_star=infile.count("*")
 			tt=infile.replace("*","(.*)")
 			if files:
@@ -219,6 +214,7 @@ def main():
 	parser.add_argument('-o','--outdir',help='outdir',dest='outdir',type=str,required=True)
 	parser.add_argument('-c','--config',help='config file',dest='config',type=str,required=True)
 	parser.add_argument('-t','--template',help='template ',dest='template',type=str)
+	parser.add_argument('-tj','--templatejson',help='template json ',dest='templatejson',type=str)
 	parser.add_argument('-ot','--out_template',help='out template ',dest='out_template',type=str)
 	parser.add_argument('-j','--json',help='template ',dest='json',type=str)
 	parser.add_argument('-oj','--out_json',help='input.json ',dest='out_json',type=str)
@@ -235,7 +231,7 @@ def main():
 		for i in tmp:
 			default_dir.append(i)
 	if not os.path.exists(indir):
-		sys.stderr.write("-i {0} not exists!\n".format(indir))
+		sys.stderr.write("-i {0} not exists!\n")
 		sys.exit(1)
 	outdir=os.path.abspath(args.outdir)
 	os.system("mkdir -p {0}".format(outdir))
@@ -246,6 +242,7 @@ def main():
 		sys.stdout.write("##### INFO-删除旧的upload文件夹\n")
 
 	get_upload=get_upload_from_config(args.config, indir,outdir,bindir,default_dir)
+
 	if args.template:
 		sys.stdout.write("##### INFO-开始提取模板\n")
 		out_template='{0}/template.new'.format(outdir)
@@ -253,6 +250,20 @@ def main():
 		if args.out_template:
 			out_template=args.out_template
 		read_template(args.template,out_template,keep_module)
+
+		if args.templatejson:
+			sys.stdout.write("##### INFO-开始提取模板json\n")
+			out_templatejson='{0}/template.new.json'.format(outdir)
+			input_json_content = read_json(args.templatejson)
+			input_json_content_new = {}
+			for i in input_json_content:
+				if i in keep_module:
+					input_json_content_new[i] = input_json_content[i]
+			out_templatejson_write=open(out_templatejson,"w")
+			json.dump(input_json_content_new, out_templatejson_write,indent=4, separators=(',', ':'))
+			out_templatejson_write.close()
+			
+
 	if args.number:
 		dir_order=get_upload.dir_order
 		for n in range(len(dir_order)):
