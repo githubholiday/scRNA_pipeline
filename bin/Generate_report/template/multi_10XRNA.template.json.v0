@@ -53,34 +53,6 @@
     "table_count_4_zip": "upload/download/table_count_4.zip"
   },
   "celltype": {},
-  "heatmap": {
-    "download_count_12": "upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.p*",
-    "download_count_12_zip": "upload/download/download_count_12.zip",
-    "image_count_9": "upload/*_Integrating_analysis/*/*CellIdent/*query_model_heatmap.png",
-    "image_count_9_zip": "upload/download/image_count_9.zip"
-  },
-  "celltype_stat": {
-    "download_count_13": "upload/*_Integrating_analysis/*/*CellIdent/*scibet_stat.xls",
-    "download_count_13_zip": "upload/download/download_count_13.zip",
-    "table_count_5": "upload/*Integrating_analysis/*/*CellIdent/*scibet_stat.xls",
-    "table_count_5_zip": "upload/download/table_count_5.zip"
-  },
-  "umap": {
-    "download_count_14": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.p*",
-    "download_count_14_zip": "upload/download/download_count_14.zip",
-    "image_count_10": "upload/*Integrating_analysis/*Combine/*CellIdent/*umap_cluster_anno.png",
-    "image_count_10_zip": "upload/download/image_count_10.zip"
-  },
-  "celltype_cluster_stat": {
-    "download_count_15": "upload/*_Integrating_analysis/*Combine/*CellIdent/*sample.celltype.xls",
-    "download_count_15_zip": "upload/download/download_count_15.zip",
-    "download_count_16": "upload/*_Integrating_analysis/*Combine/*CellIdent/*_cellType.sample_stats.p*",
-    "download_count_16_zip": "upload/download/download_count_16.zip",
-    "image_count_11": "upload/*_Integrating_analysis/*Combine/*CellIdent/*_cellType.sample_stats.png",
-    "image_count_11_zip": "upload/download/image_count_11.zip",
-    "table_count_6": "upload/*_Integrating_analysis/*Combine/*CellIdent/*sample.celltype.xls",
-    "table_count_6_zip": "upload/download/table_count_6.zip"
-  },
   "de_analysis": {},
   "de_cluster": {
     "download_count_17": "upload/*_Integrating_analysis/*Diff/*clusters/*umap_cluster_groups.p*",
@@ -95,16 +67,6 @@
     "image_count_13_zip": "upload/download/image_count_13.zip",
     "table_count_7": "upload/*_Integrating_analysis/*Diff/*clusters/*group.clusters.xls",
     "table_count_7_zip": "upload/download/table_count_7.zip"
-  },
-  "de_celltype": {
-    "download_count_20": "upload/*_Integrating_analysis/Diff/*CellIdent/*group.celltype.xls",
-    "download_count_20_zip": "upload/download/download_count_20.zip",
-    "download_count_21": "upload/*_Integrating_analysis/Diff/*CellIdent/*_cellType.group_stats.p*",
-    "download_count_21_zip": "upload/download/download_count_21.zip",
-    "image_count_14": "upload/*_Integrating_analysis/Diff/*CellIdent/*_cellType.group_stats.png",
-    "image_count_14_zip": "upload/download/image_count_14.zip",
-    "table_count_8": "upload/*_Integrating_analysis/Diff/*CellIdent/*group.celltype.xls",
-    "table_count_8_zip": "upload/download/table_count_8.zip"
   },
   "de_gene": {
     "download_count_22": "upload/*Integrating_analysis/*/Diff_gene/*/*.de_stat.xls",
