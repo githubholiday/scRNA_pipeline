@@ -201,7 +201,7 @@ Order	4
 Depend	Integrating
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/scrna_base_v0.1.sif
-Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(Combine)[0]/Pseudotime prefix=$(Combine)[0] difffile=OUTDIR/Integrating/$(Combine)[0]/2_Com_clusters/$(Combine)[0]_immune_combined.rds configini=OUTDIR/Integrating/$(Combine)[0]/config.ini Monocle3
+Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(Combine)[0]/Pseudotime prefix=$(Combine)[0] difffile=OUTDIR/Integrating/$(Combine)[0]/2_Com_clusters/$(Combine)[0]_immune_combined_marker.rds configini=OUTDIR/Integrating/$(Combine)[0]/config.ini Monocle3
 [Job End]
 
 [Job Start]
