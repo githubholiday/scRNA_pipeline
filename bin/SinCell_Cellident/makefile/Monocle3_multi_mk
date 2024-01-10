@@ -26,3 +26,11 @@ Monocle3:
 	cp $(tmpdir)/../script/readme.doc $(outdir)/
 	echo $(prefix) finsh at `date`
 
+Monocle3_multi:
+	echo start at `date`
+	[ -s $(outdir)/ ] || mkdir -p $(outdir)
+	$(RSCRIPT_monocle3) $(tmpdir)/../script/monocle3_multi_com.R -i $(difffile) --prefix $(prefix) -o $(outdir)/ -c $(configini) -n $(cellname)
+	for i in `ls $(outdir)/*/*.pdf` ;do name=`echo $$i |sed 's/.pdf/.png/'`; $(CONVERT) $$i $$name; done
+	cp $(tmpdir)/../script/readme.doc $(outdir)/
+	echo $(prefix) finsh at `date`
+
