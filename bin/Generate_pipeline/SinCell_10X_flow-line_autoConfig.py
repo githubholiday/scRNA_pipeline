@@ -243,7 +243,7 @@ class Pipe_Info():
         '''
 		pipe_config = os.path.abspath("{0}/../../config/config.txt".format(bindir))
 		self.config.set('Para','Para_project_id',self.sub_project_id)
-		self.config.set('Para','Para_project_name',self.project_name)
+		self.config.set('Para','Para_project_name',self.project_name+"结题报告")
 		self.config.set('Para','Para_outdir','{0}/Analysis'.format( self.analysis_dir))
 		self.config.set('Para','Para_clean',self.filter_dir)
 		self.config.set('Para','Para_list',self.sample_list)
