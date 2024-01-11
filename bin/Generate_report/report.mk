@@ -57,10 +57,13 @@ ReportUpload:
 
 .PHONY:GenerateReport
 GenerateReport:
-	echo generate web report end at `date`
+	echo generate web report start at `date`
 	cp $(report_dir)/template.new.json $(report_dir)/$(template_type).input.json
 	mkdir -p $(report_dir)/upload/download
 	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md -l
+	perl -pe 's/^\<br\s+\/\>/\n/' html_raw.md > $(report_dir)/new.md
+	pandoc --standalone -c html/css/markdown.css $(report_dir)/new.md --metadata title="${projectName}" -o $(report_dir)/"${projectName}".tmp.html
+	python /work/share/acuhtwkcu9/renxue/10_git/rust/pipeline/rna_refseq/pipeline/script/common/report/generate_md_report/modify_html.py -i $(report_dir)/"${projectName}".tmp.html -o $(report_dir)/"${projectName}".html
 	echo generate web report end at `date`
 
 
