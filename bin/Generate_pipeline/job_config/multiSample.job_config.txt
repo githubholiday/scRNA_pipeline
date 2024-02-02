@@ -7,7 +7,7 @@ Major	T
 Thread	12
 Order	1
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA//cellranger_7.1.0.sif
+Sif	/work/share/acuhtwkcu9/install/sif//cellranger_7.1.0.sif
 Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[2] ref_dir=Para_ref  force_cell=$(sample)[6] Count_Matrix
 [Job End]
 
@@ -20,7 +20,7 @@ Major	T
 Thread	10
 Order	1
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA//seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif//seurat_py.sif
 Depend	Count_Matrix
 Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=LOGFILE lib=clean fq_id=$(sample)[0] sample_id=$(sample)[2] ref_dir=Para_ref species=Para_ppi_species Stat
 [Job End]
@@ -34,7 +34,7 @@ Major	F
 Thread	2
 Order	1
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
+Sif	/work/share/acuhtwkcu9/install/sif/conda_perl_r_py_full_v0.0.1.sif
 Depend	Stat_Matrix
 Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id QC_Basic
 [Job End]
@@ -48,7 +48,7 @@ Major	T
 Thread	8
 Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[2] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
 [Job End]
 
@@ -61,7 +61,7 @@ Major	T
 Thread	10
 Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Depend	FilterCell
 Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] config=Para_config Merge
 [Job End]
@@ -76,7 +76,7 @@ Thread	10
 Order	2
 Depend	MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Integrating_multi
 [Job End]
 
@@ -90,7 +90,7 @@ Thread	10
 Order	2
 Depend	MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/scrna_base_v0.1.sif
+Sif	/work/share/acuhtwkcu9/install/sif/scrna_base_v0.1.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config celltype_multi
 [Job End]
 
@@ -104,7 +104,7 @@ Thread	10
 Order	2
 Depend	AllRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
+Sif	/work/share/acuhtwkcu9/install/sif/conda_perl_r_py_full_v0.0.1.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Annotation
 [Job End]
 
@@ -118,7 +118,7 @@ Major	T
 Thread	30
 Order	3
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Depend	MergeRDS
 Command	make -f BIN/Integration/mk_IntegrationDE outdir=OUTDIR group=$(group)[0] species_tag=Para_ppi_species species=Para_species all=Para_all config=Para_config Integrating_DE celltype_DE
 [Job End]
@@ -132,7 +132,7 @@ Major	T
 Thread	10
 Order	4
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Depend	Integrating
 Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] species=Para_species config=Para_config DE
 [Job End]
@@ -146,7 +146,7 @@ Major	T
 Thread	2
 Order	4
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/conda_perl_r_py_full_v0.0.1.sif
+Sif	/work/share/acuhtwkcu9/install/sif/conda_perl_r_py_full_v0.0.1.sif
 Depend	DE
 Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] cmp_name=$(group)[0] species=Para_species config=Para_config Annotation_diff
 [Job End]
@@ -161,7 +161,7 @@ Thread	2
 Order	4
 Depend	DE-anno
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
+Sif	/work/share/acuhtwkcu9/install/sif/clusterprofiler_v0.0.4.sif
 Command	make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species go_shell_dir=OUTDIR/shell/Function_shell/GO_shell/ go_shell=OUTDIR/shell/Function_shell/GO_shell/go.sh config=Para_config GO
 make -f BIN/Function/diff.mk log_file=LOGFILE outdir=OUTDIR de_file=OUTDIR/Integrating/*/Diff_gene/*/*/*diff_gene_symbol.xls species=Para_species category=Para_category config=Para_config KEGG
 [Job End]
@@ -200,7 +200,7 @@ Thread	30
 Order	4
 Depend	Integrating
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/scrna_base_v0.1.sif
+Sif	/work/share/acuhtwkcu9/install/sif/scrna_base_v0.1.sif
 Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/Integrating/$(Combine)[0]/Pseudotime prefix=$(Combine)[0] difffile=OUTDIR/Integrating/$(Combine)[0]/2_Com_clusters/$(Combine)[0]_immune_combined_marker.rds configini=OUTDIR/Integrating/$(Combine)[0]/config.ini Monocle3_multi
 [Job End]
 
@@ -214,7 +214,7 @@ Thread	1
 Order	5
 Depend	KEGGSubmit;GOSubmit
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id project_id=Para_project_id species=Para_species project_name=Para_project_name sample_list=Para_list Filter_Stat QC_Total QC_Check QC_path_release 
 [Job End]
 
@@ -227,7 +227,7 @@ Major	T
 Thread	1
 Order	5
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/seurat_py.sif
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
 Command	make -f BIN/Generate_report/report.mk indir=OUTDIR/Seurat_Filter Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/Integrating Convert
 make -f BIN/Generate_report/report.mk indir=OUTDIR/CellRanger_Count Convert
@@ -242,7 +242,7 @@ Major	T
 Thread	2
 Order	7
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/liutao/sif/report/md_report_v0.0.4.sif
+Sif	/work/share/acuhtwkcu9/liutao/sif/report/md_report.sif
 Depend	Convert
 Command	make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report indir=OUTDIR template_type=multi_10XRNA project_id=Para_project_id ReportUpload
 make -f BIN/Generate_report/report.mk log_file=LOGFILE report_dir=OUTDIR/Report  template_type=multi_10XRNA project_name=Para_project_name contract_id=Para_project_id GenerateReport
