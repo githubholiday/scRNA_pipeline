@@ -41,7 +41,7 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id QC_Basic
 
 [Job Start]
 Name	FilterCell_scQC
-Memory	25G
+Memory	5G
 Queue	xhacnormalb
 CPU	N
 Major	T
