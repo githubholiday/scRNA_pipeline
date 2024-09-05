@@ -213,6 +213,39 @@ reduction<-function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pr
 	print("保存细胞的tsne坐标结果：cell.tsne.csv")
 	write.csv(c,"cell.tsne.csv",quote=F,row.names=F)
 	
+	
+	cluster_num<-length(unique(Idents(immune.combined_tsne)))
+	color<-hue_pal()(cluster_num)
+	for (i in 1:cluster_num){
+		c_umap<-merge(x_umap,y_umap,by='orig.ident')
+		c_umap$cluster<-as.character(as.numeric(c_umap$cluster))
+		#c_umap$cluster <-as.character(c_umap$cluster)
+		c_umap[c_umap$cluster!=i,]$cluster <- 'Not in'
+		mycolo<-c(color[as.numeric(i+1)],'grey') 
+		legend<-c(i,'Not in')
+		graph <- paste(i,'grey.clusters.pdf',sep='_')
+		pdf(graph, w=12, h=8)
+		#tsne 高亮图
+		c_umap %>%dplyr::group_by(cluster) %>% summarize(x = median(x = UMAP_1), y = median(x = UMAP_2)) -> centers
+		p<-ggplot(c_umap,aes(x=c_umap$UMAP_1, y=c_umap$UMAP_2, colour=factor(c_umap$cluster,levels=legend)))+ geom_point(size=0.5)+scale_colour_manual(values=mycolo) +theme_bw(base_size = 20)+p_tmp+
+		labs(x='UMAP1', y= 'UMAP2')+guides(colour = guide_legend(override.aes = list(size=8)))+geom_text(data=centers[centers$cluster!='Not in',],aes(x=x,y=y,label=cluster),colour='black',size = 10)
+		lab <-paste("正在绘制",i,"高亮图。。。",sep=" ")
+		print(lab)
+		print(p)
+#		dev.off()
+		#tsne 高亮图
+		c_tsne<-merge(x_tsne,y_tsne,by='orig.ident')
+		c_tsne$cluster<-as.character(as.numeric(c_tsne$cluster))
+		#c_tsne$cluster <-as.character(c_tsne$cluster)
+		c_tsne[c_tsne$cluster!=i,]$cluster <- 'Not in'
+		c_tsne %>%dplyr::group_by(cluster) %>% summarize(x = median(x = tSNE_1), y = median(x = tSNE_2)) -> centers
+		p<-ggplot(c_tsne,aes(x=c_tsne$tSNE_1, y=c_tsne$tSNE_2, colour=factor(c_tsne$cluster,levels=legend)))+ geom_point(size=0.5)+scale_colour_manual(values=mycolo) +theme_bw(base_size = 20)+p_tmp+
+		labs(x='TSNE1', y= 'TSNE2')+guides(colour = guide_legend(override.aes = list(size=8)))+geom_text(data=centers[centers$cluster!='Not in',],aes(x=x,y=y,label=cluster),colour='black',size = 10)
+		print(lab)
+		print(p)
+		dev.off()
+		print("已完成全部cluster的高亮图绘制。")
+	}
 	return (immune.combined_tsne)
 }
 
