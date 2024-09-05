@@ -60,6 +60,7 @@ CPU	N
 Major	T
 Thread	8
 Order	2
+Depend	FilterCell_scQC
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
 Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/monocle2.sif
 Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[2] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
