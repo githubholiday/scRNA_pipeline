@@ -50,7 +50,7 @@ library(ggplot2)
 library(configr)
 library(cowplot)
 library(harmony)
-library(SeuratWrappers)
+#library(SeuratWrappers)
 
 mkdirs <- function(outdir, fp){
 	if(!file.exists(file.path(outdir,fp))) {
@@ -81,8 +81,8 @@ marker_gene <- function(immune.combined,min.pct = 0.1, logfc.threshold = 0.25,ou
 	DefaultAssay(immune.combined) <- "RNA"
 	cluster_num<-sort(unique(Idents(immune.combined)))
 	print("Starting FindMarkers")
-	#all.markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct =min.pct, logfc.threshold = logfc.threshold,test.use=test.use)
-	all.markers <- RunPrestoAll(immune.combined,only.pos = FALSE, min.pct =min.pct, logfc.threshold = logfc.threshold,test.use=test.use)
+	all.markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct =min.pct, logfc.threshold = logfc.threshold,test.use=test.use)
+	#all.markers <- RunPrestoAll(immune.combined,only.pos = FALSE, min.pct =min.pct, logfc.threshold = logfc.threshold,test.use=test.use)
 
 	head(all.markers, n = 2)
 	#marker_result <- subset(all.markers, select=c(7,1,2,3,4,5,6))
