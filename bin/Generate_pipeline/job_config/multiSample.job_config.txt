@@ -1,7 +1,7 @@
 [Job Start]
 Name	Count_Matrix
 Memory	40G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	12
@@ -14,7 +14,7 @@ Command	make -f BIN/CellRanger/makefile indir=Para_clean outdir=OUTDIR log_file=
 [Job Start]
 Name	Stat_Matrix
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	10
@@ -42,7 +42,7 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id QC_Basic
 [Job Start]
 Name	FilterCell_scQC
 Memory	5G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	8
@@ -55,7 +55,7 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 [Job Start]
 Name	FilterCell
 Memory	25G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	8
@@ -69,7 +69,7 @@ Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sampl
 [Job Start]
 Name	MergeRDS
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	10
@@ -83,7 +83,7 @@ Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] c
 [Job Start]
 Name	AllRDS
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	10
@@ -97,7 +97,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[
 [Job Start]
 Name	Scibet
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	10
@@ -111,7 +111,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[
 [Job Start]
 Name	CombineAnno
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	10
@@ -126,7 +126,7 @@ Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[
 [Job Start]
 Name	Integrating
 Memory	100G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	30
@@ -140,7 +140,7 @@ Command	make -f BIN/Integration/mk_IntegrationDE outdir=OUTDIR group=$(group)[0]
 [Job Start]
 Name	DE
 Memory	30G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal,
 CPU	N
 Major	T
 Thread	10
@@ -154,7 +154,7 @@ Command	make -f BIN/DE/mk_DE outdir=OUTDIR combine=$(group)[0] species=Para_spec
 [Job Start]
 Name	DE-anno
 Memory	5G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	2
@@ -207,7 +207,7 @@ Command	make -f BIN/Function/diff.mk log_file=LOGFILE kegg_shell=OUTDIR/shell/Fu
 [Job Start]
 Name	Monocle3
 Memory	100G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	30
@@ -221,7 +221,7 @@ Command	make -f BIN/SinCell_Cellident/makefile/Monocle3_multi_mk outdir=OUTDIR/I
 [Job Start]
 Name	QC_Summary
 Memory	1G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	1
@@ -235,7 +235,7 @@ Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id project_id
 [Job Start]
 Name	Convert
 Memory	1G
-Queue	xhacnormalb
+Queue	xhacnormalb,xhhctdnormal
 CPU	N
 Major	T
 Thread	1
