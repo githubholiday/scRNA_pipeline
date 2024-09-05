@@ -34,9 +34,22 @@ Major	F
 Thread	2
 Order	1
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/seurat5_sccustomize.sif
+Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/monocle2.sif
 Depend	Stat_Matrix
 Command	make -f BIN/QC/makefile outdir=OUTDIR project=Para_project_id QC_Basic
+[Job End]
+
+[Job Start]
+Name	FilterCell_scQC
+Memory	25G
+Queue	xhacnormalb
+CPU	N
+Major	T
+Thread	8
+Order	2
+Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
+Sif	/work/share/acuhtwkcu9/install/sif/seurat_py.sif
+Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[2] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature scQC
 [Job End]
 
 [Job Start]
@@ -48,7 +61,7 @@ Major	T
 Thread	8
 Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/seurat5_sccustomize.sif
+Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/monocle2.sif
 Command	make -f BIN/filter_cell/mk_seurat_filter outdir=OUTDIR sample_id=$(sample)[2] species_tag=Para_ppi_species mincell=Para_mincells mito=Para_mt hb=Para_hb mingene=Para_min_nFeature maxgene=Para_max_nFeature Filter_cell
 [Job End]
 
@@ -61,7 +74,7 @@ Major	T
 Thread	10
 Order	2
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/seurat5_sccustomize.sif
+Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/monocle2.sif
 Depend	FilterCell
 Command	make -f BIN/merge_rds/mk_merge_rds outdir=OUTDIR combine=$(Combine)[0] config=Para_config Merge
 [Job End]
@@ -76,7 +89,7 @@ Thread	10
 Order	2
 Depend	MergeRDS
 Mount	/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/seurat5_sccustomize.sif
+Sif	/work/share/acuhtwkcu9/liutao/sif/sif/scRNA/seurat5/monocle2.sif
 Command	make -f BIN/Integration/mk_Integration outdir=OUTDIR combine=$(Combine)[0] species_tag=Para_ppi_species species=Para_species config=Para_config Integrating_multi
 [Job End]
 
