@@ -50,6 +50,7 @@ scQC:
 dataDir=$(outdir)/CellRanger_Count/$(sample_id)/outs/filtered_*_bc_matrices*/ref
 output_dir=$(outdir)/Seurat_Filter/$(sample_id)/
 .PHONY:Filter_cell
+Filter_cell
 	@echo Filter_cell start at `date`
 	$(RSCRIPT) $(Bin)/seurat_filter_cell.R --datadir $(dataDir) --sample $(sample_id) --outdir $(output_dir) --species $(species_tag) --mincell $(mincell) --min $(mingene) --max $(maxgene) --mtp $(mito) --hbp $(hb) --doublet $(output_dir)/$(sample_id)_Predicted_doublet_scores.csv
 	@echo Filter_cell finish at `date`
