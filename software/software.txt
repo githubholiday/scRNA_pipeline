@@ -7,7 +7,7 @@ CONVERT=/usr/bin/convert
 cellranger_ref_dir=/work/share/acuhtwkcu9/RefDB/cellranger_ref/refdata-cellranger-
 species_category=/work/share/acuhtwkcu9/tuchengfang/database//species_category.ini
 generate_pipeline=/work/share/acuhtwkcu9/liutao/seqwisdom/easy_bioinfo/wdl_related/7.pipeline_generate/pipeline_generate_sugon.py
-ref_index=/work/share/acuhtwkcu9/RefDB/All_Species_database/RNA/
+ref_index=/work/share/acuhtwkcu9/taoxiao/database/species/
 
 #Function
 GO_Rscript=/opt/install/R-4.2.3/bin/Rscript

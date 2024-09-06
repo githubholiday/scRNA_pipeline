@@ -224,12 +224,19 @@ ini.list <- read.config(file = ini)
 mkdirs(outdir,'1_Com_QC')
 setwd(paste(outdir,'1_Com_QC',sep='/'))
 sample_name<-unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
+
+if (length(sample_name) < 2){
+    print("一个样本，不做合并分析")
+    q()
+}
 object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
 immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
-saveRDS(immune.combined, file = paste(prefix,'.rds',sep=''))
+saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
+
+
 immune.combined <- NormalizeData(object = immune.combined, normalization.method = ini.list$Para$object_list_normalization.method, scale.factor = as.numeric(ini.list$Para$object_list_scale.factor), verbose = FALSE)
 immune.combined <- FindVariableFeatures(object = immune.combined, selection.method = ini.list$Para$object_list_findvariablefeatures_method, nfeatures = as.numeric(ini.list$Para$object_list_nfeatures_findvariablefeatures))
-saveRDS(immune.combined, file = paste(prefix,'nor.rds',sep='_'))
+saveRDS(immune.combined, file = paste(prefix,'nor.rds',sep='_'))ll
 immune.combined <- ScaleData(immune.combined, verbose = FALSE)
 immune.combined <- RunPCA(immune.combined, npcs = as.numeric(ini.list$Para$integration_pca_dims), verbose = FALSE)
 qc_pca_plot(immune.combined,outdir=paste(outdir,'1_Com_QC',sep='/'),pref=prefix,w_h=c(as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[1]),as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[2])))
