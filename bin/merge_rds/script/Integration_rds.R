@@ -193,6 +193,7 @@ reduction<-function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pr
 	}
 	immune.combined_tsne  <- FindClusters(immune.combined_tsne , resolution = as.numeric(resolution))
 	#改聚类号，从1开始
+    
 	current.cluster.ids <- levels(Idents(immune.combined_tsne))
 	new.cluster.ids <- as.numeric(current.cluster.ids)+1
 	Idents(immune.combined_tsne) <- plyr::mapvalues(x = Idents(immune.combined_tsne), from = current.cluster.ids, to = new.cluster.ids)
@@ -230,10 +231,11 @@ if (length(sample_name) < 2){
     print("一个样本，不做合并分析")
     q()
 }
-#object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
-#immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
-#saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
-immune.combined <- readRDS( indir )
+object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
+immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
+immune.combined <- JoinLayers(immune.combined)
+saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
+#immune.combined <- readRDS( indir )
 
 immune.combined <- NormalizeData(object = immune.combined, normalization.method = ini.list$Para$object_list_normalization.method, scale.factor = as.numeric(ini.list$Para$object_list_scale.factor), verbose = FALSE)
 immune.combined <- FindVariableFeatures(object = immune.combined, selection.method = ini.list$Para$object_list_findvariablefeatures_method, nfeatures = as.numeric(ini.list$Para$object_list_nfeatures_findvariablefeatures))
