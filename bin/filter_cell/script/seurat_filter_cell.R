@@ -51,7 +51,7 @@ library(Seurat)
 library(dplyr)
 library(Matrix)
 library(magrittr)
-library(configr)
+#library(configr)
 
 
 prefix <- paste(opt$outdir,opt$sample,sep='/')

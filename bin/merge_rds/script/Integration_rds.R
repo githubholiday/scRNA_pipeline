@@ -229,10 +229,10 @@ if (length(sample_name) < 2){
     print("一个样本，不做合并分析")
     q()
 }
-object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
-immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
-saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
-
+#object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
+#immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
+#saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
+immune.combined <- readRDS( indir )
 
 immune.combined <- NormalizeData(object = immune.combined, normalization.method = ini.list$Para$object_list_normalization.method, scale.factor = as.numeric(ini.list$Para$object_list_scale.factor), verbose = FALSE)
 immune.combined <- FindVariableFeatures(object = immune.combined, selection.method = ini.list$Para$object_list_findvariablefeatures_method, nfeatures = as.numeric(ini.list$Para$object_list_nfeatures_findvariablefeatures))
