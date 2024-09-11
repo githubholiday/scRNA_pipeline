@@ -137,6 +137,7 @@ reduction<-function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pr
 	}
 	immune.combined_umap <- FindClusters(immune.combined_umap, resolution = as.numeric(resolution))
 	levels(Idents(immune.combined_umap))
+    immune.combined_umap <- JoinLayers(immune.combined_umap)
 	#改聚类号，从1开始
 	current.cluster.ids <- levels(Idents(immune.combined_umap))
 	new.cluster.ids <- as.numeric(current.cluster.ids)+1
