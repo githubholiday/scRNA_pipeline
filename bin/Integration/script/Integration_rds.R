@@ -146,8 +146,8 @@ setwd(paste(outdir,'1_QC',sep='/'))
 #组合1	N	N2THY/N1THY/N3THY
 #组合2	H	H2THY/H3THY/H1THY
 #ini.list$sample$sample1  unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
-sample_name<-unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
-object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_QC',sep='/'), sample_name)
+sample_name <- unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
+object_list <- sample2SeuratObject_list(indir,paste(outdir,'1_QC',sep='/'), sample_name)
 immune.combined<-integration(object_list,cca_dims=as.numeric(ini.list$Para$integration_cca_dims),pca_dims=as.numeric(ini.list$Para$integration_pca_dims),RunPCA_npcs=as.numeric(ini.list$Para$integration_runpca_npcs))
 qc_pca_plot(immune.combined,outdir=paste(outdir,'1_QC',sep='/'),pref=prefix,w_h=c(as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[1]),as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[2]))) 
 saveRDS(immune.combined, file = paste(prefix,'.rds',sep=''))

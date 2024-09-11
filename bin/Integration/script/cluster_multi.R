@@ -85,8 +85,7 @@ marker_gene <- function(immune.combined,min.pct = 0.1, logfc.threshold = 0.25,ou
 	#all.markers <- RunPrestoAll(immune.combined,only.pos = FALSE, min.pct =min.pct, logfc.threshold = logfc.threshold,test.use=test.use)
 
 	head(all.markers, n = 2)
-	#marker_result <- subset(all.markers, select=c(7,1,2,3,4,5,6))
-	marker_result <- subset(all.markers, select=c(8,1,3,4,5,6,7))
+	marker_result <- subset(all.markers, select=c(7,1,2,3,4,5,6))
 	names(marker_result)[names(marker_result)=='gene'] <- 'gene_name'
 	#write.csv(all.markers,paste(outdir,'3_marker',paste(pref,'all.markers.csv',sep='_'),sep='/'),quote=F)
 	write.csv(marker_result,paste(outdir,'3_marker',paste(pref,'all.markers.csv',sep='_'),sep='/'),quote=F,row.names=F)
