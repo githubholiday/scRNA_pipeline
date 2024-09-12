@@ -123,11 +123,11 @@ qc_pca_plot<-function(immune.combined,outdir=getwd(),pref='10x',w_h=c(12,8)){
     dev.off()
 }
 
-reduction<-function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pref='10x',w_h=c(24,8)){
+reduction <- function(immune.combined,dims_num=20,resolution=0.8,outdir=getwd(),pref='10x',w_h=c(24,8)){
 	x_umap <-c()
 	y_umap <-c()
 	if ( length(unique(immune.combined@meta.data$orig.ident)) > 1 ){
-		immune.combined <- NormalizeData(immune.combined) %>% FindVariableFeatures() %>% ScaleData() %>% RunPCA(verbose = FALSE)
+		#immune.combined <- NormalizeData(immune.combined) %>% FindVariableFeatures() %>% ScaleData() %>% RunPCA(verbose = FALSE)
 		immune.combined <- RunHarmony(immune.combined, group.by.vars = "stim")
 		immune.combined_umap <- RunUMAP(immune.combined, reduction = "harmony",dims = 1:as.numeric(dims_num))
 		immune.combined_umap <- FindNeighbors(object = immune.combined_umap, reduction = "harmony", dims = 1:as.numeric(dims_num))
@@ -223,17 +223,24 @@ outdir<-opt$outdir
 indir<-opt$indir
 ini<-opt$config
 ini.list <- read.config(file = ini)
-mkdirs(outdir,'1_Com_QC')
-setwd(paste(outdir,'1_Com_QC',sep='/'))
+
 sample_name<-unlist(strsplit(ini.list$sample$sample1,split = "/",fixed=T))
 
 if (length(sample_name) < 2){
     print("一个样本，不做合并分析")
     q()
 }
-object_list<-sample2SeuratObject_list(indir,paste(outdir,'1_Com_QC',sep='/'), sample_name)
+
+print("开始合并样本rds")
+mkdirs(outdir,'1_Com_QC')
+com_qc_dir = paste(outdir,'1_Com_QC',sep='/')
+setwd(com_qc_dir)
+
+object_list<-sample2SeuratObject_list( indir,com_qc_dir), sample_name)
+
 immune.combined=merge(object_list[[1]],object_list[2:length(object_list)])
 immune.combined <- JoinLayers(immune.combined)
+
 saveRDS(immune.combined, file = paste(prefix,'qc_before.rds',sep='_'))
 #immune.combined <- readRDS( indir )
 
@@ -242,13 +249,21 @@ immune.combined <- FindVariableFeatures(object = immune.combined, selection.meth
 saveRDS(immune.combined, file = paste(prefix,'nor.rds',sep='_'))
 immune.combined <- ScaleData(immune.combined, verbose = FALSE)
 immune.combined <- RunPCA(immune.combined, npcs = as.numeric(ini.list$Para$integration_pca_dims), verbose = FALSE)
-qc_pca_plot(immune.combined,outdir=paste(outdir,'1_Com_QC',sep='/'),pref=prefix,w_h=c(as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[1]),as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[2])))
-
+qc_pca_plot(immune.combined,outdir=com_qc_dir ,pref=prefix,w_h=c(as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[1]),as.numeric(unlist(strsplit(ini.list$Para$qc_pca_plot_w_h,split = ",",fixed=T))[2])))
+print("完成合并样本rds")
 #聚类
+print("聚类分析开始")
 mkdirs(outdir,'2_Com_clusters')
-setwd(paste(outdir,'2_Com_clusters',sep='/'))
+com_cluster_dir = paste(outdir,'2_Com_clusters',sep='/')
+setwd(com_cluster_dir)
 immune.combined$stim <- immune.combined$orig.ident
-immune.combined<-reduction(immune.combined,dims_num=as.numeric(ini.list$Para$reduction_dims_num),resolution=as.numeric(ini.list$Para$reduction_resolution),outdir=paste(outdir,'2_Com_clusters',sep='/'),pref=prefix)
+
+#定义参数
+dim_num = as.numeric(ini.list$Para$reduction_dims_num)
+resolution = as.numeric(ini.list$Para$reduction_resolution)
+immune.combined <- reduction(immune.combined, dims_num=dim_num, resolution=resolution, outdir=com_cluster_dir,pref=prefix )
 saveRDS(immune.combined, file = paste(prefix,'cluster.rds',sep='_'))
+
+print("聚类分析完成")
 
 

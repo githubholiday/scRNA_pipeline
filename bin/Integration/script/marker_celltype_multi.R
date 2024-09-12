@@ -95,12 +95,6 @@ head(a)
 mkdirs(outdir,'marker_plot')
 for (g in unique(a$Gene)){
 	b<-a[a$Gene==g,]
-	#b$Clusters<-as.character(as.numeric(b$Clusters)+1)
-	#b$Clusters<-factor(b$Clusters,levels=as.character(sort(unique(b$Clusters))))
-	#pdf(paste(outdir,'marker_plot',paste(g,'violin.pdf',sep='_'),sep='/'),w=1.5*length(unique(Idents(small))),h=0.2*length(marker_gene)+2)
-	#p2 <- ggplot(b, aes(x = Clusters, y = Exp, fill = Clusters)) + geom_violin(scale = "width",adjust =1) +labs(x = '', y = 'Expression of Gene',title=g) +theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.title = element_blank(), legend.key = element_blank(),legend.position="none",axis.text.x = element_text(color="black",size=18,angle = 60, hjust = 1),axis.text.y = element_text(color="black",size=18),axis.title.x = element_text(face="plain", color="black",size=24),axis.title.y = element_text(face="plain", color="black",size=24)+theme(plot.title=element_text(size=30,color="black",hjust = 0.5))
-	#print(p2)
-	#dev.off()
 	
 	#marker基因的高量图
 	pdf(paste(outdir,'marker_plot',paste(g,'FeaturePlot.pdf',sep='_'),sep='/'),w=12,h=8)
@@ -110,18 +104,12 @@ for (g in unique(a$Gene)){
 	
 }
 	nrow=ceiling(length(unique(a$Gene))/1)
-	#a$Clusters<-as.character(as.numeric(a$Clusters)+1)
-	#a$Clusters<-factor(a$Clusters,levels=as.character(sort(as.numeric(unique(a$Clusters)))))
+
 	pdf(paste(outdir,paste(pref,'all','clusters.pdf',sep='_'),sep='/'),w=4*length(unique(Idents(small))),h=2*length(marker_gene))
-	#p2 <- ggplot(a, aes(x = Clusters, y = Exp, fill = Clusters)) + geom_violin(scale = "width",adjust =1) + facet_wrap(~Gene, nrow =nrow,ncol =1,scales = 'free',strip.position='top') +labs(x = 'Clusters', y = 'Expression of Gene',title=' ') +theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.title = element_blank(), legend.key = element_blank(),strip.text = element_text(size = 24),strip.background = element_rect(fill = NA, colour = NA),strip.placement = "inside",legend.position="none",axis.text.x = element_text(color="black",size=18,angle = 60, hjust = 1),axis.text.y = element_text(color="black",size=18),axis.title.x = element_text(face="plain", color="black",size=24),axis.title.y = element_text(face="plain", color="black",size=24))
 	p2<-VlnPlot(small, features = marker_gene,split.by = "Group", group.by = "Cell_type", combine = FALSE,pt.size = -1,slot="data",assay="RNA",stack = T,flip =T) + theme(text = element_text(size = 30))+theme(axis.text.y = element_text(color="black",size=26,angle=0),axis.text.x = element_text(color="black",size=26,angle=30))+xlab('')
 	print(p2)
 	dev.off()
-	#top10 <- all.markers %>% group_by(cluster) %>% top_n(as.numeric(heatmap_n), avg_log2FC)
-	#pdf(paste(outdir,paste(pref,'top10_marker_heatmap.pdf',sep='_'),sep='/'),w=1*length(unique(Idents(immune.combined))),h=0.2*length(unique(marker_gene)))
-	#p<-DoHeatmap(small, features = marker_gene) + NoLegend()
-	#print(p)
-	#dev.off()
+
 	print('dotplot画图：')
 	pdf(paste(outdir,paste(pref,'top_dotplot.pdf',sep='_'),sep='/'),w=0.5*length(unique(Idents(small)))+4,h=0.5*length(unique(marker_gene)))
 	#p<-DotPlot(object =seurat_data1, features=unique(gene_exist),cols = c("lightgrey", "red"))+RotatedAxis()
@@ -171,15 +159,7 @@ Rename_cluster<-function(seurat_data,label_names,outdir=getwd(),pref='10x'){
 	p5<-DimPlot(seurat_data, reduction = "umap", group.by = "Cell_type", label=F, pt.size=1, split.by = "orig.ident", ncol=2) + p_tmp
 	print(p5)
 	dev.off()
-	#print("细胞聚类注释后tsne图：")
-	#seurat_tsne<-RunTSNE(seurat_data,reduction = "pca",dims = 1:20)
-	#seurat_tsne <- seurat_data
-	#pdf(paste(outdir,paste(pref,"tsne_cluster_anno.pdf",sep='_'),sep='/'),w=24,h=8)
-	#p1 <- DimPlot(seurat_tsne, reduction = "tsne", pt.size = 1)+p_tmp
-	#p2 <- DimPlot(seurat_tsne, reduction = "tsne", group.by = "Cell_type", label=T, label.size=5, pt.size=1) + p_tmp
-	#p3<-plot_grid(p1, p2)
-	#print(p3)
-	#dev.off()
+
 	
 	#各样本细胞类型统计
 	a<-data.frame(CellType=seurat_data@meta.data[,'Cell_type'],Samples=seurat_data@meta.data[,'orig.ident'])
