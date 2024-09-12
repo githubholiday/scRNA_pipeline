@@ -25,7 +25,7 @@ ORGDB=/work/share/acuhtwkcu9/tuchengfang/database/ClusterProfile/OrgDb.list
 slurm_sge=/work/share/acuhtwkcu9/liutao/seqwisdom/easy_bioinfo/wdl_related/7.pipeline_generate/src/slurm/slurm_sge
 queue=xhacnormalb
 mount=/work/share/acuhtwkcu9/:/work/share/acuhtwkcu9/
-sif=/work/share/acuhtwkcu9/tuchengfang/01_Pipeline/Sif/scRNA/clusterprofiler_v0.0.4.sif
+sif=/work/share/acuhtwkcu9/install/sif/clusterprofiler_v0.0.4.sif
 
 
 
