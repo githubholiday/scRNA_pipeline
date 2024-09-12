@@ -171,6 +171,8 @@ setwd(paste(outdir,'3_marker',sep='/'))
 print(Sys.time())
 all.markers<-marker_gene(immune.combined,min.pct =as.numeric(ini.list$Para$marker_gene_min.pct), logfc.threshold = as.numeric(ini.list$Para$marker_gene_logfc.threshold),outdir=outdir,test.use=ini.list$Para$marker_gene_test.use,pref=prefix)
 immune.combined@misc$markers <- all.markers
+saveRDS(immune.combined, file = paste(prefix,"marker.rds",sep='_'))
+
 marker_plot(immune.combined,all.markers,outdir=paste(outdir,'3_marker',sep='/'),pref=prefix)
 print(Sys.time())
 mkdirs(outdir,'2_Com_clusters')
