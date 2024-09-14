@@ -63,7 +63,7 @@ GenerateReport:
 	cd $(report_dir) && $(PYTHON3) $(MD_Report) -d . -pipeline $(template_type) -o html_raw.md -l
 	perl -pe 's/^\<br\s+\/\>/\n/' $(report_dir)/html_raw.md > $(report_dir)/new.md
 	pandoc --standalone -c html/css/markdown.css $(report_dir)/new.md --metadata title="${project_name}" -o $(report_dir)/"${project_name}".tmp.html
-	python /work/share/acuhtwkcu9/renxue/10_git/rust/pipeline/rna_refseq/pipeline/script/common/report/generate_md_report/modify_html.py -i $(report_dir)/"${project_name}".tmp.html -o $(report_dir)/"${project_name}".html
+	python /work/share/acuhtwkcu9/yanru/10_git/rust/pipeline/rna_refseq/pipeline/script/common/report/generate_md_report/modify_html.py -i $(report_dir)/"${project_name}".tmp.html -o $(report_dir)/"${project_name}".html
 	echo generate web report end at `date`
 
 
